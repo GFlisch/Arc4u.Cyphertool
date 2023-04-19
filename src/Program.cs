@@ -11,29 +11,53 @@ namespace MyEncryptionTool
     {
         static int Main(string[] args)
         {
-            var app = new CommandLineApplication();
+            var app = new CommandLineApplication
+            {
+                AllowArgumentSeparator = true,
+                UnrecognizedArgumentHandling = UnrecognizedArgumentHandling.StopParsingAndCollect,
+            };
 
             app.HelpOption();
 
-            var certOption = app.Option("-c|--certificate <CERTIFICATE_Name>", "The name of the certificate", CommandOptionType.SingleValue)
+            var certOption = app.Option("-c", "The name of the certificate", CommandOptionType.SingleValue)
                 .IsRequired();
 
-            var textOption = app.Option("-t|--text <TEXT>", "The text to encrypt", CommandOptionType.SingleValue)
+            var textOption = app.Option("-t", "The text to encrypt", CommandOptionType.SingleValue)
                 .IsRequired();
+
+            var decrypt = app.Option<bool>("-d", "Decrypt if specified otherwhise encrypt.", CommandOptionType.NoValue);
 
             app.OnExecute(() =>
             {
-                string certificateName = certOption.Value();
-                string textToEncrypt = textOption.Value();
+                if (string.IsNullOrWhiteSpace(certOption.Value()))
+                {
+                    Console.WriteLine("A certificate is needed");
+                }
+                string certificateName = certOption.Value()!;
+
+                if (string.IsNullOrWhiteSpace(textOption.Value()))
+                {
+                    Console.WriteLine("A text is needed");
+                }
+                string text = textOption.Value()!;
+
                 try
                 {
                     // Load the certificate from the specified file
                     X509Certificate2 certificate = Certificate.FindCertificate(certificateName);
 
-                    // Convert the encrypted bytes to a base64 string for easy transmission
-                    string encryptedString = certificate.Encrypt(textToEncrypt);
+                    if (decrypt.HasValue())
+                    {
+                        string decryptedText = certificate.Decrypt(text);
 
-                    Console.WriteLine($"Encrypted string: {encryptedString}");
+                        Console.WriteLine($"Encrypted string: '{decryptedText}'");
+
+                        return 0;
+                    }
+                    // Convert the encrypted bytes to a base64 string for easy transmission
+                    string encryptedString = certificate.Encrypt(text);
+
+                    Console.WriteLine($"Encrypted string: '{encryptedString}'");
 
                     return 0;
                 }
