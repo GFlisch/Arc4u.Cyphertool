@@ -63,6 +63,7 @@ namespace MyEncryptionTool
                 }
                 catch (Exception ex)
                 {
+                    Console.WriteLine(ex.ToString());   
                     Console.WriteLine($"An error occurred: {ex.Message}");
                     return 1;
                 }
