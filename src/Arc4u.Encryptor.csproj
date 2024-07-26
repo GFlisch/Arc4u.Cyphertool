@@ -11,8 +11,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Arc4u.Standard" Version="8.1.0" />
+    <PackageReference Include="Arc4u.Standard" Version="8.2.0-preview29" />
+    <PackageReference Include="Arc4u.Standard.Results" Version="8.2.0-preview29" />
     <PackageReference Include="McMaster.Extensions.CommandLineUtils" Version="4.1.1" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="8.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="8.0.0" />
   </ItemGroup>
 
 </Project>
