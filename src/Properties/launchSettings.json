@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "Arc4u.Encryptor": {
+      "commandName": "Project",
+      "commandLineArgs": "-c \"encryptorsha2dev.belgrid.net\""
+    }
+  }
+}
