@@ -58,7 +58,7 @@ jobs:
         with:
           name: artifact
           path: |
-            .src/nupkg
+            .\src\nupkg
           retention-days: 1
         
       - name: Publish packages
