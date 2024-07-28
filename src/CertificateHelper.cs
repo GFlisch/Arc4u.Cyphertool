@@ -28,6 +28,21 @@ namespace Arc4u.Encryptor
             }
             else
             {
+                if (string.IsNullOrWhiteSpace(password))
+                {
+                    Console.Write("Password:");
+                    while (true)
+                    {
+                        var key = Console.ReadKey(true);
+                        // Break the loop if Enter key is pressed
+                        if (key.Key == ConsoleKey.Enter)
+                            break;
+                        password += key.KeyChar;
+                        Console.Write("*");
+                    }
+                    Console.WriteLine("");
+                }
+
                 return GetCertificateFromFile(cert, password, logger);
             }
         }
@@ -64,7 +79,7 @@ namespace Arc4u.Encryptor
 
                     return Result.Fail($"{storeName} is not a valid store!");
                 }
-                
+
             }
 
             if (!string.IsNullOrWhiteSpace(storeLocation))
