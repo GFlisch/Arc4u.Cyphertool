@@ -64,6 +64,9 @@ namespace Arc4u.Encryptor
 
             var locationOption = app.Option("-l | --storelocation", "The location where the certificate is stored in a Keychain or Certificate Store. Like on Windows: CurrentUser or LocalMachine. Default is CurrentUser!", CommandOptionType.SingleValue);
 
+            var outputOption = app.Option("-o | --output", "The file to store the content.", CommandOptionType.SingleValue);
+
+
             app.OnExecute(() =>
             {
                 string certificateName = certOption.Value()!;
@@ -111,14 +114,34 @@ namespace Arc4u.Encryptor
                     .LogIfFailed()
                     .OnSuccess(text =>
                     {
-                        if (decrypt.HasValue())
+                        if (outputOption.HasValue())
                         {
-                            logger.LogInformation($"Decrypted text: '{text}'");
+                            try
+                            {
+                                File.WriteAllText(outputOption.Value()!, text);
+                                logger.LogInformation($"The content has been saved in the file '{outputOption.Value()}'");
+                            }
+                            catch (Exception ex)
+                            {
+                                logger.LogError(ex.Message);
+                            }
                         }
                         else
                         {
-                            logger.LogInformation($"Encrypted text: '{text}'");
+                            if (decrypt.HasValue())
+                            {
+                                Console.Write("Decrypted text: '");
+                            }
+                            else
+                            {
+                                Console.Write("Encrypted text: '");
+                            }
+                            Console.ForegroundColor = ConsoleColor.Yellow;
+                            Console.Write(text);
+                            Console.ResetColor();
+                            Console.WriteLine("'");
                         }
+                        
                         returnValue = 0;
                     });
 
