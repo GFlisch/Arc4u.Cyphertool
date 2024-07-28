@@ -10,7 +10,57 @@ namespace Arc4u.Encryptor
     {
         public void Generate(CommandLineApplication application, TextWriter output)
         {
-            output.WriteLine("Arc4u Encryptor.");
+            Console.ForegroundColor = ConsoleColor.DarkYellow;
+            output.WriteLine(@"
+   ###    ########   ######  ##        ##     ##  
+  ## ##   ##     ## ##    ## ##    ##  ##     ##  
+ ##   ##  ##     ## ##       ##    ##  ##     ##  
+##     ## ########  ##       ##    ##  ##     ##  
+######### ##   ##   ##       ######### ##     ##  
+##     ## ##    ##  ##    ##       ##  ##     ##  
+##     ## ##     ##  ######        ##   #######
+
+######## ##    ##  ######  ########  ##    ## ########  ########  #######  ######## 
+##       ###   ## ##    ## ##     ##  ##  ##  ##     ##    ##    ##     ## ##     ##
+##       ####  ## ##       ##     ##   ####   ##     ##    ##    ##     ## ##     ##
+######   ## ## ## ##       ########     ##    ########     ##    ##     ## ######## 
+##       ##  #### ##       ##   ##      ##    ##           ##    ##     ## ##   ##  
+##       ##   ### ##    ## ##    ##     ##    ##           ##    ##     ## ##    ## 
+######## ##    ##  ######  ##     ##    ##    ##           ##     #######  ##     ##
+");
+
+            Console.WriteLine("1. Certificate store (windows) or keychain (linux).");
+            Console.ResetColor();
+            Console.WriteLine(@"
+The command will use the following default values.
+ -c or --certificate: friendly name of the certificate.
+ -n or --name: the default value is ""My""
+ -s or --store: the defaut value is ""Current User"".
+ -t or --text: the text to encrypt or decrypt.
+ -f or --file: path file to encrypt.
+ -o or --output: output file path to store the result.  
+Text and file cannot be used together!  
+
+arc4u.encryptor -c devCertName -t ""clear text""  
+Will encrypt the text ""clear text"" by using the certificate having a friendly name devCertName and the result will be displayed on the terminal window.  
+
+arc4u.encryptor -c devCertName -f ""C:\temp\file.txt""
+Will encrypt the content of the text in the file C:\temp\file.txt by using the certificate having a friendly name devCertName and the result will be displayed on the terminal window.  
+
+");
+
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.WriteLine("2. Using a pfx certificate file name.");
+            Console.ResetColor();
+            Console.WriteLine(@"
+The command will use the following default values.
+ -c or --certificate: The full path name of the certificate ending by the extension pfx.
+ -p or --password: The certificate password.
+ -t or --text: the text to encrypt or decrypt.
+ -f or --file: path file to encrypt.
+ -o or --output: output file path to store the result.  
+Text and file cannot be used together! 
+");
         }
     }
 }

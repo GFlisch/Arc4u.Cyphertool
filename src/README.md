@@ -9,7 +9,7 @@ The user can encrypt and decrypt, the option -d is there to inform the operation
 ## 1. Certificate store (windows) or keychain (linux).
 
 The command will use the following default values.
-- -c: friendly name of the certificate.
+- -c or --certificate: friendly name of the certificate.
 - -n or --name: the default value is "My"
 - -s or --store: the defaut value is "Current User".
 - -t or --text: the text to encrypt or decrypt.
@@ -26,7 +26,7 @@ Will encrypt the content of the text in the file C:\temp\file.txt by using the c
 ## 2. Using a pfx certificate file name
 
 The command will use the following default values.
-- -c: The full path name of the certificate ending by the extension pfx.
+- -c or --certificate: The full path name of the certificate ending by the extension pfx.
 - -p or --password: The certificate password.
 - -t or --text: the text to encrypt or decrypt.
 - -f or --file: path file to encrypt.

@@ -18,7 +18,19 @@ namespace Arc4u.Encryptor
             {
                 AllowArgumentSeparator = true,
                 UnrecognizedArgumentHandling = UnrecognizedArgumentHandling.StopParsingAndCollect,
+                HelpTextGenerator = new HelperPage(),
             };
+            app.OnValidationError(context =>
+            {
+                if (app.GetOptions().All(o => !o.HasValue()))
+                {
+                    app.ShowHelp();
+                }
+                else
+                {
+                    Console.Error.WriteLine(context.ErrorMessage);
+                }
+            });
 
             app.HelpOption();
 
