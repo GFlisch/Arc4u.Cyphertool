@@ -45,8 +45,8 @@ to uninstall => dotnet tool uninstall arc4u.encryptor -g
 
 ### In a specific folder.
 
-Create a folder where you want to store the encryptor tool!
-For example C:\PRJ\Tools
+Create a folder where you want to store the encryptor tool!  
+For example C:\PRJ\Tools  
 If the folder is not yet part of the user environment path then run this in your terminal window: setx path "%path%;C:\PRJ\Tools"
 
 Close your terminal and then run this command:
