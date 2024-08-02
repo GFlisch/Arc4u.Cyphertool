@@ -10,8 +10,8 @@ The user can encrypt and decrypt, the option -d is there to inform the operation
 
 The command will use the following default values.
 - -c or --certificate: friendly name of the certificate.
-- -n or --name: the default value is "My"
-- -s or --store: the defaut value is "Current User".
+- -n or --name: the certificate store name, default value is "My"
+- -l or --location: the certificate store location, defaut value is "Current User".
 - -t or --text: the text to encrypt or decrypt.
 - -f or --file: path file to encrypt.
 - -o or --output: output file path to store the result.  

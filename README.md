@@ -9,9 +9,9 @@ The user can encrypt and decrypt, the option -d is there to inform the operation
 ## 1. Certificate store (windows) or keychain (linux).
 
 The command will use the following default values.
-- -c: friendly name of the certificate.
-- -n or --name: the default value is "My"
-- -s or --store: the defaut value is "Current User".
+- -c or --certificate: friendly name of the certificate.
+- -n or --name: the certificate store name, default value is "My"
+- -l or --location: the certificate store location, defaut value is "Current User".
 - -t or --text: the text to encrypt or decrypt.
 - -f or --file: path file to encrypt.
 - -o or --output: output file path to store the result.  
@@ -26,18 +26,19 @@ Will encrypt the content of the text in the file C:\temp\file.txt by using the c
 ## 2. Using a pfx certificate file name
 
 The command will use the following default values.
-- -c: The full path name of the certificate ending by the extension pfx.
+- -c or --certificate: The full path name of the certificate ending by the extension pfx.
 - -p or --password: The certificate password.
 - -t or --text: the text to encrypt or decrypt.
 - -f or --file: path file to encrypt.
 - -o or --output: output file path to store the result.  
 Text and file cannot be used together!  
 
+
 ## 3. Installing the tool.
 
 ### Globally.
 
-dotnet tool install arc4u.encryptor -g --version 1.0.0-preview01
+dotnet tool install arc4u.encryptor -g --version 1.0.0-preview02
 
 You have to close and restart your terminal window to be able to run the arc4u.encryptor tool.
 
@@ -47,11 +48,12 @@ to uninstall => dotnet tool uninstall arc4u.encryptor -g
 
 Create a folder where you want to store the encryptor tool!  
 For example C:\PRJ\Tools  
-If the folder is not yet part of the user environment path then run this in your terminal window: setx path "%path%;C:\PRJ\Tools"
+If the folder is not yet part of the user environment path then run this in your terminal window: 
+>setx path "%path%;C:\PRJ\Tools"
 
 Close your terminal and then run this command:
 
-dotnet tool install arc4u.encryptor --tool-path c:\PRJ\Tools --version 1.0.0-preview01
+>dotnet tool install arc4u.encryptor --tool-path c:\PRJ\Tools --version 1.0.0-preview02
 
 There is no need to close your terminal because the path is already registered!
 
