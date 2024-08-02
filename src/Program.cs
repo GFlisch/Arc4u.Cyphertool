@@ -177,8 +177,7 @@ class Program
     {
         // Add Serilog to the logging pipeline
         services.AddLogging(configure => configure.AddSerilog());
-        services.AddTransient<CertificateHelper>();
-        // Register other services
-        // services.AddTransient<MyService>();
+        services.AddSingleton<CertificateHelper>();
+        services.AddSingleton<IX509CertificateLoader, X509CertificateLoader>();
     }
 }

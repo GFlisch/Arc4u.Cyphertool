@@ -12,14 +12,15 @@ namespace Arc4u.Encryptor
 {
     internal class CertificateHelper
     {
-        public CertificateHelper(ILogger<CertificateHelper> logger, ILogger<X509CertificateLoader> x509Logger)
+        public CertificateHelper(ILogger<CertificateHelper> logger, IX509CertificateLoader x509CertificateLoader)
         {
             _logger = logger;
-            _x509Logger = x509Logger;
+            _x509CertificateLoader = x509CertificateLoader;
         }
 
         readonly ILogger<CertificateHelper> _logger;
-        readonly ILogger<X509CertificateLoader> _x509Logger;
+        readonly IX509CertificateLoader _x509CertificateLoader;
+
         public Result<X509Certificate2> GetCertificate([DisallowNull] string cert, string? password, string? storeName, string? storeLocation)
         {
             ArgumentNullException.ThrowIfNullOrWhiteSpace(cert);
@@ -29,7 +30,7 @@ namespace Arc4u.Encryptor
 
             if (fromCertStore)
             {
-                return GetCertificateFromStore(cert, storeName, storeLocation, _x509Logger);
+                return GetCertificateFromStore(cert, storeName, storeLocation);
             }
             else
             {
@@ -66,7 +67,7 @@ namespace Arc4u.Encryptor
 
             return Result.Fail($"The certificate file {cert} does not exist!");
         }
-        private Result<X509Certificate2> GetCertificateFromStore(string cert, string? storeName, string? storeLocation, ILogger<X509CertificateLoader> x509Logger)
+        private Result<X509Certificate2> GetCertificateFromStore(string cert, string? storeName, string? storeLocation)
         {
             var certInfo = new CertificateInfo
             {
@@ -105,7 +106,7 @@ namespace Arc4u.Encryptor
             _logger.LogInformation("Store location is: {Location}", certInfo.Location);
             _logger.LogInformation("Certificate search is: {FindType}", certInfo.FindType);
 
-            return Result.Try(() => new X509CertificateLoader(x509Logger).FindCertificate(certInfo));
+            return Result.Try(() => _x509CertificateLoader.FindCertificate(certInfo));
         }
 
     }
