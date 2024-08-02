@@ -1,25 +1,42 @@
 ﻿// Licensed to the Arc4u Foundation under one or more agreements.
 // The Arc4u Foundation licenses this file to you under the MIT license.
 
+using System.Reflection;
 using Arc4u.Results;
 using Arc4u.Results.Logging;
 using Arc4u.Security.Cryptography;
 using FluentResults;
 using McMaster.Extensions.CommandLineUtils;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Serilog;
 
-namespace Arc4u.Encryptor
+namespace Arc4u.Encryptor;
+
+class Program
 {
-    class Program
+    static int Main(string[] args)
     {
-        static int Main(string[] args)
+        Log.Logger = new LoggerConfiguration()
+        .WriteTo.Console()
+        .CreateLogger();
+
+        try
         {
+            // Set up dependency injection
+            var serviceCollection = new ServiceCollection();
+            ConfigureServices(serviceCollection);
+
+            var serviceProvider = serviceCollection.BuildServiceProvider();
+
             var app = new CommandLineApplication
             {
                 AllowArgumentSeparator = true,
-                UnrecognizedArgumentHandling = UnrecognizedArgumentHandling.StopParsingAndCollect,
+                UnrecognizedArgumentHandling = UnrecognizedArgumentHandling.Throw,
                 HelpTextGenerator = new HelperPage(),
             };
+
+
             app.OnValidationError(context =>
             {
                 if (app.GetOptions().All(o => !o.HasValue()))
@@ -34,19 +51,9 @@ namespace Arc4u.Encryptor
 
             app.HelpOption();
 
-            using ILoggerFactory loggerFactory = LoggerFactory.Create(builder =>
-                    builder.AddSimpleConsole(options =>
-                    {
-                        options.IncludeScopes = true;
-                        options.SingleLine = true;
-                        options.TimestampFormat = "HH:mm:ss ";
-                    }));
-
-            ILogger<Program> logger = loggerFactory.CreateLogger<Program>();
-
             Result.Setup(setup =>
             {
-                setup.Logger = new FluentLogger(loggerFactory.CreateLogger<FluentLogger>());
+                setup.Logger = new FluentLogger(serviceProvider.GetRequiredService<ILogger<FluentLogger>>());
             });
 
             var certOption = app.Option("-c | --certificate", "The name of the certificate", CommandOptionType.SingleValue)
@@ -69,6 +76,11 @@ namespace Arc4u.Encryptor
 
             app.OnExecute(() =>
             {
+                var logger = serviceProvider.GetRequiredService<ILogger<Program>>();
+                Assembly assembly = Assembly.GetExecutingAssembly();
+
+                logger.LogInformation($"Arc4u.Encryption, version {assembly.GetName().Version}");
+
                 string certificateName = certOption.Value()!;
                 bool stopOnErrors = false;
 
@@ -93,7 +105,7 @@ namespace Arc4u.Encryptor
 
                 var result = Result.Ok(string.Empty);
 
-                CertificateHelper.GetCertificate(certOption.Value()!, passwordOption.Value(), nameOption.Value(), locationOption.Value(), loggerFactory)
+                CertificateHelper.GetCertificate(certOption.Value()!, passwordOption.Value(), nameOption.Value(), locationOption.Value(), serviceProvider)
                    .LogIfFailed()
                    .OnSuccessNotNull(certificate =>
                    {
@@ -141,7 +153,7 @@ namespace Arc4u.Encryptor
                             Console.ResetColor();
                             Console.WriteLine("'");
                         }
-                        
+
                         returnValue = 0;
                     });
 
@@ -149,8 +161,22 @@ namespace Arc4u.Encryptor
             });
 
             return app.Execute(args);
+
+
         }
+        catch (Exception ex)
+        {
+            Log.Error(ex.Message);
+            return -1;
+        }
+    }
 
+    private static void ConfigureServices(IServiceCollection services)
+    {
+        // Add Serilog to the logging pipeline
+        services.AddLogging(configure => configure.AddSerilog());
 
+        // Register other services
+        // services.AddTransient<MyService>();
     }
 }

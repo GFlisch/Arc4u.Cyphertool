@@ -2,7 +2,7 @@
   "profiles": {
     "Arc4u.Encryptor": {
       "commandName": "Project",
-      "commandLineArgs": "-c \"encryptorsha2dev.belgrid.net\""
+      "commandLineArgs": "-c encryptorSha2dev.belgrid.net -n My -l CurrentUser -t \"Hello\""
     }
   }
 }

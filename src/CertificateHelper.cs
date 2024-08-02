@@ -6,18 +6,19 @@ using System.Security.Cryptography.X509Certificates;
 using Arc4u.Security;
 using Arc4u.Security.Cryptography;
 using FluentResults;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 
 namespace Arc4u.Encryptor
 {
     internal class CertificateHelper
     {
-        public static Result<X509Certificate2> GetCertificate([DisallowNull] string cert, string? password, string? storeName, string? storeLocation, ILoggerFactory loggerFactory)
+        public static Result<X509Certificate2> GetCertificate([DisallowNull] string cert, string? password, string? storeName, string? storeLocation, IServiceProvider serviceProvider)
         {
             ArgumentNullException.ThrowIfNullOrWhiteSpace(cert);
 
-            var logger = loggerFactory.CreateLogger<CertificateHelper>();
-            var x509Logger = loggerFactory.CreateLogger<X509CertificateLoader>();
+            var logger = serviceProvider.GetRequiredService<ILogger<CertificateHelper>>();
+            var x509Logger = serviceProvider.GetRequiredService<ILogger<X509CertificateLoader>>();
 
             // Certificate is coming from the store if the certOption.Value() does not contain a file name ending with .pfx
             bool fromCertStore = !cert.EndsWith(".pfx");
@@ -87,6 +88,7 @@ namespace Arc4u.Encryptor
                 try
                 {
                     certInfo.Location = Enum.Parse<StoreLocation>(storeLocation, true);
+                    
                 }
                 catch (Exception)
                 {
@@ -94,6 +96,10 @@ namespace Arc4u.Encryptor
                     return Result.Fail($"{storeLocation} is not a valid location!");
                 }
             }
+            logger.LogInformation($"Certificate name is: {certInfo.Name}");
+            logger.LogInformation($"Store name is: {certInfo.StoreName}");
+            logger.LogInformation($"Store location is: {certInfo.Location}");
+            logger.LogInformation($"Certificate search is: {certInfo.FindType}");
 
             return Result.Try(() => new X509CertificateLoader(x509Logger).FindCertificate(certInfo));
         }
