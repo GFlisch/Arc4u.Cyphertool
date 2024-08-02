@@ -6,26 +6,30 @@ using System.Security.Cryptography.X509Certificates;
 using Arc4u.Security;
 using Arc4u.Security.Cryptography;
 using FluentResults;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 
 namespace Arc4u.Encryptor
 {
     internal class CertificateHelper
     {
-        public static Result<X509Certificate2> GetCertificate([DisallowNull] string cert, string? password, string? storeName, string? storeLocation, IServiceProvider serviceProvider)
+        public CertificateHelper(ILogger<CertificateHelper> logger, ILogger<X509CertificateLoader> x509Logger)
+        {
+            _logger = logger;
+            _x509Logger = x509Logger;
+        }
+
+        readonly ILogger<CertificateHelper> _logger;
+        readonly ILogger<X509CertificateLoader> _x509Logger;
+        public Result<X509Certificate2> GetCertificate([DisallowNull] string cert, string? password, string? storeName, string? storeLocation)
         {
             ArgumentNullException.ThrowIfNullOrWhiteSpace(cert);
-
-            var logger = serviceProvider.GetRequiredService<ILogger<CertificateHelper>>();
-            var x509Logger = serviceProvider.GetRequiredService<ILogger<X509CertificateLoader>>();
 
             // Certificate is coming from the store if the certOption.Value() does not contain a file name ending with .pfx
             bool fromCertStore = !cert.EndsWith(".pfx");
 
             if (fromCertStore)
             {
-                return GetCertificateFromStore(cert, storeName, storeLocation, logger, x509Logger);
+                return GetCertificateFromStore(cert, storeName, storeLocation, _x509Logger);
             }
             else
             {
@@ -44,11 +48,11 @@ namespace Arc4u.Encryptor
                     Console.WriteLine("");
                 }
 
-                return GetCertificateFromFile(cert, password, logger);
+                return GetCertificateFromFile(cert, password);
             }
         }
 
-        private static Result<X509Certificate2> GetCertificateFromFile(string cert, string? password, ILogger<CertificateHelper> logger)
+        private Result<X509Certificate2> GetCertificateFromFile(string cert, string? password)
         {
             if (!File.Exists(cert))
             {
@@ -62,7 +66,7 @@ namespace Arc4u.Encryptor
 
             return Result.Fail($"The certificate file {cert} does not exist!");
         }
-        private static Result<X509Certificate2> GetCertificateFromStore(string cert, string? storeName, string? storeLocation, ILogger<CertificateHelper> logger, ILogger<X509CertificateLoader> x509Logger)
+        private Result<X509Certificate2> GetCertificateFromStore(string cert, string? storeName, string? storeLocation, ILogger<X509CertificateLoader> x509Logger)
         {
             var certInfo = new CertificateInfo
             {
@@ -96,10 +100,10 @@ namespace Arc4u.Encryptor
                     return Result.Fail($"{storeLocation} is not a valid location!");
                 }
             }
-            logger.LogInformation($"Certificate name is: {certInfo.Name}");
-            logger.LogInformation($"Store name is: {certInfo.StoreName}");
-            logger.LogInformation($"Store location is: {certInfo.Location}");
-            logger.LogInformation($"Certificate search is: {certInfo.FindType}");
+            _logger.LogInformation("Certificate name is: {Name}", certInfo.Name);
+            _logger.LogInformation("Store name is: {StoreName}", certInfo.StoreName);
+            _logger.LogInformation("Store location is: {Location}", certInfo.Location);
+            _logger.LogInformation("Certificate search is: {FindType}", certInfo.FindType);
 
             return Result.Try(() => new X509CertificateLoader(x509Logger).FindCertificate(certInfo));
         }

@@ -105,7 +105,9 @@ class Program
 
                 var result = Result.Ok(string.Empty);
 
-                CertificateHelper.GetCertificate(certOption.Value()!, passwordOption.Value(), nameOption.Value(), locationOption.Value(), serviceProvider)
+                var certHelper = serviceProvider.GetRequiredService<CertificateHelper>();
+
+                certHelper.GetCertificate(certOption.Value()!, passwordOption.Value(), nameOption.Value(), locationOption.Value())
                    .LogIfFailed()
                    .OnSuccessNotNull(certificate =>
                    {
@@ -175,7 +177,7 @@ class Program
     {
         // Add Serilog to the logging pipeline
         services.AddLogging(configure => configure.AddSerilog());
-
+        services.AddTransient<CertificateHelper>();
         // Register other services
         // services.AddTransient<MyService>();
     }
