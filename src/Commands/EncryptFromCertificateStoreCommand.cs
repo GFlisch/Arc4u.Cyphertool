@@ -22,7 +22,6 @@ internal class EncryptFromCertificateStoreCommand
     readonly ILogger<EncryptTextCommand> _logger;
     readonly CertificateHelper _certificateHelper;
 
-    private CommandOption? _certificateOption;
     public void Configure(CommandLineApplication cmd)
     {
         cmd.HelpOption();

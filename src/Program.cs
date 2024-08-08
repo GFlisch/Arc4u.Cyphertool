@@ -92,7 +92,6 @@ class Program
         services.AddSingleton<EncryptFromCertificateStoreCommand>();
         services.AddSingleton<EncryptFromPfxFileCommand>();
         services.AddSingleton<EncryptTextCommand>();
-        services.AddSingleton<IHelpTextGenerator, HelperPage>();
-        //services.AddKeyedSingleton<IHelpTextGenerator, EncryptHelp>(encryptCommand);
+        services.AddSingleton<IHelpTextGenerator, HelperTextPage>();
     }
 }

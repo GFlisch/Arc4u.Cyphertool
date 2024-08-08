@@ -17,7 +17,7 @@ internal class EncryptCommand
 
     public void Configure(CommandLineApplication cmd)
     {
-        cmd.Description = "This is a subcommand";
+        cmd.FullName = "EncryptHelper";
         cmd.HelpOption();
 
         cmd.Command("from", _fromCommand.Configure);
@@ -25,7 +25,6 @@ internal class EncryptCommand
         cmd.OnExecute(() =>
         {
             Console.WriteLine("Encryptor");
-            //cmd.ShowHelp();
             return 0;
         });
     }

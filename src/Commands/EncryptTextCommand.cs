@@ -39,6 +39,12 @@ internal class EncryptTextCommand
             var storeLocation = parent?.Options.FirstOrDefault(a => a.LongName is not null && a.LongName.Equals("storelocation", StringComparison.OrdinalIgnoreCase));
             var password = parent?.Options.FirstOrDefault(a => a.LongName is not null && a.LongName.Equals("password", StringComparison.OrdinalIgnoreCase));
 
+            if (null == certifcate?.Value)
+            {
+                _logger.LogError("The certificate is missing!");
+                return;
+            }
+
             _certificateHelper.GetCertificate(certifcate.Value, password?.Value() , storeName?.Value(), storeLocation?.Value())
              .LogIfFailed()
              .OnSuccessNotNull(x509 =>
