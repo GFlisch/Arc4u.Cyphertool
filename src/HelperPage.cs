@@ -3,15 +3,23 @@
 
 using McMaster.Extensions.CommandLineUtils;
 using McMaster.Extensions.CommandLineUtils.HelpText;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Arc4u.Encryptor
 {
     internal class HelperPage : IHelpTextGenerator
     {
-        public void Generate(CommandLineApplication application, TextWriter output)
+        public HelperPage(IServiceProvider serviceProvider)
         {
-            Console.ForegroundColor = ConsoleColor.DarkYellow;
-            output.WriteLine(@"
+            _serviceProvider = serviceProvider;
+        }
+
+        readonly IServiceProvider _serviceProvider;
+        public void Generate(CommandLineApplication application, TextWriter output)
+        { 
+            if (application.Name is null)
+            {
+                output.WriteLine(@"
  .----------------.  .----------------.  .----------------.  .----------------.  .----------------.
 | .--------------. || .--------------. || .--------------. || .--------------. || .--------------. |
 | |      __      | || |  _______     | || |     ______   | || |   _    _     | || | _____  _____ | |
@@ -31,7 +39,33 @@ namespace Arc4u.Encryptor
 ##       ##  #### ##       ##   ##      ##    ##           ##    ##     ## ##   ##  
 ##       ##   ### ##    ## ##    ##     ##    ##           ##    ##     ## ##    ## 
 ######## ##    ##  ######  ##     ##    ##    ##           ##     #######  ##     ##
+
+Encryptor is a tool to encrypt and decrypt text or file using a certificate or a pfx file.
+
+The following commands exist:
+- encrypt: Encrypt a text.
+- encryptfile: Encrypt a file.
+
+- decrypt: Decrypt a text.
+- decryptfile: Decrypt a file.
+
+You can use the --help option to get more information about each command.
+
+like encrypt --help.
+
 ");
+                output.WriteLine("");
+                
+
+            }
+
+            var helpCommandGenerator = _serviceProvider.GetKeyedService<IHelpTextGenerator>("encrypt");
+
+            if (helpCommandGenerator is not null)
+                helpCommandGenerator.Generate(application, output);
+
+            return;
+            Console.ForegroundColor = ConsoleColor.DarkYellow;
 
             Console.WriteLine("1. Certificate store (windows) or keychain (linux).");
             Console.ResetColor();

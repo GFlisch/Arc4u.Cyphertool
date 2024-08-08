@@ -6,6 +6,9 @@ This dotnet tool project ease the encryption of string or file based on the Arc4
 
 The user can encrypt and decrypt, the option -d is there to inform the operation will be a decryption, default is encryption.  
 
+encrypt from store -c "" -l "" -n "" -t ""  -f "" -o 
+encrypt from file -c "" -p "" -t "" -f "" -o
+
 ## 1. Certificate store (windows) or keychain (linux).
 
 The command will use the following default values.

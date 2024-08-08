@@ -1,15 +1,18 @@
 ﻿// Licensed to the Arc4u Foundation under one or more agreements.
 // The Arc4u Foundation licenses this file to you under the MIT license.
 
-using System.Reflection;
-using Arc4u.Results;
+using System.Net.Sockets;
+using Arc4u.Cyphertool.Commands;
+using Arc4u.Cyphertool.Helpers;
 using Arc4u.Results.Logging;
 using Arc4u.Security.Cryptography;
 using FluentResults;
 using McMaster.Extensions.CommandLineUtils;
+using McMaster.Extensions.CommandLineUtils.HelpText;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Serilog;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace Arc4u.Encryptor;
 
@@ -18,8 +21,8 @@ class Program
     static int Main(string[] args)
     {
         Log.Logger = new LoggerConfiguration()
-        .WriteTo.Console()
-        .CreateLogger();
+                        .WriteTo.Console()
+                        .CreateLogger();
 
         try
         {
@@ -29,11 +32,14 @@ class Program
 
             var serviceProvider = serviceCollection.BuildServiceProvider();
 
+            var helper = serviceProvider.GetRequiredService<IHelpTextGenerator>();
+
+
             var app = new CommandLineApplication
             {
                 AllowArgumentSeparator = true,
                 UnrecognizedArgumentHandling = UnrecognizedArgumentHandling.Throw,
-                HelpTextGenerator = new HelperPage(),
+                HelpTextGenerator = helper,
             };
 
 
@@ -56,114 +62,16 @@ class Program
                 setup.Logger = new FluentLogger(serviceProvider.GetRequiredService<ILogger<FluentLogger>>());
             });
 
-            var certOption = app.Option("-c | --certificate", "The name of the certificate", CommandOptionType.SingleValue)
-                                .IsRequired();
-
-            var textOption = app.Option("-t | --text", "The text to encrypt", CommandOptionType.SingleValue);
-
-            var decrypt = app.Option<bool>("-d | --decrypt", "Decrypt if specified otherwhise encrypt.", CommandOptionType.NoValue);
-
-            var passwordOption = app.Option("-p | --password", "The password to use for the file pfx certificate", CommandOptionType.SingleValue);
-
-            var fileOption = app.Option("-f | --file", "The file name of the text to encrypt. if the --file option is used the --text one is not used!", CommandOptionType.SingleValue);
-
-            var nameOption = app.Option("-n | --storename", "The name of the folder where the certificate is stored in a Keychain or Certificate Store.", CommandOptionType.SingleValue);
-
-            var locationOption = app.Option("-l | --storelocation", "The location where the certificate is stored in a Keychain or Certificate Store. Like on Windows: CurrentUser or LocalMachine. Default is CurrentUser!", CommandOptionType.SingleValue);
-
-            var outputOption = app.Option("-o | --output", "The file to store the content.", CommandOptionType.SingleValue);
-
+            app.Command("encrypt", serviceProvider.GetRequiredService<EncryptCommand>().Configure);
 
             app.OnExecute(() =>
             {
-                var logger = serviceProvider.GetRequiredService<ILogger<Program>>();
-                Assembly assembly = Assembly.GetExecutingAssembly();
-
-                logger.LogInformation($"Arc4u.Encryption, version {assembly.GetName().Version}");
-
-                string certificateName = certOption.Value()!;
-                bool stopOnErrors = false;
-
-                if (string.IsNullOrWhiteSpace(textOption.Value()) && string.IsNullOrWhiteSpace(fileOption.Value()))
-                {
-                    logger.LogError("A text -t | --text or a file -f | --file is needed");
-                    stopOnErrors = true;
-                }
-
-                if (!string.IsNullOrWhiteSpace(textOption.Value()) && !string.IsNullOrWhiteSpace(fileOption.Value()))
-                {
-                    logger.LogError("Only a text or a file must be given.");
-                    stopOnErrors = true;
-                }
-
-                if (stopOnErrors)
-                {
-                    return 1;
-                }
-
-                string text = fileOption.HasValue() ? File.ReadAllText(fileOption.Value()!) : textOption.Value()!;
-
-                var result = Result.Ok(string.Empty);
-
-                var certHelper = serviceProvider.GetRequiredService<CertificateHelper>();
-
-                certHelper.GetCertificate(certOption.Value()!, passwordOption.Value(), nameOption.Value(), locationOption.Value())
-                   .LogIfFailed()
-                   .OnSuccessNotNull(certificate =>
-                   {
-                       // Decryption
-                       if (decrypt.HasValue())
-                       {
-                           result = Result.Try(() => certificate.Decrypt(text));
-                       }
-                       else // encryption
-                       {
-                           result = Result.Try(() => certificate.Encrypt(text));
-                       }
-                   });
-
-                var returnValue = 1;
-
-                result
-                    .LogIfFailed()
-                    .OnSuccess(text =>
-                    {
-                        if (outputOption.HasValue())
-                        {
-                            try
-                            {
-                                File.WriteAllText(outputOption.Value()!, text);
-                                logger.LogInformation($"The content has been saved in the file '{outputOption.Value()}'");
-                            }
-                            catch (Exception ex)
-                            {
-                                logger.LogError(ex.Message);
-                            }
-                        }
-                        else
-                        {
-                            if (decrypt.HasValue())
-                            {
-                                Console.Write("Decrypted text: '");
-                            }
-                            else
-                            {
-                                Console.Write("Encrypted text: '");
-                            }
-                            Console.ForegroundColor = ConsoleColor.Yellow;
-                            Console.Write(text);
-                            Console.ResetColor();
-                            Console.WriteLine("'");
-                        }
-
-                        returnValue = 0;
-                    });
-
-                return returnValue;
+                Console.WriteLine("Specify a subcommand");
+                app.ShowHelp();
+                return 1;
             });
 
             return app.Execute(args);
-
 
         }
         catch (Exception ex)
@@ -179,5 +87,12 @@ class Program
         services.AddLogging(configure => configure.AddSerilog());
         services.AddSingleton<CertificateHelper>();
         services.AddSingleton<IX509CertificateLoader, X509CertificateLoader>();
+        services.AddSingleton<EncryptCommand>();
+        services.AddSingleton<EncryptFromCommand>();
+        services.AddSingleton<EncryptFromCertificateStoreCommand>();
+        services.AddSingleton<EncryptFromPfxFileCommand>();
+        services.AddSingleton<EncryptTextCommand>();
+        services.AddSingleton<IHelpTextGenerator, HelperPage>();
+        //services.AddKeyedSingleton<IHelpTextGenerator, EncryptHelp>(encryptCommand);
     }
 }

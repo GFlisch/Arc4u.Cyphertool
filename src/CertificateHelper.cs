@@ -6,6 +6,7 @@ using System.Security.Cryptography.X509Certificates;
 using Arc4u.Security;
 using Arc4u.Security.Cryptography;
 using FluentResults;
+using McMaster.Extensions.CommandLineUtils;
 using Microsoft.Extensions.Logging;
 
 namespace Arc4u.Encryptor
@@ -36,17 +37,7 @@ namespace Arc4u.Encryptor
             {
                 if (string.IsNullOrWhiteSpace(password))
                 {
-                    Console.Write("Password:");
-                    while (true)
-                    {
-                        var key = Console.ReadKey(true);
-                        // Break the loop if Enter key is pressed
-                        if (key.Key == ConsoleKey.Enter)
-                            break;
-                        password += key.KeyChar;
-                        Console.Write("*");
-                    }
-                    Console.WriteLine("");
+                    password = Prompt.GetPassword("Password:", ConsoleColor.DarkYellow);
                 }
 
                 return GetCertificateFromFile(cert, password);
