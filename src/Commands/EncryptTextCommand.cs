@@ -24,6 +24,12 @@ internal class EncryptTextCommand
     readonly CertificateHelper _certificateHelper;
     readonly ILogger<EncryptTextCommand> _logger;
 
+    /// <summary>
+    /// Encrypt a text using a certificate.
+    /// The certificate can be a file or a certificate store.
+    /// It means that the parents are given this information back to the command.
+    /// </summary>
+    /// <param name="app"></param>
     public void Configure(CommandLineApplication app)
     {
         app.FullName = "EncryptTextHelper";
@@ -63,33 +69,35 @@ internal class EncryptTextCommand
             }
 
             _certificateHelper.GetCertificate(certifcate.Value, password?.Value() , storeName?.Value(), storeLocation?.Value())
-             .LogIfFailed()
-             .OnSuccessNotNull(x509 =>
-             {
-                 Result.Try(() => x509.Encrypt(textArgument.Value))
-                 .LogIfFailed()
-                 .OnSuccessNotNull(encrypted =>
-                 {
-                     if (outputOption.HasValue())
-                     {
-                         try
-                         {
-                             File.WriteAllText(outputOption.Value()!, encrypted);
-                             _logger.LogInformation($"The content has been saved in the file '{outputOption.Value()}'");
-                         }
-                         catch (Exception ex)
-                         {
-                             _logger.LogError(ex.Message);
-                         }
-                     }
-                     else
-                     {
-                         Console.WriteLine(encrypted);
-                     }
-                 });
-             });
-
-
+                              .LogIfFailed()
+                              .OnSuccessNotNull(x509 =>
+                              {
+                                  Result.Try(() => x509.Encrypt(textArgument.Value))
+                                  .LogIfFailed()
+                                  .OnSuccessNotNull(encrypted =>
+                                  {
+                                      if (outputOption.HasValue())
+                                      {
+                                          try
+                                          {
+                                              File.WriteAllText(outputOption.Value()!, encrypted);
+                                              _logger.LogInformation($"The content has been saved in the file '{outputOption.Value()}'");
+                                          }
+                                          catch (Exception ex)
+                                          {
+                                              _logger.LogError(ex.Message);
+                                          }
+                                      }
+                                      else
+                                      {
+                                          Console.WriteLine("The encrypted text is:");
+                                          Console.ForegroundColor = ConsoleColor.Yellow;
+                                          Console.WriteLine(encrypted);
+                                          Console.ResetColor();
+                                          
+                                      }
+                                  });
+                              });
         });
     }
 }

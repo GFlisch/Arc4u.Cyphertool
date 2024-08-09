@@ -1,3 +1,10 @@
-Arc4u Cyphertool.
+----------------------------------
+|       Arc4u Cyphertool.        |
+----------------------------------
 
-Explained here how to encrypt a text!
+When you use the cypher tool and you want to encrypt a text based on a certificate,
+you have to provide the clear text via the text argument like this:
+
+=>    arc4u.cyphertool encrypt from certificatestore "certificate" ... text "clear text"
+
+

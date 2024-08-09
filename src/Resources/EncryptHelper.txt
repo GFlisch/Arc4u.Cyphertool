@@ -1,3 +1,7 @@
+----------------------------------
+|       Arc4u Cyphertool.        |
+----------------------------------
+
 Let you encrypt a text or a file using a certificate or a pfx file.
 
 With a certificate in the certificate store or keychain.

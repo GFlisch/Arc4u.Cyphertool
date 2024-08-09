@@ -1,4 +1,6 @@
-Arc4u Cyphertool.
+----------------------------------
+|       Arc4u Cyphertool.        |
+----------------------------------
 
 Encrypt a string or a file with a certificate in the certificate store or the keychain.
 
