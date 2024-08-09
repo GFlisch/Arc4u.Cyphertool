@@ -98,6 +98,7 @@ class Program
         services.AddSingleton<EncryptFromCertificateStoreCommand>();
         services.AddSingleton<EncryptFromPfxFileCommand>();
         services.AddSingleton<EncryptTextCommand>();
+        services.AddSingleton<EncryptFileCommand>();
         services.AddSingleton<DecryptCommand>();
         services.AddSingleton<DecryptFromCommand>();
         services.AddSingleton<DecryptFromCertificateStoreCommand>();

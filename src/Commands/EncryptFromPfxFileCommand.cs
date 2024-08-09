@@ -8,12 +8,16 @@ namespace Arc4u.Cyphertool.Commands
 {
     internal class EncryptFromPfxFileCommand
     {
-        public EncryptFromPfxFileCommand(ILogger<EncryptFromPfxFileCommand> logger, EncryptTextCommand encryptTextCommand)
+        public EncryptFromPfxFileCommand(ILogger<EncryptFromPfxFileCommand> logger,
+                                         EncryptTextCommand encryptTextCommand,
+                                         EncryptFileCommand encryptFileCommand)
         {
             _logger = logger;
             _textEncryptor = encryptTextCommand;
+            _encryptFileCommand = encryptFileCommand;
         }
 
+        readonly EncryptFileCommand _encryptFileCommand;
         readonly ILogger<EncryptFromPfxFileCommand> _logger;
         readonly EncryptTextCommand _textEncryptor;
 
@@ -29,6 +33,7 @@ namespace Arc4u.Cyphertool.Commands
             var passwordOption = cmd.Option("-p | --password", "The password to use for the file pfx certificate", CommandOptionType.SingleValue);
 
             cmd.Command("text", _textEncryptor.Configure);
+            cmd.Command("file", _encryptFileCommand.Configure);
 
             // Display id the certificate exist!
             cmd.OnExecute(() =>

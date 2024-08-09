@@ -110,13 +110,13 @@ namespace Arc4u.Cyphertool.Resources {
         ///|       Arc4u Cyphertool.        |
         ///----------------------------------
         ///
-        ///Let you encrypt a text or a file using a certificate or a pfx file.
+        ///Let you decrypt a text or a file using a certificate or a pfx file.
         ///
         ///With a certificate in the certificate store or keychain.
-        ///arc4u.cyphertool decrypt from text -c devCertName text &quot;cypher text&quot;
+        ///arc4u.cyphertool decrypt from certificatestore &quot;certifcate friendly name&quot; text &quot;cypher text&quot;
         ///
         ///With a pfx file.
-        ///arc4u.cyphertool decrypt from pfx -c &quot;C:\temp\devCert.pfx&quot; -p password text &quot;cypher text&quot;
+        ///arc4u.cyphertool decrypt from pfx &quot;C:\temp\devCert.pfx&quot; -p password text &quot;cypher text&quot;
         ///.
         /// </summary>
         internal static string DecryptHelper {
@@ -133,14 +133,23 @@ namespace Arc4u.Cyphertool.Resources {
         ///When you use the cypher tool and you want to decrypt a cypher text based on a certificate,
         ///you have to provide the cypher text via the text argument like this:
         ///
-        ///=&gt;    arc4u.cyphertool decrypt from certificatestore &quot;certificate&quot; ... text &quot;cypher text&quot;
+        ///Optionnaly you can specify that the decrypted text must be saved in a file.
+        ///-o | --output =&gt; The file to store the content.
         ///
-        ///
-        ///.
+        ///=&gt;    arc4u.cyphertool decrypt from certificatestore &quot;certificate&quot; ... text &quot;cypher text&quot; (-o | --output &quot;file [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string DecryptTextHelper {
             get {
                 return ResourceManager.GetString("DecryptTextHelper", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string EncryptFileHelper {
+            get {
+                return ResourceManager.GetString("EncryptFileHelper", resourceCulture);
             }
         }
         
@@ -197,10 +206,10 @@ namespace Arc4u.Cyphertool.Resources {
         ///Let you encrypt a text or a file using a certificate or a pfx file.
         ///
         ///With a certificate in the certificate store or keychain.
-        ///arc4u.cyphertool encrypt from text -c devCertName text &quot;&quot;clear text&quot;&quot;
+        ///arc4u.cyphertool encrypt from certificatestore &quot;certifcate friendly name&quot; text &quot;clear text&quot;
         ///
         ///With a pfx file.
-        ///arc4u.cyphertool encrypt from pfx -c &quot;&quot;C:\temp\devCert.pfx&quot;&quot; -p password text &quot;&quot;clear text&quot;&quot;
+        ///arc4u.cyphertool encrypt from pfx &quot;C:\temp\devCert.pfx&quot; -p password text &quot;clear text&quot;
         ///.
         /// </summary>
         internal static string EncryptHelper {
@@ -217,7 +226,10 @@ namespace Arc4u.Cyphertool.Resources {
         ///When you use the cypher tool and you want to encrypt a text based on a certificate,
         ///you have to provide the clear text via the text argument like this:
         ///
-        ///=&gt;    arc4u.cyphertool encrypt from certificatestore &quot;certificate&quot; ... text &quot;encrypt me&quot;
+        ///Optionnaly you can specify that the encrypted text must be saved in a file.
+        ///-o | --output =&gt; The file to store the content.
+        ///
+        ///=&gt;    arc4u.cyphertool encrypt from certificatestore &quot;certificate&quot; ... text &quot;encrypt me&quot;  (-o | --output &quot;file&quot;)
         ///
         ///
         ///.

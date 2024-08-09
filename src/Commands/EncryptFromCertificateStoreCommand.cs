@@ -10,13 +10,18 @@ namespace Arc4u.Cyphertool.Commands;
 
 internal class EncryptFromCertificateStoreCommand
 {
-    public EncryptFromCertificateStoreCommand(ILogger<EncryptTextCommand> logger, EncryptTextCommand textEncryptor, CertificateHelper certificateHelper)
+    public EncryptFromCertificateStoreCommand(ILogger<EncryptTextCommand> logger,
+                                              EncryptTextCommand textEncryptor,
+                                              EncryptFileCommand fileEncryptor,
+                                              CertificateHelper certificateHelper)
     {
         _logger = logger;
+        _fileEncryptor = fileEncryptor;
         _textEncryptor = textEncryptor;
         _certificateHelper = certificateHelper;
     }
 
+    readonly EncryptFileCommand _fileEncryptor;
     readonly EncryptTextCommand _textEncryptor;
     readonly ILogger<EncryptTextCommand> _logger;
     readonly CertificateHelper _certificateHelper;
@@ -34,6 +39,7 @@ internal class EncryptFromCertificateStoreCommand
         var locationOption = cmd.Option("-l | --storelocation", "The location where the certificate is stored in a Keychain or Certificate Store. Like on Windows: CurrentUser or LocalMachine. Default is CurrentUser!", CommandOptionType.SingleValue);
 
         cmd.Command("text", _textEncryptor.Configure);
+        cmd.Command("file", _fileEncryptor.Configure);
 
         // Display id the certificate exist!
         cmd.OnExecute(() =>
