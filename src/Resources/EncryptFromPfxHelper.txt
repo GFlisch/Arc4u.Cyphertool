@@ -1,0 +1,18 @@
+----------------------------------
+|       Arc4u Cyphertool.        |
+----------------------------------
+
+Add the certificate file path to the pfx file.
+
+Optionnaly you can add the password to the pfx file.
+-p | --password => The password to use for the file pfx certificate
+
+If the password is not set, a prompt will be displayed to ask for the password.
+
+
+Example:
+
+arc4u.cyphertool ... pfx /path/to/certificate.pfx -p password text "encrypt me"
+
+arc4u.cyphertool ... pfx /path/to/certificate.pfx text "encrypt me"
+

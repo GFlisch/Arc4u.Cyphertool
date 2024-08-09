@@ -1,7 +1,6 @@
 ﻿// Licensed to the Arc4u Foundation under one or more agreements.
 // The Arc4u Foundation licenses this file to you under the MIT license.
 
-using Arc4u.Diagnostics;
 using Arc4u.Encryptor;
 using McMaster.Extensions.CommandLineUtils;
 using Microsoft.Extensions.Logging;

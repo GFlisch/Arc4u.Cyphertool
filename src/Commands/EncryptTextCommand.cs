@@ -90,11 +90,11 @@ internal class EncryptTextCommand
                                       }
                                       else
                                       {
+                                          Console.WriteLine();
                                           Console.WriteLine("The encrypted text is:");
                                           Console.ForegroundColor = ConsoleColor.Yellow;
                                           Console.WriteLine(encrypted);
                                           Console.ResetColor();
-                                          
                                       }
                                   });
                               });

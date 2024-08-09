@@ -61,7 +61,9 @@ namespace Arc4u.Cyphertool.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Arc4u Cyphertool.
+        ///   Looks up a localized string similar to ----------------------------------
+        ///|       Arc4u Cyphertool.        |
+        ///----------------------------------
         ///
         ///Encrypt a string or a file with a certificate in the certificate store or the keychain.
         ///
@@ -74,7 +76,20 @@ namespace Arc4u.Cyphertool.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Let you encrypt a text or a file using a certificate or a pfx file.
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string EncryptFromPfxHelper {
+            get {
+                return ResourceManager.GetString("EncryptFromPfxHelper", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ----------------------------------
+        ///|       Arc4u Cyphertool.        |
+        ///----------------------------------
+        ///
+        ///Let you encrypt a text or a file using a certificate or a pfx file.
         ///
         ///With a certificate in the certificate store or keychain.
         ///arc4u.cyphertool encrypt from text -c devCertName text &quot;&quot;clear text&quot;&quot;
@@ -90,9 +105,16 @@ namespace Arc4u.Cyphertool.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Arc4u Cyphertool.
+        ///   Looks up a localized string similar to ----------------------------------
+        ///|       Arc4u Cyphertool.        |
+        ///----------------------------------
         ///
-        ///Explained here how to encrypt a text!
+        ///When you use the cypher tool and you want to encrypt a text based on a certificate,
+        ///you have to provide the clear text via the text argument like this:
+        ///
+        ///=&gt;    arc4u.cyphertool encrypt from certificatestore &quot;certificate&quot; ... text &quot;clear text&quot;
+        ///
+        ///
         ///.
         /// </summary>
         internal static string EncryptTextHelper {

@@ -2,5 +2,23 @@
 |       Arc4u Cyphertool.        |
 ----------------------------------
 
-Encrypt a string or a file with a certificate in the certificate store or the keychain.
+Add the certificate in the certificate store or the keychain.
+
+The certificate argument will use the friendly name to find the certificate in the store.
+
+Two optional parameters can be used to specify the store name and the store location.
+
+    -n | --storename => The name of the folder where the certificate is stored in a Keychain or Certificate Store.
+                        Default is My!      
+
+    -l | --storelocation => The location where the certificate is stored in a Keychain or Certificate Store.
+                            Like on Windows: CurrentUser or LocalMachine.
+                            Default is CurrentUser!
+
+Example:
+
+    arc4u.cyphertool encrypt from certificatestore "encryptor"
+
+    arc4u.cyphertool encrypt from certificatestore "encryptor" -n "My" -l "LocalMachine"
+
 
