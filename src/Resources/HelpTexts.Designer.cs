@@ -90,12 +90,28 @@ namespace Arc4u.Cyphertool.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to  .----------------.  .----------------.  .----------------.  .----------------.  .----------------.
-        ///| .--------------. || .--------------. || .--------------. || .--------------. || .--------------. |
-        ///| |      __      | || |  _______     | || |     ______   | || |   _    _     | || | _____  _____ | |
-        ///| |     /  \     | || | |_   __ \    | || |   .&apos; ___  |  | || |  | |  | |    | || ||_   _||_   _|| |
-        ///| |    / /\ \    | || |   | |__) |   | || |  / .&apos;   \_|  | || |  | |__| |_   | || |  | |    | |  | |
-        ///| | [rest of string was truncated]&quot;;.
+        ///   Looks up a localized string similar to Arc4u Cyphertool.
+        ///
+        ///Explained here how to encrypt a text!
+        ///.
+        /// </summary>
+        internal static string EncryptTextHelper {
+            get {
+                return ResourceManager.GetString("EncryptTextHelper", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 
+        ///      __        _______         ______     _    _     _____  _____ 
+        ///     /  \      |_   __ \      .&apos; ___  |   | |  | |   |_   _||_   _|
+        ///    / /\ \       | |__) |    / .&apos;   \_|   | |__| |_    | |    | |  
+        ///   / ____ \      |  __ /     | |          |____   _|   | &apos;    &apos; |  
+        /// _/ /    \ \_   _| |  \ \_   \ `.___.&apos;\       _| |_     \ `--&apos; /   
+        ///|____|  |____| |____| |___|   `._____.&apos;      |_____|     `.__.&apos;    
+        ///                                                                   
+        ///
+        ///######## ##    ##  ###### [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string RootHelper {
             get {

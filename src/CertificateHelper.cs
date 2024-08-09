@@ -51,12 +51,7 @@ namespace Arc4u.Encryptor
                 return Result.Fail($"The certificate file {cert} does not exist!");
             }
 
-            if (File.Exists(cert))
-            {
-                return Result.Try(() => new X509Certificate2(cert, password));
-            }
-
-            return Result.Fail($"The certificate file {cert} does not exist!");
+            return Result.Try(() => new X509Certificate2(cert, password));
         }
         private Result<X509Certificate2> GetCertificateFromStore(string cert, string? storeName, string? storeLocation)
         {

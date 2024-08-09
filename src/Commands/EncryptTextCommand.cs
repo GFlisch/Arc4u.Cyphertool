@@ -26,6 +26,7 @@ internal class EncryptTextCommand
 
     public void Configure(CommandLineApplication app)
     {
+        app.FullName = "EncryptTextHelper";
         app.HelpOption();
 
         app.Argument<string>("text", "The text to encrypt.");
@@ -45,11 +46,27 @@ internal class EncryptTextCommand
                 return;
             }
 
+            var textArgument = app.Arguments.FirstOrDefault(a => a.Name is not null && a.Name.Equals("text", StringComparison.OrdinalIgnoreCase));
+
+            if (textArgument is null)
+            {
+                _logger.Technical().LogError("No text command has been given!");
+                app.ShowHelp();
+                return;
+            }
+
+            if (textArgument.Value is null)
+            {
+                _logger.Technical().LogError("No text argument has been given!");
+                app.ShowHelp();
+                return;
+            }
+
             _certificateHelper.GetCertificate(certifcate.Value, password?.Value() , storeName?.Value(), storeLocation?.Value())
              .LogIfFailed()
              .OnSuccessNotNull(x509 =>
              {
-                 Result.Try(() => x509.Encrypt("text"))
+                 Result.Try(() => x509.Encrypt(textArgument.Value))
                  .LogIfFailed()
                  .OnSuccessNotNull(encrypted =>
                  {
