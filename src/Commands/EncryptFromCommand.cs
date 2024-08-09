@@ -23,9 +23,10 @@ internal class EncryptFromCommand
     readonly ILogger<EncryptFromCommand> _logger;
 
     const string certificateStoreCommand = "certificatestore";
-    const string pfxFileCommand = "pfxfile";
+    const string pfxFileCommand = "pfx";
     public void Configure(CommandLineApplication cmd)
     {
+        cmd.FullName = "EncryptHelper";
         cmd.HelpOption();
 
         cmd.Command(certificateStoreCommand, _fromStoreCommand.Configure);

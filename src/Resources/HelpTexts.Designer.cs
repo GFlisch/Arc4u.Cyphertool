@@ -61,6 +61,19 @@ namespace Arc4u.Cyphertool.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Arc4u Cyphertool.
+        ///
+        ///Encrypt a string or a file with a certificate in the certificate store or the keychain.
+        ///
+        ///.
+        /// </summary>
+        internal static string EncryptFromCertificateHelper {
+            get {
+                return ResourceManager.GetString("EncryptFromCertificateHelper", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Let you encrypt a text or a file using a certificate or a pfx file.
         ///
         ///With a certificate in the certificate store or keychain.

@@ -24,6 +24,7 @@ internal class EncryptFromCertificateStoreCommand
 
     public void Configure(CommandLineApplication cmd)
     {
+        cmd.FullName = "EncryptFromCertificateHelper";
         cmd.HelpOption();
 
         // Argument

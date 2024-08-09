@@ -25,6 +25,7 @@ namespace Arc4u.Cyphertool.Commands
 
         public void Configure(CommandLineApplication cmd)
         {
+            cmd.FullName = "EncryptFromPfxHelper";
             cmd.HelpOption();
 
             // Argument
