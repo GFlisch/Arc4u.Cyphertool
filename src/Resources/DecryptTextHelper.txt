@@ -1,0 +1,10 @@
+----------------------------------
+|       Arc4u Cyphertool.        |
+----------------------------------
+
+When you use the cypher tool and you want to decrypt a cypher text based on a certificate,
+you have to provide the cypher text via the text argument like this:
+
+=>    arc4u.cyphertool decrypt from certificatestore "certificate" ... text "cypher text"
+
+

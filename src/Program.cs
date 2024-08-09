@@ -65,6 +65,7 @@ class Program
             });
 
             app.Command("encrypt", serviceProvider.GetRequiredService<EncryptCommand>().Configure);
+            app.Command("decrypt", serviceProvider.GetRequiredService<DecryptCommand>().Configure);
 
             var version = Assembly.GetExecutingAssembly().GetName().Version?.ToString() ?? "No version found!";
             app.VersionOption("-v|--version", version, string.Format(HelpTexts.Version, version));
@@ -97,6 +98,11 @@ class Program
         services.AddSingleton<EncryptFromCertificateStoreCommand>();
         services.AddSingleton<EncryptFromPfxFileCommand>();
         services.AddSingleton<EncryptTextCommand>();
+        services.AddSingleton<DecryptCommand>();
+        services.AddSingleton<DecryptFromCommand>();
+        services.AddSingleton<DecryptFromCertificateStoreCommand>();
+        services.AddSingleton<DecryptFromPfxFileCommand>();
+        services.AddSingleton<DecryptTextCommand>();
         services.AddSingleton<IHelpTextGenerator, HelperTextPage>();
     }
 }

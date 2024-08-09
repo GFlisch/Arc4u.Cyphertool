@@ -118,6 +118,18 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="DecryptFromCertificateHelper" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>DecryptFromCertificateHelper.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  </data>
+  <data name="DecryptFromPfxHelper" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>DecryptFromPfxHelper.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  </data>
+  <data name="DecryptHelper" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>DecryptHelper.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  </data>
+  <data name="DecryptTextHelper" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>DecryptTextHelper.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  </data>
   <data name="EncryptFromCertificateHelper" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>EncryptFromCertificateHelper.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
   </data>

@@ -1,0 +1,11 @@
+----------------------------------
+|       Arc4u Cyphertool.        |
+----------------------------------
+
+Let you decrypt a text or a file using a certificate or a pfx file.
+
+With a certificate in the certificate store or keychain.
+arc4u.cyphertool decrypt from text -c devCertName text "cypher text"
+
+With a pfx file.
+arc4u.cyphertool decrypt from pfx -c "C:\temp\devCert.pfx" -p password text "cypher text"

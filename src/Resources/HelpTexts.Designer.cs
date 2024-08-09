@@ -65,9 +65,98 @@ namespace Arc4u.Cyphertool.Resources {
         ///|       Arc4u Cyphertool.        |
         ///----------------------------------
         ///
-        ///Encrypt a string or a file with a certificate in the certificate store or the keychain.
+        ///Add the certificate in the certificate store or the keychain.
+        ///
+        ///The certificate argument will use the friendly name to find the certificate in the store.
+        ///
+        ///Two optional parameters can be used to specify the store name and the store location.
+        ///
+        ///    -n | --storename =&gt; The name of the folder where the certificate is stored in a Keychain or Certificate Store.
+        ///                        Default is My!  [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string DecryptFromCertificateHelper {
+            get {
+                return ResourceManager.GetString("DecryptFromCertificateHelper", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ----------------------------------
+        ///|       Arc4u Cyphertool.        |
+        ///----------------------------------
+        ///
+        ///Add the certificate file path to the pfx file.
+        ///
+        ///Optionnaly you can add the password to the pfx file.
+        ///-p | --password =&gt; The password to use for the file pfx certificate
+        ///
+        ///If the password is not set, a prompt will be displayed to ask for the password.
+        ///
+        ///
+        ///Example:
+        ///
+        ///arc4u.cyphertool ... pfx /path/to/certificate.pfx -p password text &quot;cypher text&quot;
+        ///
+        ///arc4u.cyphertool ... pfx /path/to/certificate. [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string DecryptFromPfxHelper {
+            get {
+                return ResourceManager.GetString("DecryptFromPfxHelper", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ----------------------------------
+        ///|       Arc4u Cyphertool.        |
+        ///----------------------------------
+        ///
+        ///Let you encrypt a text or a file using a certificate or a pfx file.
+        ///
+        ///With a certificate in the certificate store or keychain.
+        ///arc4u.cyphertool decrypt from text -c devCertName text &quot;cypher text&quot;
+        ///
+        ///With a pfx file.
+        ///arc4u.cyphertool decrypt from pfx -c &quot;C:\temp\devCert.pfx&quot; -p password text &quot;cypher text&quot;
+        ///.
+        /// </summary>
+        internal static string DecryptHelper {
+            get {
+                return ResourceManager.GetString("DecryptHelper", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ----------------------------------
+        ///|       Arc4u Cyphertool.        |
+        ///----------------------------------
+        ///
+        ///When you use the cypher tool and you want to decrypt a cypher text based on a certificate,
+        ///you have to provide the cypher text via the text argument like this:
+        ///
+        ///=&gt;    arc4u.cyphertool decrypt from certificatestore &quot;certificate&quot; ... text &quot;cypher text&quot;
+        ///
         ///
         ///.
+        /// </summary>
+        internal static string DecryptTextHelper {
+            get {
+                return ResourceManager.GetString("DecryptTextHelper", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ----------------------------------
+        ///|       Arc4u Cyphertool.        |
+        ///----------------------------------
+        ///
+        ///Add the certificate in the certificate store or the keychain.
+        ///
+        ///The certificate argument will use the friendly name to find the certificate in the store.
+        ///
+        ///Two optional parameters can be used to specify the store name and the store location.
+        ///
+        ///    -n | --storename =&gt; The name of the folder where the certificate is stored in a Keychain or Certificate Store.
+        ///                        Default is My!  [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string EncryptFromCertificateHelper {
             get {
@@ -76,7 +165,23 @@ namespace Arc4u.Cyphertool.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to ----------------------------------
+        ///|       Arc4u Cyphertool.        |
+        ///----------------------------------
+        ///
+        ///Add the certificate file path to the pfx file.
+        ///
+        ///Optionnaly you can add the password to the pfx file.
+        ///-p | --password =&gt; The password to use for the file pfx certificate
+        ///
+        ///If the password is not set, a prompt will be displayed to ask for the password.
+        ///
+        ///
+        ///Example:
+        ///
+        ///arc4u.cyphertool ... pfx /path/to/certificate.pfx -p password text &quot;encrypt me&quot;
+        ///
+        ///arc4u.cyphertool ... pfx /path/to/certificate.p [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string EncryptFromPfxHelper {
             get {
@@ -112,7 +217,7 @@ namespace Arc4u.Cyphertool.Resources {
         ///When you use the cypher tool and you want to encrypt a text based on a certificate,
         ///you have to provide the clear text via the text argument like this:
         ///
-        ///=&gt;    arc4u.cyphertool encrypt from certificatestore &quot;certificate&quot; ... text &quot;clear text&quot;
+        ///=&gt;    arc4u.cyphertool encrypt from certificatestore &quot;certificate&quot; ... text &quot;encrypt me&quot;
         ///
         ///
         ///.
