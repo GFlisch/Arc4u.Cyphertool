@@ -2,8 +2,10 @@
 // The Arc4u Foundation licenses this file to you under the MIT license.
 
 using System.Net.Sockets;
+using System.Reflection;
 using Arc4u.Cyphertool.Commands;
 using Arc4u.Cyphertool.Helpers;
+using Arc4u.Cyphertool.Resources;
 using Arc4u.Results.Logging;
 using Arc4u.Security.Cryptography;
 using FluentResults;
@@ -64,11 +66,14 @@ class Program
 
             app.Command("encrypt", serviceProvider.GetRequiredService<EncryptCommand>().Configure);
 
+            var version = Assembly.GetExecutingAssembly().GetName().Version?.ToString() ?? "No version found!";
+            app.VersionOption("-v|--version", version, string.Format(HelpTexts.Version, version));
+
+
             app.OnExecute(() =>
             {
-                Console.WriteLine("Specify a subcommand");
-                app.ShowHelp();
-                return 1;
+                app.ShowVersion();
+                return 0;
             });
 
             return app.Execute(args);

@@ -38,8 +38,8 @@ namespace Arc4u.Cyphertool.Commands
             // Display id the certificate exist!
             cmd.OnExecute(() =>
             {
-                // Display information if the file exists. etc...
-                _logger.Technical().LogInformation($"Encrypt with the certificate. {certifcate.Value}");
+                cmd.ShowHelp();
+                return 0;
             });
         }
     }

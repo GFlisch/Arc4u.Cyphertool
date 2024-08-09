@@ -24,7 +24,7 @@ internal class EncryptCommand
 
         cmd.OnExecute(() =>
         {
-            Console.WriteLine("Encryptor");
+            cmd.ShowHelp();
             return 0;
         });
     }

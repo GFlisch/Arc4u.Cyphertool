@@ -33,7 +33,7 @@ internal class EncryptFromCommand
 
         cmd.OnExecute(() =>
         {
-            _logger.Technical().LogInformation("Encrypt from command.");
+            cmd.ShowHelp();
             return 0;
         });
     }

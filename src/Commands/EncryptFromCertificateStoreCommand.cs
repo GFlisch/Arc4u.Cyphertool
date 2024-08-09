@@ -38,7 +38,8 @@ internal class EncryptFromCertificateStoreCommand
         // Display id the certificate exist!
         cmd.OnExecute(() =>
         {
-            _logger.Technical().LogInformation($"Encrypt with the certificate. {certifcate.Value}");
+            cmd.ShowHelp();
+            return 0;
         });
     }
 }

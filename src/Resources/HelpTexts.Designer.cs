@@ -89,5 +89,14 @@ namespace Arc4u.Cyphertool.Resources {
                 return ResourceManager.GetString("RootHelper", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Arc4u Cyphertool {0}. .
+        /// </summary>
+        internal static string Version {
+            get {
+                return ResourceManager.GetString("Version", resourceCulture);
+            }
+        }
     }
 }
