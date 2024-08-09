@@ -9,10 +9,16 @@ Optionnaly you can add the password to the pfx file.
 
 If the password is not set, a prompt will be displayed to ask for the password.
 
+You can encrypt a text or a file by adding the following commands:
+    text => The text to encrypt
+    file => The file to encrypt
 
 Example:
 
-arc4u.cyphertool ... pfx /path/to/certificate.pfx -p password text "encrypt me"
+arc4u.cyphertool encrypt from pfx /path/to/certificate.pfx -p password text "cypher text"
+arc4u.cyphertool encrypt from pfx /path/to/certificate.pfx -p password file "the path to the file to encrypt."
 
-arc4u.cyphertool ... pfx /path/to/certificate.pfx text "encrypt me"
+arc4u.cyphertool encrypt from pfx /path/to/certificate.pfx text "cypher text"
+arc4u.cyphertool encrypt from pfx /path/to/certificate.pfx file "the path to the file to encrypt."
+
 

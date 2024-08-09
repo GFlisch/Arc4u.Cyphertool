@@ -15,10 +15,16 @@ Two optional parameters can be used to specify the store name and the store loca
                             Like on Windows: CurrentUser or LocalMachine.
                             Default is CurrentUser!
 
+You can decrypt a text or a file by using the following commands:
+    text => The text to decrypt
+    file => The file to decrypt
+
 Example:
 
-    arc4u.cyphertool decrypt from certificatestore "encryptor"
+    arc4u.cyphertool decrypt from certificatestore "encryptor" text "My text to decrypt"
+    arc4u.cyphertool decrypt from certificatestore "encryptor" file "My file to decrypt"
 
-    arc4u.cyphertool decrypt from certificatestore "encryptor" -n "My" -l "LocalMachine"
+    arc4u.cyphertool decrypt from certificatestore "encryptor" -n "My" -l "LocalMachine" text "My text to decrypt"
+    arc4u.cyphertool decrypt from certificatestore "encryptor" -n "My" -l "LocalMachine" file "My file to decrypt"
 
 

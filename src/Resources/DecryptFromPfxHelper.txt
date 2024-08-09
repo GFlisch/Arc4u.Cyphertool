@@ -10,9 +10,15 @@ Optionnaly you can add the password to the pfx file.
 If the password is not set, a prompt will be displayed to ask for the password.
 
 
+You can decrypt a text or a file by using the following commands:
+    text => The text to decrypt
+    file => The file to decrypt
+
 Example:
 
-arc4u.cyphertool ... pfx /path/to/certificate.pfx -p password text "cypher text"
+arc4u.cyphertool decrypt from pfx /path/to/certificate.pfx -p password text "cypher text"
+arc4u.cyphertool decrypt from pfx /path/to/certificate.pfx -p password file "the path to the file to decrypt."
 
-arc4u.cyphertool ... pfx /path/to/certificate.pfx text "cypher text"
+arc4u.cyphertool decrypt from pfx /path/to/certificate.pfx text "cypher text"
+arc4u.cyphertool decrypt from pfx /path/to/certificate.pfx file "the path to the file to decrypt."
 

@@ -104,6 +104,7 @@ class Program
         services.AddSingleton<DecryptFromCertificateStoreCommand>();
         services.AddSingleton<DecryptFromPfxFileCommand>();
         services.AddSingleton<DecryptTextCommand>();
+        services.AddSingleton<DecryptFileCommand>();
         services.AddSingleton<IHelpTextGenerator, HelperTextPage>();
     }
 }

@@ -15,10 +15,16 @@ Two optional parameters can be used to specify the store name and the store loca
                             Like on Windows: CurrentUser or LocalMachine.
                             Default is CurrentUser!
 
+You can encrypt a text or a file by adding the following commands:
+    text => The text to encrypt
+    file => The file to encrypt
+
 Example:
 
-    arc4u.cyphertool encrypt from certificatestore "encryptor"
+    arc4u.cyphertool encrypt from certificatestore "encryptor" text "text to encrypt"
+    arc4u.cyphertool encrypt from certificatestore "encryptor" file "file to encrypt"
 
-    arc4u.cyphertool encrypt from certificatestore "encryptor" -n "My" -l "LocalMachine"
+    arc4u.cyphertool encrypt from certificatestore "encryptor" -n "My" -l "LocalMachine" text "text to encrypt"
+    arc4u.cyphertool encrypt from certificatestore "encryptor" -n "My" -l "LocalMachine" file "file to encrypt"
 
 

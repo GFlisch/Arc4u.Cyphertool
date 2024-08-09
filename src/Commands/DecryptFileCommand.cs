@@ -11,16 +11,18 @@ using Microsoft.Extensions.Logging;
 
 namespace Arc4u.Cyphertool.Commands;
 
-internal class DecryptTextCommand
+
+
+internal class DecryptFileCommand
 {
-    public DecryptTextCommand(ILogger<DecryptTextCommand> logger, CertificateHelper certificateHelper)
+    public DecryptFileCommand(ILogger<DecryptFileCommand> logger, CertificateHelper certificateHelper)
     {
         _logger = logger;
         _certificateHelper = certificateHelper;
     }
 
     readonly CertificateHelper _certificateHelper;
-    readonly ILogger<DecryptTextCommand> _logger;
+    readonly ILogger<DecryptFileCommand> _logger;
 
     /// <summary>
     /// Encrypt a text using a certificate.
@@ -30,10 +32,10 @@ internal class DecryptTextCommand
     /// <param name="app"></param>
     public void Configure(CommandLineApplication app)
     {
-        app.FullName = "DecryptTextHelper";
+        app.FullName = "DecryptFileHelper";
         app.HelpOption();
 
-        app.Argument<string>("text", "The text to encrypt.");
+        app.Argument<string>("file", "The file to encrypt.");
         var outputOption = app.Option("-o | --output", "The file to store the content.", CommandOptionType.SingleValue);
 
         app.OnExecute(() =>
@@ -50,27 +52,34 @@ internal class DecryptTextCommand
                 return;
             }
 
-            var textArgument = app.Arguments.FirstOrDefault(a => a.Name is not null && a.Name.Equals("text", StringComparison.OrdinalIgnoreCase));
+            var fileArgument = app.Arguments.FirstOrDefault(a => a.Name is not null && a.Name.Equals("file", StringComparison.OrdinalIgnoreCase));
 
-            if (textArgument is null)
+            if (fileArgument is null)
             {
-                _logger.Technical().LogError("No text command has been given!");
+                _logger.Technical().LogError("No file command has been given!");
                 app.ShowHelp();
                 return;
             }
 
-            if (textArgument.Value is null)
+            if (fileArgument.Value is null)
             {
-                _logger.Technical().LogError("No text argument has been given!");
+                _logger.Technical().LogError("No file argument has been given!");
                 app.ShowHelp();
                 return;
             }
+
+            if (!File.Exists(fileArgument.Value))
+            {
+                _logger.Technical().LogError("The file {file} doesn't exist.", fileArgument.Value);
+                return;
+            }
+
 
             _certificateHelper.GetCertificate(certifcate.Value, password?.Value(), storeName?.Value(), storeLocation?.Value())
                               .LogIfFailed()
                               .OnSuccessNotNull(x509 =>
                               {
-                                  Result.Try(() => x509.Decrypt(textArgument.Value))
+                                  Result.Try(() => x509.Decrypt(File.ReadAllText(fileArgument.Value)))
                                   .LogIfFailed()
                                   .OnSuccessNotNull(text =>
                                   {

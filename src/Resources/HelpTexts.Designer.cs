@@ -65,6 +65,25 @@ namespace Arc4u.Cyphertool.Resources {
         ///|       Arc4u Cyphertool.        |
         ///----------------------------------
         ///
+        ///When you use the cypher tool and you want to decrypt a cypher file based on a certificate,
+        ///you have to provide the cypher file via the file argument like this:
+        ///
+        ///Optionnaly you can specify that the decrypted text must be saved in a file.
+        ///-o | --output =&gt; The file to store the content.
+        ///
+        ///=&gt;    arc4u.cyphertool decrypt from certificatestore &quot;certificate&quot; ... file &quot;the path of the file to encrypt&quot;  [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string DecryptFileHelper {
+            get {
+                return ResourceManager.GetString("DecryptFileHelper", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ----------------------------------
+        ///|       Arc4u Cyphertool.        |
+        ///----------------------------------
+        ///
         ///Add the certificate in the certificate store or the keychain.
         ///
         ///The certificate argument will use the friendly name to find the certificate in the store.
@@ -145,7 +164,17 @@ namespace Arc4u.Cyphertool.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to ----------------------------------
+        ///|       Arc4u Cyphertool.        |
+        ///----------------------------------
+        ///
+        ///When you use the cypher tool and you want to encrypt a text based on a certificate,
+        ///you have to provide the clear text via the file argument like this:
+        ///
+        ///Optionnaly you can specify that the encrypted text must be saved in a file.
+        ///-o | --output =&gt; The file to store the content.
+        ///
+        ///=&gt;    arc4u.cyphertool encrypt from certificatestore &quot;certificate&quot; ... file &quot;the path of the file to encrypt&quot;  (-o | - [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string EncryptFileHelper {
             get {
