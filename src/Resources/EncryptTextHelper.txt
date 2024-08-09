@@ -5,6 +5,9 @@
 When you use the cypher tool and you want to encrypt a text based on a certificate,
 you have to provide the clear text via the text argument like this:
 
-=>    arc4u.cyphertool encrypt from certificatestore "certificate" ... text "encrypt me"
+Optionnaly you can specify that the encrypted text must be saved in a file.
+-o | --output => The file to store the content.
+
+=>    arc4u.cyphertool encrypt from certificatestore "certificate" ... text "encrypt me"  (-o | --output "file")
 
 
