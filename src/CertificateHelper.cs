@@ -22,7 +22,7 @@ namespace Arc4u.Encryptor
         readonly ILogger<CertificateHelper> _logger;
         readonly IX509CertificateLoader _x509CertificateLoader;
 
-        public Result<X509Certificate2> GetCertificate([DisallowNull] string cert, string? password, string? storeName, string? storeLocation)
+        public Result<X509Certificate2> GetCertificate([DisallowNull] string cert, string? password, string? storeName, string? storeLocation, bool privKeyIsExportable = false)
         {
             ArgumentNullException.ThrowIfNullOrWhiteSpace(cert);
 
@@ -40,18 +40,18 @@ namespace Arc4u.Encryptor
                     password = Prompt.GetPassword("Password:", ConsoleColor.DarkYellow);
                 }
 
-                return GetCertificateFromFile(cert, password);
+                return GetCertificateFromFile(cert, password, privKeyIsExportable);
             }
         }
 
-        private Result<X509Certificate2> GetCertificateFromFile(string cert, string? password)
+        private Result<X509Certificate2> GetCertificateFromFile(string cert, string? password, bool privKeyIsExportable)
         {
             if (!File.Exists(cert))
             {
                 return Result.Fail($"The certificate file {cert} does not exist!");
             }
 
-            return Result.Try(() => new X509Certificate2(cert, password));
+            return Result.Try(() => privKeyIsExportable ? new X509Certificate2(cert, password, X509KeyStorageFlags.Exportable) : new X509Certificate2(cert, password));
         }
         private Result<X509Certificate2> GetCertificateFromStore(string cert, string? storeName, string? storeLocation)
         {
