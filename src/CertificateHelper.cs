@@ -3,6 +3,7 @@
 
 using System.Diagnostics.CodeAnalysis;
 using System.Security.Cryptography.X509Certificates;
+using System.Text;
 using Arc4u.Security;
 using Arc4u.Security.Cryptography;
 using FluentResults;
@@ -43,7 +44,6 @@ namespace Arc4u.Encryptor
                 return GetCertificateFromFile(cert, password, privKeyIsExportable);
             }
         }
-
         private Result<X509Certificate2> GetCertificateFromFile(string cert, string? password, bool privKeyIsExportable)
         {
             if (!File.Exists(cert))
@@ -95,5 +95,35 @@ namespace Arc4u.Encryptor
             return Result.Try(() => _x509CertificateLoader.FindCertificate(certInfo));
         }
 
+        public string ConvertToPem(string base64EncodedData, bool split = false)
+        {
+            var sb = new StringBuilder();
+            if (split)
+            {
+                var base64Span = base64EncodedData.AsSpan();
+                while (base64Span.Length > 64)
+                {
+                    sb.AppendLine(base64Span.Slice(0, 64).ToString());
+                    base64Span = base64Span.Slice(64);
+                }
+                sb.Append(base64Span);
+            }
+            else
+            {
+                sb.AppendLine(base64EncodedData);
+            }
+
+            return sb.ToString();
+        }
+        public string ConvertToPem(string base64EncodedData, string header, bool split = false)
+        {
+            var sb = new StringBuilder();
+            sb.AppendLine($"-----BEGIN {header}-----");
+
+            sb.AppendLine(ConvertToPem(base64EncodedData, split));
+
+            sb.AppendLine($"-----END {header}-----");
+            return sb.ToString();
+        }
     }
 }

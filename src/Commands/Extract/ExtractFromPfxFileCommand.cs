@@ -58,14 +58,13 @@ namespace Arc4u.Cyphertool.Commands
                                         _logger.Technical().LogInformation($"The certificate '{x509.Subject}' has been loaded!");
                                         
                                         var publicKeyPem = Convert.ToBase64String(x509.GetPublicKey());
-                                        Console.WriteLine(ConvertToPem(publicKeyPem, "PUBLIC KEY", true));
+                                        Console.WriteLine(_certificateHelper.ConvertToPem(publicKeyPem, "PUBLIC KEY", true));
 
                                         if (!x509.HasPrivateKey)
                                         {
                                             _logger.Technical().LogWarning("The certificate doesn't have a private key.");
                                             return;
                                         }
-
 
                                         var privateKey = x509.GetRSAPrivateKey();
                                         if (privateKey is null)
@@ -74,42 +73,13 @@ namespace Arc4u.Cyphertool.Commands
                                             return;
                                         }
                                         var privateKeyPem = privateKey.ExportRSAPrivateKeyPem();
-                                        Console.WriteLine(ConvertToPem(privateKeyPem));
+                                        Console.WriteLine(_certificateHelper.ConvertToPem(privateKeyPem));
                                     });
            
                 return 0;
             });
         }
 
-        static string ConvertToPem(string base64EncodedData, bool split = false)
-        {
-            var sb = new StringBuilder();
-            if (split)
-            {
-                var base64Span = base64EncodedData.AsSpan();
-                while (base64Span.Length > 64)
-                {
-                    sb.AppendLine(base64Span.Slice(0, 64).ToString());
-                    base64Span = base64Span.Slice(64);
-                }
-                sb.Append(base64Span.ToString());
-            }
-            else
-            {
-                sb.AppendLine(base64EncodedData);
-            }
-
-            return sb.ToString();
-        }
-        static string ConvertToPem(string base64EncodedData, string header, bool split = false)
-        {
-            var sb = new StringBuilder();
-            sb.AppendLine($"-----BEGIN {header}-----");
-
-            sb.AppendLine(ConvertToPem(base64EncodedData, split));
-
-            sb.AppendLine($"-----END {header}-----");
-            return sb.ToString();
-        }
+ 
     }
 }
