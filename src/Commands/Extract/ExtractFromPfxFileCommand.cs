@@ -58,6 +58,7 @@ namespace Arc4u.Cyphertool.Commands
                                         _logger.Technical().LogInformation($"The certificate '{x509.Subject}' has been loaded!");
                                         
                                         var publicKeyPem = Convert.ToBase64String(x509.GetPublicKey());
+
                                         Console.WriteLine(_certificateHelper.ConvertToPem(publicKeyPem, "PUBLIC KEY", true));
 
                                         if (!x509.HasPrivateKey)

@@ -29,6 +29,9 @@ internal class EncryptFromCommand
         cmd.HelpOption();
 
         cmd.Command(certificateStoreCommand, _fromStoreCommand.Configure);
+        cmd.Command("keychain", _fromStoreCommand.Configure);
+        cmd.Command("cert", _fromStoreCommand.Configure);
+
         cmd.Command(pfxFileCommand, _fromPfxFileCommand.Configure);
 
         cmd.OnExecute(() =>
