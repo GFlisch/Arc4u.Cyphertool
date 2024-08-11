@@ -108,12 +108,12 @@ class Program
         services.AddSingleton<DecryptFileCommand>();
 
         services.AddSingleton<ExtractCommand>();
-        services.AddSingleton<ExtractFromCommand>();
-        services.AddSingleton<ExtractFromPfxFileCommand>();
+        services.AddSingleton<ExtractWithCommand>();
+        services.AddSingleton<ExtractWithPfxFileCommand>();
         services.AddSingleton<ExtractEncryptCommand>();
-        services.AddSingleton<ExtractEncryptFromCommand>();
-        services.AddSingleton<ExtractEncryptFromCertificateStoreCommand>();
-        services.AddSingleton<ExtractEncryptFromPfxFileCommand>();
+        services.AddSingleton<ExtractEncryptWithCommand>();
+        services.AddSingleton<ExtractEncryptWithCertificateStoreCommand>();
+        services.AddSingleton<ExtractEncryptWithPfxFileCommand>();
 
         services.AddSingleton<IHelpTextGenerator, HelperTextPage>();
     }

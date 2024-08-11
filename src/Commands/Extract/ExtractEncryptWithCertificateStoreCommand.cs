@@ -16,9 +16,9 @@ using Microsoft.Extensions.Logging;
 namespace Arc4u.Cyphertool.Commands;
 
 
-internal class ExtractEncryptFromCertificateStoreCommand
+internal class ExtractEncryptWithCertificateStoreCommand
 {
-    public ExtractEncryptFromCertificateStoreCommand(ILogger<EncryptTextCommand> logger,
+    public ExtractEncryptWithCertificateStoreCommand(ILogger<EncryptTextCommand> logger,
                                                      CertificateHelper certificateHelper)
     {
         _logger = logger;
@@ -50,6 +50,7 @@ internal class ExtractEncryptFromCertificateStoreCommand
                 return 0;
             }
 
+            Result result = Result.Ok();
             // Find the parent with full name ExtractFromPfxHelper
             cmd.Find("ExtractFromPfxHelper")
                .LogIfFailed()
@@ -60,10 +61,12 @@ internal class ExtractEncryptFromCertificateStoreCommand
                    var caOption = extractCmd.Options.FirstOrDefault(o => o.LongName == "ca");
                    var certifcate = extractCmd.Arguments.FirstOrDefault(a => a.Name is not null && a.Name.Equals("certificate", StringComparison.OrdinalIgnoreCase));
 
-                   _logger.Technical().LogInformation("Password {password}", passwordOption?.Value());
-                   _logger.Technical().LogInformation("Folder {folder}", folderOption?.Value());
-                   _logger.Technical().LogInformation("CA {ca}", caOption?.Value());
-                   _logger.Technical().LogInformation("Certificate {c}", certifcate?.Value);
+                   if (null == certifcate?.Value)
+                   {
+                       result = Result.Fail("The certificate to extract is missing!");
+                       result.Log();
+                       return;
+                   }
 
                    _certificateHelper.GetCertificate(certifcate.Value, passwordOption?.Value(), null, null, true)
                   .LogIfFailed()
@@ -71,9 +74,9 @@ internal class ExtractEncryptFromCertificateStoreCommand
                   {
                       _logger.Technical().LogInformation("The certificate '{subject}' has been loaded!", x509.Subject);
 
-                      var folder = folderOption.Value();
+                      var folder = folderOption?.Value();
                       bool saveToFolder = false;
-                      if (folderOption.HasValue())
+                      if (folder is not null)
                       {
                           if (!Directory.Exists(folder))
                           {
@@ -141,7 +144,7 @@ internal class ExtractEncryptFromCertificateStoreCommand
 
                                                         });
 
-                      if (caOption.HasValue())
+                      if (caOption is not null && caOption.HasValue())
                       {
                           // chain.
                           var chain = new X509Chain();

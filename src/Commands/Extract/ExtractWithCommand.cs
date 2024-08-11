@@ -6,16 +6,16 @@ using Microsoft.Extensions.Logging;
 
 namespace Arc4u.Cyphertool.Commands;
 
-internal class ExtractFromCommand
+internal class ExtractWithCommand
 {
-    public ExtractFromCommand(ILogger<EncryptFromCommand> logger,
-                              ExtractFromPfxFileCommand pfxFileCommand)
+    public ExtractWithCommand(ILogger<EncryptFromCommand> logger,
+                              ExtractWithPfxFileCommand pfxFileCommand)
     {
         _logger = logger;
         _fromPfxFileCommand = pfxFileCommand;
     }
 
-    readonly ExtractFromPfxFileCommand _fromPfxFileCommand;
+    readonly ExtractWithPfxFileCommand _fromPfxFileCommand;
     readonly ILogger<EncryptFromCommand> _logger;
 
     const string pfxFileCommand = "pfx";

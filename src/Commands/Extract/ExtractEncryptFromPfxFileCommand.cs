@@ -11,9 +11,9 @@ using Microsoft.Extensions.Logging;
 
 namespace Arc4u.Cyphertool.Commands
 {
-    internal class ExtractEncryptFromPfxFileCommand
+    internal class ExtractEncryptWithPfxFileCommand
     {
-        public ExtractEncryptFromPfxFileCommand(ILogger<EncryptFromPfxFileCommand> logger,
+        public ExtractEncryptWithPfxFileCommand(ILogger<EncryptFromPfxFileCommand> logger,
                                          CertificateHelper certificateHelper)
         {
             _logger = logger;

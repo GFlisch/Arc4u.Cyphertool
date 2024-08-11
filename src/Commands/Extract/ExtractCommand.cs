@@ -8,19 +8,19 @@ namespace Arc4u.Cyphertool.Commands;
 
 internal class ExtractCommand
 {
-    public ExtractCommand(ExtractFromCommand fromCommand)
+    public ExtractCommand(ExtractWithCommand fromCommand)
     {
         _fromCommand = fromCommand;
     }
 
-    readonly ExtractFromCommand _fromCommand;
+    readonly ExtractWithCommand _fromCommand;
 
     public void Configure(CommandLineApplication cmd)
     {
         cmd.FullName = "ExtractHelper";
         cmd.HelpOption();
 
-        cmd.Command("from", _fromCommand.Configure);
+        cmd.Command("with", _fromCommand.Configure);
 
         cmd.OnExecute(() =>
         {
