@@ -4,6 +4,7 @@
 using System.Diagnostics.CodeAnalysis;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
+using Arc4u.Diagnostics;
 using Arc4u.Security;
 using Arc4u.Security.Cryptography;
 using FluentResults;
@@ -95,7 +96,29 @@ namespace Arc4u.Encryptor
             return Result.Try(() => _x509CertificateLoader.FindCertificate(certInfo));
         }
 
-        public string ConvertToPem(string base64EncodedData, bool split = false)
+        public Result<string> ConvertPublicKeyToPem(X509Certificate2 x509)
+        {
+            return Result.Try(() =>
+            {
+                var publicKeyPem = Convert.ToBase64String(x509.GetPublicKey());
+                return ConvertToPem(publicKeyPem, "PUBLIC KEY", true);
+            });
+        }
+
+        public Result<string> ConvertPrivateKeyToPem(X509Certificate2 x509)
+        {
+            var privateKey = x509.GetRSAPrivateKey();
+            if (privateKey is null)
+            {
+                return Result.Fail("The certificate doesn't have a RSA private key.");
+            }
+            return Result.Try(() =>
+            {
+                var privateKeyPem = privateKey.ExportRSAPrivateKeyPem();
+                return ConvertToPem(privateKeyPem);
+            });
+        }
+        private string ConvertToPem(string base64EncodedData, bool split = false)
         {
             var sb = new StringBuilder();
             if (split)
@@ -110,12 +133,12 @@ namespace Arc4u.Encryptor
             }
             else
             {
-                sb.AppendLine(base64EncodedData);
+                sb.Append(base64EncodedData);
             }
 
             return sb.ToString();
         }
-        public string ConvertToPem(string base64EncodedData, string header, bool split = false)
+        private string ConvertToPem(string base64EncodedData, string header, bool split = false)
         {
             var sb = new StringBuilder();
             sb.AppendLine($"-----BEGIN {header}-----");

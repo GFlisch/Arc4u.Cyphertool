@@ -55,11 +55,43 @@ namespace Arc4u.Cyphertool.Commands
                                   .LogIfFailed()
                                   .OnSuccessNotNull(x509 =>
                                     {
-                                        _logger.Technical().LogInformation($"The certificate '{x509.Subject}' has been loaded!");
-                                        
-                                        var publicKeyPem = Convert.ToBase64String(x509.GetPublicKey());
+                                        _logger.Technical().LogInformation("The certificate '{subject}' has been loaded!", x509.Subject);
 
-                                        Console.WriteLine(_certificateHelper.ConvertToPem(publicKeyPem, "PUBLIC KEY", true));
+                                        var folder = folderOption.Value();
+                                        bool saveToFolder = false;
+                                        if (folderOption.HasValue())
+                                        {
+                                            if (!Directory.Exists(folder))
+                                            {
+                                                _logger.Technical().LogError($"The folder '{folder}' does not exist!");
+                                                _logger.Technical().LogInformation("The pem files will be display to the console.");
+                                            }
+                                            else
+                                            {
+                                                saveToFolder = true;
+                                            }
+
+                                            _logger.Technical().LogInformation("The keys will be stored in the folder '{folder}'.", folder!);
+                                        }
+
+                                        _certificateHelper.ConvertPublicKeyToPem(x509)
+                                                          .LogIfFailed()
+                                                          .OnSuccessNotNull((pem) =>
+                                                          {
+                                                              if (saveToFolder)
+                                                              {
+                                                                  var fileName = Path.Combine(folder!, $"{x509.FriendlyName}.pem");
+                                                                  _logger.Technical().LogInformation("Save public key to folder {folder} with name {name}", folder!, fileName);
+                                                                  File.WriteAllText(Path.Combine(folder!, fileName), pem);
+                                                              }
+                                                              else
+                                                              {
+                                                                  _logger.Technical().LogInformation("Extract public key.");
+                                                                  Console.WriteLine(pem);
+                                                              }
+                                                          });
+
+  
 
                                         if (!x509.HasPrivateKey)
                                         {
@@ -67,14 +99,62 @@ namespace Arc4u.Cyphertool.Commands
                                             return;
                                         }
 
-                                        var privateKey = x509.GetRSAPrivateKey();
-                                        if (privateKey is null)
+                                        _certificateHelper.ConvertPrivateKeyToPem(x509)
+                                                          .LogIfFailed()
+                                                          .OnSuccessNotNull((pem) =>
+                                                          {
+                                                              if (saveToFolder)
+                                                              {
+                                                                  var fileName = Path.Combine(folder!, $"{x509.FriendlyName}.key.pem");
+                                                                  _logger.Technical().LogInformation("Save private key to folder {folder} with name {name}", folder!, fileName);
+                                                                  File.WriteAllText(Path.Combine(folder!, fileName),
+                                                                                    pem);
+                                                              }
+                                                              else
+                                                              {
+                                                                  _logger.Technical().LogInformation("Extract private key.");
+                                                                  Console.WriteLine(pem);
+                                                              }
+                                                          } );
+                                        
+
+                                        // chain.
+                                        var chain = new X509Chain();
+                                        chain.Build(x509);
+                                        int idx = 1;
+                                        if (chain.ChainElements.Count > 1)
                                         {
-                                            _logger.Technical().LogWarning("The certificate doesn't have a RSA private key.");
-                                            return;
+                                            Console.WriteLine();
+                                            _logger.Technical().LogInformation("Extract the CA certificates");
+
+                                            foreach (var element in chain.ChainElements.Skip(1))
+                                            {
+                                                _logger.Technical().LogInformation("{idx}: Certificate Subject: {subject}", idx++, element.Certificate.Subject);
+                                            }
+
+                                            StringBuilder sb = new StringBuilder();
+                                            foreach (var element in chain.ChainElements.Skip(1))
+                                            {
+
+                                                _certificateHelper.ConvertPublicKeyToPem(element.Certificate)
+                                                                  .LogIfFailed()
+                                                                  .OnSuccessNotNull((pem) =>
+                                                                  {
+                                                                    sb.Append(pem);
+                                                                  });
+                                            }
+                                            if (saveToFolder)
+                                            {
+                                                var fileName = Path.Combine(folder!, $"{x509.FriendlyName}.ca.pem");
+                                                _logger.Technical().LogInformation("Save certificates authority public keys to folder {folder} with name {name}", folder!, fileName);
+                                                File.WriteAllText(Path.Combine(folder!, fileName),
+                                                                  sb.ToString());
+                                            }
+                                            else
+                                            {
+                                                Console.Write(sb.ToString());
+                                            }
                                         }
-                                        var privateKeyPem = privateKey.ExportRSAPrivateKeyPem();
-                                        Console.WriteLine(_certificateHelper.ConvertToPem(privateKeyPem));
                                     });
            
                 return 0;
