@@ -148,6 +148,15 @@
   <data name="EncryptTextHelper" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>EncryptTextHelper.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
   </data>
+  <data name="ExtractEncryptCertificateStoreHelper" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>ExtractEncryptCertificateStoreHelper.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  </data>
+  <data name="ExtractEncryptHelper" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>ExtractEncryptHelper.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  </data>
+  <data name="ExtractEncryptPfxHelper" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>ExtractEncryptPfxHelper.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  </data>
   <data name="RootHelper" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>RootHelper.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
   </data>

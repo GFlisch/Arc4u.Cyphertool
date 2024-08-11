@@ -14,12 +14,15 @@ namespace Arc4u.Cyphertool.Commands
     internal class ExtractFromPfxFileCommand
     {
         public ExtractFromPfxFileCommand(ILogger<EncryptFromPfxFileCommand> logger,
-                                         CertificateHelper certificateHelper)
+                                         CertificateHelper certificateHelper,
+                                         ExtractEncryptCommand encryptCommand)
         {
             _logger = logger;
             _certificateHelper = certificateHelper;
+            _encryptCommand = encryptCommand;
         }
 
+        readonly ExtractEncryptCommand _encryptCommand;
         readonly CertificateHelper _certificateHelper;
         readonly ILogger<EncryptFromPfxFileCommand> _logger;
 
@@ -29,12 +32,16 @@ namespace Arc4u.Cyphertool.Commands
             cmd.FullName = "ExtractFromPfxHelper";
             cmd.HelpOption();
 
+            // Commmad to encrypt the private key certificate.
+            cmd.Command("encrypt", _encryptCommand.Configure);
+
             // Argument
             var certifcate = cmd.Argument<string>("certificate", "The pfx certificate file.");
 
             // Options
             var passwordOption = cmd.Option("-p | --password", "The password to use for the file pfx certificate", CommandOptionType.SingleValue);
             var folderOption = cmd.Option("-f | --folder", "The folder to store the keys.", CommandOptionType.SingleValue);
+            var caOption = cmd.Option("-c | --ca", "Extract the CA certificates.", CommandOptionType.NoValue);
 
             // Display id the certificate exist!
             cmd.OnExecute(() =>
@@ -116,43 +123,45 @@ namespace Arc4u.Cyphertool.Commands
                                                                   Console.WriteLine(pem);
                                                               }
                                                           } );
-                                        
 
-                                        // chain.
-                                        var chain = new X509Chain();
-                                        chain.Build(x509);
-                                        int idx = 1;
-                                        if (chain.ChainElements.Count > 1)
+                                        if (caOption.HasValue())
                                         {
-                                            Console.WriteLine();
-                                            _logger.Technical().LogInformation("Extract the CA certificates");
+                                            // chain.
+                                            var chain = new X509Chain();
+                                            chain.Build(x509);
+                                            int idx = 1;
+                                            if (chain.ChainElements.Count > 1)
+                                            {
+                                                Console.WriteLine();
+                                                _logger.Technical().LogInformation("Extract the CA certificates");
 
-                                            foreach (var element in chain.ChainElements.Skip(1))
-                                            {
-                                                _logger.Technical().LogInformation("{idx}: Certificate Subject: {subject}", idx++, element.Certificate.Subject);
-                                            }
+                                                foreach (var element in chain.ChainElements.Skip(1))
+                                                {
+                                                    _logger.Technical().LogInformation("{idx}: Certificate Subject: {subject}", idx++, element.Certificate.Subject);
+                                                }
 
-                                            StringBuilder sb = new StringBuilder();
-                                            foreach (var element in chain.ChainElements.Skip(1))
-                                            {
+                                                StringBuilder sb = new StringBuilder();
+                                                foreach (var element in chain.ChainElements.Skip(1))
+                                                {
 
-                                                _certificateHelper.ConvertPublicKeyToPem(element.Certificate)
-                                                                  .LogIfFailed()
-                                                                  .OnSuccessNotNull((pem) =>
-                                                                  {
-                                                                    sb.Append(pem);
-                                                                  });
-                                            }
-                                            if (saveToFolder)
-                                            {
-                                                var fileName = Path.Combine(folder!, $"{x509.FriendlyName}.ca.pem");
-                                                _logger.Technical().LogInformation("Save certificates authority public keys to folder {folder} with name {name}", folder!, fileName);
-                                                File.WriteAllText(Path.Combine(folder!, fileName),
-                                                                  sb.ToString());
-                                            }
-                                            else
-                                            {
-                                                Console.Write(sb.ToString());
+                                                    _certificateHelper.ConvertPublicKeyToPem(element.Certificate)
+                                                                      .LogIfFailed()
+                                                                      .OnSuccessNotNull((pem) =>
+                                                                      {
+                                                                          sb.Append(pem);
+                                                                      });
+                                                }
+                                                if (saveToFolder)
+                                                {
+                                                    var fileName = Path.Combine(folder!, $"{x509.FriendlyName}.ca.pem");
+                                                    _logger.Technical().LogInformation("Save certificates authority public keys to folder {folder} with name {name}", folder!, fileName);
+                                                    File.WriteAllText(Path.Combine(folder!, fileName),
+                                                                      sb.ToString());
+                                                }
+                                                else
+                                                {
+                                                    Console.Write(sb.ToString());
+                                                }
                                             }
                                         }
                                     });

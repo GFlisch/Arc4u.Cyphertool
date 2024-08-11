@@ -1,0 +1,4 @@
+----------------------------------
+|       Arc4u Cyphertool.        |
+----------------------------------
+ExtractEncryptCertificateStoreHelper

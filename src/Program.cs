@@ -94,6 +94,7 @@ class Program
         services.AddLogging(configure => configure.AddSerilog());
         services.AddSingleton<CertificateHelper>();
         services.AddSingleton<IX509CertificateLoader, X509CertificateLoader>();
+
         services.AddSingleton<EncryptCommand>();
         services.AddSingleton<EncryptFromCommand>();
         services.AddSingleton<EncryptFromCertificateStoreCommand>();
@@ -111,6 +112,11 @@ class Program
         services.AddSingleton<ExtractCommand>();
         services.AddSingleton<ExtractFromCommand>();
         services.AddSingleton<ExtractFromPfxFileCommand>();
+        services.AddSingleton<ExtractEncryptCommand>();
+        services.AddSingleton<ExtractEncryptFromCommand>();
+        services.AddSingleton<ExtractEncryptFromCertificateStoreCommand>();
+        services.AddSingleton<ExtractEncryptFromPfxFileCommand>();
+
         services.AddSingleton<IHelpTextGenerator, HelperTextPage>();
     }
 }
