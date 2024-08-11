@@ -4,7 +4,6 @@
 using Arc4u.Cyphertool.Resources;
 using McMaster.Extensions.CommandLineUtils;
 using McMaster.Extensions.CommandLineUtils.HelpText;
-using Microsoft.Extensions.DependencyInjection;
 
 namespace Arc4u.Cyphertool.Helpers
 {

@@ -98,7 +98,7 @@ namespace Arc4u.Cyphertool.Commands
                                                               }
                                                           });
 
-  
+
 
                                         if (!x509.HasPrivateKey)
                                         {
@@ -122,7 +122,7 @@ namespace Arc4u.Cyphertool.Commands
                                                                   _logger.Technical().LogInformation("Extract private key.");
                                                                   Console.WriteLine(pem);
                                                               }
-                                                          } );
+                                                          });
 
                                         if (caOption.HasValue())
                                         {
@@ -165,11 +165,11 @@ namespace Arc4u.Cyphertool.Commands
                                             }
                                         }
                                     });
-           
+
                 return 0;
             });
         }
 
- 
+
     }
 }

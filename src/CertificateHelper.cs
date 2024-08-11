@@ -4,7 +4,6 @@
 using System.Diagnostics.CodeAnalysis;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
-using Arc4u.Diagnostics;
 using Arc4u.Security;
 using Arc4u.Security.Cryptography;
 using FluentResults;
@@ -80,7 +79,7 @@ namespace Arc4u.Encryptor
                 try
                 {
                     certInfo.Location = Enum.Parse<StoreLocation>(storeLocation, true);
-                    
+
                 }
                 catch (Exception)
                 {

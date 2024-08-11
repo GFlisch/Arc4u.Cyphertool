@@ -11,7 +11,7 @@ namespace Arc4u.Cyphertool.Commands;
 internal class DecryptFromCertificateStoreCommand
 {
     public DecryptFromCertificateStoreCommand(ILogger<EncryptTextCommand> logger,
-                                              DecryptTextCommand decryptTextCommand, 
+                                              DecryptTextCommand decryptTextCommand,
                                               DecryptFileCommand decryptFileCommand,
                                               CertificateHelper certificateHelper)
     {

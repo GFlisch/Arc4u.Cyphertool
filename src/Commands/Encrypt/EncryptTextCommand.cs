@@ -68,7 +68,7 @@ internal class EncryptTextCommand
                 return;
             }
 
-            _certificateHelper.GetCertificate(certifcate.Value, password?.Value() , storeName?.Value(), storeLocation?.Value())
+            _certificateHelper.GetCertificate(certifcate.Value, password?.Value(), storeName?.Value(), storeLocation?.Value())
                               .LogIfFailed()
                               .OnSuccessNotNull(x509 =>
                               {

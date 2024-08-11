@@ -1,7 +1,6 @@
 ﻿// Licensed to the Arc4u Foundation under one or more agreements.
 // The Arc4u Foundation licenses this file to you under the MIT license.
 
-using System.Net.Sockets;
 using System.Reflection;
 using Arc4u.Cyphertool.Commands;
 using Arc4u.Cyphertool.Helpers;
@@ -14,7 +13,6 @@ using McMaster.Extensions.CommandLineUtils.HelpText;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Serilog;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace Arc4u.Encryptor;
 
