@@ -116,5 +116,6 @@ class Program
         services.AddSingleton<ExtractEncryptWithPfxFileCommand>();
 
         services.AddSingleton<IHelpTextGenerator, HelperTextPage>();
+        services.AddSingleton<ExtractCertificateHelper>();
     }
 }
