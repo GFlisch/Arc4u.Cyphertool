@@ -45,9 +45,8 @@ namespace Arc4u.Cyphertool.Commands
             // Options
             var passwordOption = cmd.Option("-p | --password", "The password to use for the file pfx certificate", CommandOptionType.SingleValue);
             var folderOption = cmd.Option("-f | --folder", "The folder to store the keys.", CommandOptionType.SingleValue);
-            var caOption = cmd.Option("-c | --ca", "Extract the CA certificates.", CommandOptionType.NoValue);
+            var caOption = cmd.Option("-ca | --certificate-authorities", "Extract the CA certificates.", CommandOptionType.NoValue);
 
-            // Display id the certificate exist!
             cmd.OnExecute(() =>
             {
                 return _extract.ExtractCertificatePems(certifcate, passwordOption, folderOption, caOption);

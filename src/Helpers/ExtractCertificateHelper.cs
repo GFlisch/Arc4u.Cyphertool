@@ -1,7 +1,6 @@
 ﻿// Licensed to the Arc4u Foundation under one or more agreements.
 // The Arc4u Foundation licenses this file to you under the MIT license.
 
-using System.Diagnostics.CodeAnalysis;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using Arc4u.Encryptor;
@@ -10,6 +9,7 @@ using McMaster.Extensions.CommandLineUtils;
 using Arc4u.Diagnostics;
 using Arc4u.Results;
 using Microsoft.Extensions.Logging;
+using Arc4u.Security.Cryptography;
 
 namespace Arc4u.Cyphertool.Helpers
 {
@@ -23,7 +23,7 @@ namespace Arc4u.Cyphertool.Helpers
 
         readonly ILogger<CertificateHelper> _logger;
         readonly CertificateHelper _certificateHelper;
-        public int ExtractCertificatePems(CommandArgument<string> certifcate, CommandOption passwordOption, CommandOption folderOption, CommandOption caOption)
+        public int ExtractCertificatePems(CommandArgument<string> certifcate, CommandOption passwordOption, CommandOption folderOption, CommandOption caOption, X509Certificate2? x509Encrypt = null)
         {
             Result result = Result.Ok();
             CheckCertificateArgument(certifcate)
@@ -57,7 +57,7 @@ namespace Arc4u.Cyphertool.Helpers
 
                               ExtractPublicKey(x509, folder, saveToFolder);
 
-                              ExtractPrivateKey(x509, folder, saveToFolder);
+                              ExtractPrivateKey(x509, folder, saveToFolder, x509Encrypt);
 
                               ExtractCertificateAuthorities(x509, caOption, folder, saveToFolder);
                           });
@@ -126,7 +126,7 @@ namespace Arc4u.Cyphertool.Helpers
             }
         }
 
-        private void ExtractPrivateKey(X509Certificate2 x509, string? folder, bool saveToFolder)
+        private void ExtractPrivateKey(X509Certificate2 x509, string? folder, bool saveToFolder, X509Certificate2? x509Encrypt = null)
         {
             if (!x509.HasPrivateKey)
             {
@@ -138,17 +138,35 @@ namespace Arc4u.Cyphertool.Helpers
                               .LogIfFailed()
                               .OnSuccessNotNull((pem) =>
                               {
+                                  var folderInfo = "Save private key to folder {folder} with name {name}";
+                                  var consoleInfo = "Extract private key.";
+                                  var content = pem;
+                                  if (x509Encrypt is not null)
+                                  {
+                                      Result.Try(() => x509Encrypt.Encrypt(pem))
+                                            .LogIfFailed()
+                                            .OnSuccessNotNull(encrypted =>
+                                            {
+                                                content = encrypted;
+                                                folderInfo = "Save encrypted private key to folder {folder} with name {name}";
+                                                consoleInfo = "Extract encrypted private key.";
+                                            });
+                                        
+
+                                  }
+
+
                                   if (saveToFolder)
                                   {
                                       var fileName = Path.Combine(folder!, $"{x509.FriendlyName}.key.pem");
-                                      _logger.Technical().LogInformation("Save private key to folder {folder} with name {name}", folder!, fileName);
+                                      _logger.Technical().LogInformation(folderInfo, folder!, fileName);
                                       File.WriteAllText(Path.Combine(folder!, fileName),
-                                                        pem);
+                                                        content);
                                   }
                                   else
                                   {
-                                      _logger.Technical().LogInformation("Extract private key.");
-                                      Console.WriteLine(pem);
+                                      _logger.Technical().LogInformation(consoleInfo);
+                                      Console.WriteLine(content);
                                   }
                               });
         }
