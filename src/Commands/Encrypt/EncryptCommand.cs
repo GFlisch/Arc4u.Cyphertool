@@ -8,19 +8,19 @@ namespace Arc4u.Cyphertool.Commands;
 
 internal class EncryptCommand
 {
-    public EncryptCommand(EncryptWithCommand fromCommand)
+    public EncryptCommand(EncryptWithCommand withCommand)
     {
-        _fromCommand = fromCommand;
+        _withCommand = withCommand;
     }
 
-    readonly EncryptWithCommand _fromCommand;
+    readonly EncryptWithCommand _withCommand;
 
     public void Configure(CommandLineApplication cmd)
     {
         cmd.FullName = "EncryptCommand";
         cmd.HelpOption();
 
-        cmd.Command("with", _fromCommand.Configure);
+        cmd.Command("with", _withCommand.Configure);
 
         cmd.OnExecute(() =>
         {
