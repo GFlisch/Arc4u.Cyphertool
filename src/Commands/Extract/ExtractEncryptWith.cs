@@ -47,7 +47,7 @@ internal class ExtractEncryptWithCommand
         cmd.HelpOption();
 
         // Commands
-        cmd.Command("certificatestore", _ExtractEncryptWithCertificateStore.Configure);
+        cmd.Command("certificate-store", _ExtractEncryptWithCertificateStore.Configure);
         cmd.Command("cert", _ExtractEncryptWithCertificateStore.Configure);
         cmd.Command("keychain", _ExtractEncryptWithCertificateStore.Configure);
 

@@ -2,9 +2,14 @@
 |       Arc4u Cyphertool.        |
 ----------------------------------
 
-Add the certificate in the certificate store or the keychain.
+Decrypt with a certificate in the certificate store or the keychain searching based on the friendly name to find the certificate in the store.
 
-The certificate argument will use the friendly name to find the certificate in the store.
+
+                                                                    / text "clear text" \
+arc4u.cyphertool decrypt from cert "devCert" -l LocalMachine -n My |                     | -o "file"
+                                                                    \ file "path"       /
+
+
 
 Two optional parameters can be used to specify the store name and the store location.
 
@@ -15,16 +20,17 @@ Two optional parameters can be used to specify the store name and the store loca
                             Like on Windows: CurrentUser or LocalMachine.
                             Default is CurrentUser!
 
-You can decrypt a text or a file by using the following commands:
+You can decrypt a text or a file by adding the following commands:
     text => The text to decrypt
     file => The file to decrypt
 
+
 Example:
 
-    arc4u.cyphertool decrypt from certificatestore "encryptor" text "My text to decrypt"
-    arc4u.cyphertool decrypt from certificatestore "encryptor" file "My file to decrypt"
+    arc4u.cyphertool decrypt from certificate-store "decryptor" text "text to decrypt"
+    arc4u.cyphertool decrypt from certificate-store "decryptor" file "file to decrypt"
 
-    arc4u.cyphertool decrypt from certificatestore "encryptor" -n "My" -l "LocalMachine" text "My text to decrypt"
-    arc4u.cyphertool decrypt from certificatestore "encryptor" -n "My" -l "LocalMachine" file "My file to decrypt"
+    arc4u.cyphertool decrypt from certificate-store "decryptor" -n "My" -l "LocalMachine" text "text to decrypt"
+    arc4u.cyphertool decrypt from certificate-store "decryptor" -n "My" -l "LocalMachine" file "file to decrypt"
 
 

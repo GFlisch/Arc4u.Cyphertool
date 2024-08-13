@@ -21,7 +21,7 @@ internal class DecryptFromCommand
     readonly DecryptFromCertificateStoreCommand _fromStoreCommand;
     readonly ILogger<DecryptFromCommand> _logger;
 
-    const string certificateStoreCommand = "certificatestore";
+    const string certificateStoreCommand = "certificate-store";
     const string pfxFileCommand = "pfx";
     public void Configure(CommandLineApplication cmd)
     {

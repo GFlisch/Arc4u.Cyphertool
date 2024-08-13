@@ -27,10 +27,10 @@ You can encrypt a text or a file by adding the following commands:
 
 Example:
 
-    arc4u.cyphertool encrypt from certificatestore "encryptor" text "text to encrypt"
-    arc4u.cyphertool encrypt from certificatestore "encryptor" file "file to encrypt"
+    arc4u.cyphertool encrypt from certificate-store "encryptor" text "text to encrypt"
+    arc4u.cyphertool encrypt from certificate-store "encryptor" file "file to encrypt"
 
-    arc4u.cyphertool encrypt from certificatestore "encryptor" -n "My" -l "LocalMachine" text "text to encrypt"
-    arc4u.cyphertool encrypt from certificatestore "encryptor" -n "My" -l "LocalMachine" file "file to encrypt"
+    arc4u.cyphertool encrypt from certificate-store "encryptor" -n "My" -l "LocalMachine" text "text to encrypt"
+    arc4u.cyphertool encrypt from certificate-store "encryptor" -n "My" -l "LocalMachine" file "file to encrypt"
 
 

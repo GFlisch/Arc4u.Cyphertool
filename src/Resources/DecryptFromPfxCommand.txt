@@ -2,15 +2,20 @@
 |       Arc4u Cyphertool.        |
 ----------------------------------
 
-Add the certificate file path to the pfx file.
+Decrypt from a pfx file.
+
+
+                                                                     / text "clear text" \
+arc4u.cyphertool decrypt from pfx "C:\temp\devCert.pfx" -p password |                     | -o "file"
+                                                                     \ file "path"       /
+
 
 Optionnaly you can add the password to the pfx file.
 -p | --password => The password to use for the file pfx certificate
 
 If the password is not set, a prompt will be displayed to ask for the password.
 
-
-You can decrypt a text or a file by using the following commands:
+You can decrypt a text or a file by adding the following commands:
     text => The text to decrypt
     file => The file to decrypt
 

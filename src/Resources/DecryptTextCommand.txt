@@ -2,11 +2,16 @@
 |       Arc4u Cyphertool.        |
 ----------------------------------
 
-When you use the cypher tool and you want to decrypt a cypher text based on a certificate,
-you have to provide the cypher text via the text argument like this:
+When you use the cypher tool and you want to decrypt a text based on a certificate,
+you have to provide the clear text via the text argument like this:
+
+                               / pfx "C:\temp\devCert.pfx" -p password \ 
+arc4u.cyphertool decrypt from |                                         | text "clear text" -o "file"
+                               \ cert "devCert" -l LocalMachine -n My  / 
 
 Optionnaly you can specify that the decrypted text must be saved in a file.
 -o | --output => The file to store the content.
 
-=>    arc4u.cyphertool decrypt from certificatestore "certificate" ... text "cypher text" (-o | --output "file")
+=>    arc4u.cyphertool decrypt from certificate-store "certificate" ... text "decrypt me"  (-o | --output "file")
+
 

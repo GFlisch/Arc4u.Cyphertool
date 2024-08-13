@@ -12,6 +12,6 @@ arc4u.cyphertool encrypt from |                                         | text "
 Optionnaly you can specify that the encrypted text must be saved in a file.
 -o | --output => The file to store the content.
 
-=>    arc4u.cyphertool encrypt from certificatestore "certificate" ... text "encrypt me"  (-o | --output "file")
+=>    arc4u.cyphertool encrypt from certificate-store "certificate" ... text "encrypt me"  (-o | --output "file")
 
 
