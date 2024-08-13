@@ -21,14 +21,13 @@ internal class EncryptFromCommand
     readonly EncryptFromCertificateStoreCommand _fromStoreCommand;
     readonly ILogger<EncryptFromCommand> _logger;
 
-    const string certificateStoreCommand = "certificatestore";
     const string pfxFileCommand = "pfx";
     public void Configure(CommandLineApplication cmd)
     {
         cmd.FullName = "EncryptCommand";
         cmd.HelpOption();
 
-        cmd.Command(certificateStoreCommand, _fromStoreCommand.Configure);
+        cmd.Command("certificate-store", _fromStoreCommand.Configure);
         cmd.Command("keychain", _fromStoreCommand.Configure);
         cmd.Command("cert", _fromStoreCommand.Configure);
 

@@ -2,9 +2,14 @@
 |       Arc4u Cyphertool.        |
 ----------------------------------
 
-Add the certificate in the certificate store or the keychain.
+Encrypt with a certificate in the certificate store or the keychain searching based on the friendly name to find the certificate in the store.
 
-The certificate argument will use the friendly name to find the certificate in the store.
+
+                                                                    / text "clear text" \
+arc4u.cyphertool encrypt from cert "devCert" -l LocalMachine -n My |                     | -o "file"
+                                                                    \ file "path"       /
+
+
 
 Two optional parameters can be used to specify the store name and the store location.
 
@@ -18,6 +23,7 @@ Two optional parameters can be used to specify the store name and the store loca
 You can encrypt a text or a file by adding the following commands:
     text => The text to encrypt
     file => The file to encrypt
+
 
 Example:
 

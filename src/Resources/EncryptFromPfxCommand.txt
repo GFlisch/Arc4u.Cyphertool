@@ -2,7 +2,13 @@
 |       Arc4u Cyphertool.        |
 ----------------------------------
 
-Add the certificate file path to the pfx file.
+Encrypt from a pfx file.
+
+
+                                                                     / text "clear text" \
+arc4u.cyphertool encrypt from pfx "C:\temp\devCert.pfx" -p password |                     | -o "file"
+                                                                     \ file "path"       /
+
 
 Optionnaly you can add the password to the pfx file.
 -p | --password => The password to use for the file pfx certificate
@@ -20,5 +26,4 @@ arc4u.cyphertool encrypt from pfx /path/to/certificate.pfx -p password file "the
 
 arc4u.cyphertool encrypt from pfx /path/to/certificate.pfx text "cypher text"
 arc4u.cyphertool encrypt from pfx /path/to/certificate.pfx file "the path to the file to encrypt."
-
 
