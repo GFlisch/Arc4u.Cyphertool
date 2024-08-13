@@ -23,7 +23,7 @@ namespace Arc4u.Encryptor
         readonly ILogger<CertificateHelper> _logger;
         readonly IX509CertificateLoader _x509CertificateLoader;
 
-        public Result<X509Certificate2> GetCertificate([DisallowNull] string cert, string? password, string? storeName, string? storeLocation, bool privKeyIsExportable = false)
+        public Result<X509Certificate2> GetCertificate([DisallowNull] string cert, string? password, string? storeName, string? storeLocation, bool privKeyIsExportable = false, string prompt = "Password:")
         {
             ArgumentNullException.ThrowIfNullOrWhiteSpace(cert);
 
@@ -38,7 +38,7 @@ namespace Arc4u.Encryptor
             {
                 if (string.IsNullOrWhiteSpace(password))
                 {
-                    password = Prompt.GetPassword("Password:", ConsoleColor.DarkYellow);
+                    password = Prompt.GetPassword(prompt, ConsoleColor.DarkYellow);
                 }
 
                 return GetCertificateFromFile(cert, password, privKeyIsExportable);

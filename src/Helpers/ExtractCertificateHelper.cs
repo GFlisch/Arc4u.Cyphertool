@@ -3,13 +3,13 @@
 
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
+using Arc4u.Diagnostics;
 using Arc4u.Encryptor;
+using Arc4u.Results;
+using Arc4u.Security.Cryptography;
 using FluentResults;
 using McMaster.Extensions.CommandLineUtils;
-using Arc4u.Diagnostics;
-using Arc4u.Results;
 using Microsoft.Extensions.Logging;
-using Arc4u.Security.Cryptography;
 
 namespace Arc4u.Cyphertool.Helpers
 {
@@ -67,7 +67,7 @@ namespace Arc4u.Cyphertool.Helpers
             return result.IsSuccess ? 1 : -1;
         }
 
-        
+
         private Result<string> CheckCertificateArgument(CommandArgument<string> certifcate)
         {
             if (null == certifcate?.Value)
@@ -151,8 +151,6 @@ namespace Arc4u.Cyphertool.Helpers
                                                 folderInfo = "Save encrypted private key to folder {folder} with name {name}";
                                                 consoleInfo = "Extract encrypted private key.";
                                             });
-                                        
-
                                   }
 
 

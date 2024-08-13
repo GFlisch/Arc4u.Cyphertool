@@ -1,11 +1,12 @@
 ﻿// Licensed to the Arc4u Foundation under one or more agreements.
 // The Arc4u Foundation licenses this file to you under the MIT license.
 
-using System.Security.Cryptography.X509Certificates;
-using System.Text;
+using Arc4u.Cyphertool.Extensions;
+using Arc4u.Cyphertool.Helpers;
 using Arc4u.Diagnostics;
 using Arc4u.Encryptor;
 using Arc4u.Results;
+using FluentResults;
 using McMaster.Extensions.CommandLineUtils;
 using Microsoft.Extensions.Logging;
 
@@ -14,15 +15,17 @@ namespace Arc4u.Cyphertool.Commands
     internal class ExtractEncryptWithPfxFileCommand
     {
         public ExtractEncryptWithPfxFileCommand(ILogger<EncryptFromPfxFileCommand> logger,
-                                         CertificateHelper certificateHelper)
+                                                ExtractCertificateHelper extract,
+                                                CertificateHelper certificateHelper)
         {
             _logger = logger;
             _certificateHelper = certificateHelper;
+            _extract = extract;
         }
 
+        readonly ExtractCertificateHelper _extract;
         readonly CertificateHelper _certificateHelper;
         readonly ILogger<EncryptFromPfxFileCommand> _logger;
-
 
         public void Configure(CommandLineApplication cmd)
         {
@@ -30,136 +33,63 @@ namespace Arc4u.Cyphertool.Commands
             cmd.HelpOption();
 
             // Argument
-            var certifcate = cmd.Argument<string>("certificate", "The pfx certificate file.");
+            var certifcateToEncrypt = cmd.Argument<string>("certificate", "The pfx certificate file.");
 
             // Options
-            var passwordOption = cmd.Option("-p | --password", "The password to use for the file pfx certificate", CommandOptionType.SingleValue);
-            var folderOption = cmd.Option("-f | --folder", "The folder to store the keys.", CommandOptionType.SingleValue);
-            var caOption = cmd.Option("-c | --ca", "Extract the CA certificates.", CommandOptionType.NoValue);
+            var passwordOptionToEncrypt = cmd.Option("-p | --password", "The password to use for the file pfx certificate", CommandOptionType.SingleValue);
 
-            // Display id the certificate exist!
             cmd.OnExecute(() =>
             {
-                if (null == certifcate?.Value)
+                if (!certifcateToEncrypt.HasValue)
                 {
-                    _logger.LogError("The certificate is missing!");
-                    return -1;
+                    _logger.Technical().LogError("Missing certificate to encrypt the private key.");
+                    return 0;
                 }
 
-                if (!File.Exists(certifcate.Value))
-                {
-                    _logger.LogError($"The certificate file '{certifcate.Value}' does not exist!");
-                    return -1;
-                }
 
-                _certificateHelper.GetCertificate(certifcate.Value, passwordOption?.Value(), null, null, true)
-                                  .LogIfFailed()
-                                  .OnSuccessNotNull(x509 =>
-                                  {
-                                      _logger.Technical().LogInformation("The certificate '{subject}' has been loaded!", x509.Subject);
+                Result result = Result.Ok();
+                // Find the parent with full name ExtractFromPfxHelper
+                cmd.Find("ExtractFromPfxHelper")
+                   .LogIfFailed()
+                   .OnSuccessNotNull(extractCmd =>
+                   {
+                       var passwordOption = extractCmd.Options.FirstOrDefault(o => o.LongName == "password");
+                       var folderOption = extractCmd.Options.FirstOrDefault(o => o.LongName == "folder");
+                       var caOption = extractCmd.Options.FirstOrDefault(o => o.LongName == "certificate-authorities");
+                       var certificate = extractCmd.Arguments.FirstOrDefault(a => a.Name is not null && a.Name.Equals("certificate", StringComparison.OrdinalIgnoreCase)) as CommandArgument<string>;
 
-                                      var folder = folderOption.Value();
-                                      bool saveToFolder = false;
-                                      if (folderOption.HasValue())
-                                      {
-                                          if (!Directory.Exists(folder))
-                                          {
-                                              _logger.Technical().LogError($"The folder '{folder}' does not exist!");
-                                              _logger.Technical().LogInformation("The pem files will be display to the console.");
-                                          }
-                                          else
-                                          {
-                                              saveToFolder = true;
-                                          }
+                       if (passwordOption is null)
+                       {
+                           Result.Fail("Your parent command doesn't contain any option --password!");
+                       }
+                       if (folderOption is null)
+                       {
+                           Result.Fail("Your parent command doesn't contain any option --folder!");
+                       }
+                       if (caOption is null)
+                       {
+                           Result.Fail("Your parent command doesn't contain any option --certificate-authorities!");
+                       }
+                       if (certificate is null)
+                       {
+                           Result.Fail("Your parent command doesn't contain an argument certificate.");
+                       }
 
-                                          _logger.Technical().LogInformation("The keys will be stored in the folder '{folder}'.", folder!);
-                                      }
+                       result.LogIfFailed();
+                       if (result.IsFailed)
+                       {
+                           return;
+                       }
 
-                                      _certificateHelper.ConvertPublicKeyToPem(x509)
-                                                        .LogIfFailed()
-                                                        .OnSuccessNotNull((pem) =>
-                                                        {
-                                                            if (saveToFolder)
-                                                            {
-                                                                var fileName = Path.Combine(folder!, $"{x509.FriendlyName}.pem");
-                                                                _logger.Technical().LogInformation("Save public key to folder {folder} with name {name}", folder!, fileName);
-                                                                File.WriteAllText(Path.Combine(folder!, fileName), pem);
-                                                            }
-                                                            else
-                                                            {
-                                                                _logger.Technical().LogInformation("Extract public key.");
-                                                                Console.WriteLine(pem);
-                                                            }
-                                                        });
-
-
-
-                                      if (!x509.HasPrivateKey)
-                                      {
-                                          _logger.Technical().LogWarning("The certificate doesn't have a private key.");
-                                          return;
-                                      }
-
-                                      _certificateHelper.ConvertPrivateKeyToPem(x509)
-                                                        .LogIfFailed()
-                                                        .OnSuccessNotNull((pem) =>
-                                                        {
-                                                            if (saveToFolder)
-                                                            {
-                                                                var fileName = Path.Combine(folder!, $"{x509.FriendlyName}.key.pem");
-                                                                _logger.Technical().LogInformation("Save private key to folder {folder} with name {name}", folder!, fileName);
-                                                                File.WriteAllText(Path.Combine(folder!, fileName),
-                                                                                  pem);
-                                                            }
-                                                            else
-                                                            {
-                                                                _logger.Technical().LogInformation("Extract private key.");
-                                                                Console.WriteLine(pem);
-                                                            }
-                                                        });
-
-                                      if (caOption.HasValue())
-                                      {
-                                          // chain.
-                                          var chain = new X509Chain();
-                                          chain.Build(x509);
-                                          int idx = 1;
-                                          if (chain.ChainElements.Count > 1)
-                                          {
-                                              Console.WriteLine();
-                                              _logger.Technical().LogInformation("Extract the CA certificates");
-
-                                              foreach (var element in chain.ChainElements.Skip(1))
-                                              {
-                                                  _logger.Technical().LogInformation("{idx}: Certificate Subject: {subject}", idx++, element.Certificate.Subject);
-                                              }
-
-                                              StringBuilder sb = new StringBuilder();
-                                              foreach (var element in chain.ChainElements.Skip(1))
-                                              {
-
-                                                  _certificateHelper.ConvertPublicKeyToPem(element.Certificate)
-                                                                    .LogIfFailed()
-                                                                    .OnSuccessNotNull((pem) =>
-                                                                    {
-                                                                        sb.Append(pem);
-                                                                    });
-                                              }
-                                              if (saveToFolder)
-                                              {
-                                                  var fileName = Path.Combine(folder!, $"{x509.FriendlyName}.ca.pem");
-                                                  _logger.Technical().LogInformation("Save certificates authority public keys to folder {folder} with name {name}", folder!, fileName);
-                                                  File.WriteAllText(Path.Combine(folder!, fileName),
-                                                                    sb.ToString());
-                                              }
-                                              else
-                                              {
-                                                  Console.Write(sb.ToString());
-                                              }
-                                          }
-                                      }
-                                  });
-
+                       _logger.Technical().LogInformation("Get certificate to encrypt the private key.");
+                       _certificateHelper.GetCertificate(certifcateToEncrypt.Value!, passwordOptionToEncrypt.Value(), null, null, false, "Encryption Password: ")
+                                         .LogIfFailed()
+                                         .OnSuccessNotNull(x509 =>
+                                         {
+                                             _logger.Technical().LogInformation("Extract the keys.");
+                                             _extract.ExtractCertificatePems(certificate!, passwordOption!, folderOption!, caOption!, x509);
+                                         });
+                   });
                 return 0;
             });
         }

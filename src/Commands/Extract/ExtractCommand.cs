@@ -29,5 +29,5 @@ internal class ExtractCommand
         });
     }
 
- 
+
 }
