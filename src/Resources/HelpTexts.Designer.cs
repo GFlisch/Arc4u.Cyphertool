@@ -68,10 +68,10 @@ namespace Arc4u.Cyphertool.Resources {
         ///Let you decrypt a text or a file using a certificate or a pfx file.
         ///
         ///With a certificate in the certificate store or keychain.
-        ///arc4u.cyphertool decrypt from certificate-store &quot;certifcate friendly name&quot; text &quot;cypher text&quot;
+        ///arc4u.cyphertool decrypt with certificate-store &quot;certifcate friendly name&quot; text &quot;cypher text&quot;
         ///
         ///With a pfx file.
-        ///arc4u.cyphertool decrypt from pfx &quot;C:\temp\devCert.pfx&quot; -p password text &quot;cypher text&quot;
+        ///arc4u.cyphertool decrypt with pfx &quot;C:\temp\devCert.pfx&quot; -p password text &quot;cypher text&quot;
         ///.
         /// </summary>
         internal static string DecryptCommand {
@@ -91,7 +91,7 @@ namespace Arc4u.Cyphertool.Resources {
         ///Optionnaly you can specify that the decrypted text must be saved in a file.
         ///-o | --output =&gt; The file to store the content.
         ///
-        ///=&gt;    arc4u.cyphertool decrypt from certificate-store &quot;certificate&quot; ... file &quot;My file to decrypt&quot; (-o | --outpu [rest of string was truncated]&quot;;.
+        ///=&gt;    arc4u.cyphertool decrypt with certificate-store &quot;certificate&quot; ... file &quot;My file to decrypt&quot; (-o | --outpu [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string DecryptFileCommand {
             get {
@@ -155,7 +155,7 @@ namespace Arc4u.Cyphertool.Resources {
         ///Optionnaly you can specify that the decrypted text must be saved in a file.
         ///-o | --output =&gt; The file to store the content.
         ///
-        ///=&gt;    arc4u.cyphertool decrypt from certificate-store &quot;certificate&quot; ... text &quot;cypher text&quot; (-o | --output &quot;file [rest of string was truncated]&quot;;.
+        ///=&gt;    arc4u.cyphertool decrypt with certificate-store &quot;certificate&quot; ... text &quot;cypher text&quot; (-o | --output &quot;file [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string DecryptTextCommand {
             get {
@@ -171,10 +171,10 @@ namespace Arc4u.Cyphertool.Resources {
         ///Let you encrypt a text or a file using a certificate or a pfx file.
         ///
         ///With a certificate in the certificate store or keychain.
-        ///arc4u.cyphertool encrypt from certificate-store &quot;certifcate friendly name&quot; text &quot;clear text&quot;
+        ///arc4u.cyphertool encrypt with certificate-store &quot;certifcate friendly name&quot; text &quot;clear text&quot;
         ///
         ///With a pfx file.
-        ///arc4u.cyphertool encrypt from pfx &quot;C:\temp\devCert.pfx&quot; -p password text &quot;clear text&quot;
+        ///arc4u.cyphertool encrypt with pfx &quot;C:\temp\devCert.pfx&quot; -p password text &quot;clear text&quot;
         ///.
         /// </summary>
         internal static string EncryptCommand {
@@ -194,7 +194,7 @@ namespace Arc4u.Cyphertool.Resources {
         ///Optionnaly you can specify that the encrypted text must be saved in a file.
         ///-o | --output =&gt; The file to store the content.
         ///
-        ///=&gt;    arc4u.cyphertool encrypt from certificate-store &quot;certificate&quot; ... file &quot;My file to encrypt&quot;  (-o | --output &quot;file [rest of string was truncated]&quot;;.
+        ///=&gt;    arc4u.cyphertool encrypt with certificate-store &quot;certificate&quot; ... file &quot;My file to encrypt&quot;  (-o | --output &quot;file [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string EncryptFileCommand {
             get {
@@ -257,7 +257,7 @@ namespace Arc4u.Cyphertool.Resources {
         ///Optionnaly you can specify that the encrypted text must be saved in a file.
         ///-o | --output =&gt; The file to store the content.
         ///
-        ///=&gt;    arc4u.cyphertool encrypt from certificate-store &quot;certificate&quot; ... text &quot;encrypt me&quot;  (-o | --output &quot;file&quot;)
+        ///=&gt;    arc4u.cyphertool encrypt with certificate-store &quot;certificate&quot; ... text &quot;encrypt me&quot;  (-o | --output &quot;file&quot;)
         ///
         ///
         ///.

@@ -6,7 +6,7 @@ Decrypt with a certificate in the certificate store or the keychain searching ba
 
 
                                                                     / text "clear text" \
-arc4u.cyphertool decrypt from cert "devCert" -l LocalMachine -n My |                     | -o "file"
+arc4u.cyphertool decrypt with cert "devCert" -l LocalMachine -n My |                     | -o "file"
                                                                     \ file "path"       /
 
 
@@ -27,10 +27,10 @@ You can decrypt a text or a file by adding the following commands:
 
 Example:
 
-    arc4u.cyphertool decrypt from certificate-store "decryptor" text "text to decrypt"
-    arc4u.cyphertool decrypt from certificate-store "decryptor" file "file to decrypt"
+    arc4u.cyphertool decrypt with certificate-store "decryptor" text "text to decrypt"
+    arc4u.cyphertool decrypt with certificate-store "decryptor" file "file to decrypt"
 
-    arc4u.cyphertool decrypt from certificate-store "decryptor" -n "My" -l "LocalMachine" text "text to decrypt"
-    arc4u.cyphertool decrypt from certificate-store "decryptor" -n "My" -l "LocalMachine" file "file to decrypt"
+    arc4u.cyphertool decrypt with certificate-store "decryptor" -n "My" -l "LocalMachine" text "text to decrypt"
+    arc4u.cyphertool decrypt with certificate-store "decryptor" -n "My" -l "LocalMachine" file "file to decrypt"
 
 

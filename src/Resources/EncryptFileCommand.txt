@@ -5,7 +5,7 @@
 Encrypt the content of a file.
 
                                / pfx "C:\temp\devCert.pfx" -p password \ 
-arc4u.cyphertool encrypt from |                                         | file "path"  -o "file"
+arc4u.cyphertool encrypt with |                                         | file "path"  -o "file"
                                \ cert "devCert" -l LocalMachine -n My  / 
 
 

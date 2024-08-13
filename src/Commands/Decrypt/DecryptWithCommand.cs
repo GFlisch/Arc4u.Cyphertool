@@ -6,28 +6,29 @@ using Microsoft.Extensions.Logging;
 
 namespace Arc4u.Cyphertool.Commands;
 
-internal class EncryptFromCommand
+internal class DecryptWithCommand
 {
-    public EncryptFromCommand(ILogger<EncryptFromCommand> logger,
-                              EncryptFromCertificateStoreCommand fromStoreCommand,
-                              EncryptFromPfxFileCommand fromPfxFileCommand)
+    public DecryptWithCommand(ILogger<DecryptWithCommand> logger,
+                              DecryptWithCertificateStoreCommand fromStoreCommand,
+                              DecryptWithPfxFileCommand fromPfxFileCommand)
     {
         _logger = logger;
         _fromStoreCommand = fromStoreCommand;
         _fromPfxFileCommand = fromPfxFileCommand;
     }
 
-    readonly EncryptFromPfxFileCommand _fromPfxFileCommand;
-    readonly EncryptFromCertificateStoreCommand _fromStoreCommand;
-    readonly ILogger<EncryptFromCommand> _logger;
+    readonly DecryptWithPfxFileCommand _fromPfxFileCommand;
+    readonly DecryptWithCertificateStoreCommand _fromStoreCommand;
+    readonly ILogger<DecryptWithCommand> _logger;
 
+    const string certificateStoreCommand = "certificate-store";
     const string pfxFileCommand = "pfx";
     public void Configure(CommandLineApplication cmd)
     {
-        cmd.FullName = "EncryptCommand";
+        cmd.FullName = "DecryptCommand";
         cmd.HelpOption();
 
-        cmd.Command("certificate-store", _fromStoreCommand.Configure);
+        cmd.Command(certificateStoreCommand, _fromStoreCommand.Configure);
         cmd.Command("keychain", _fromStoreCommand.Configure);
         cmd.Command("cert", _fromStoreCommand.Configure);
 

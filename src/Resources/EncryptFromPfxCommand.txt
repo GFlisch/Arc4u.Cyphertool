@@ -6,7 +6,7 @@ Encrypt from a pfx file.
 
 
                                                                      / text "clear text" \
-arc4u.cyphertool encrypt from pfx "C:\temp\devCert.pfx" -p password |                     | -o "file"
+arc4u.cyphertool encrypt with pfx "C:\temp\devCert.pfx" -p password |                     | -o "file"
                                                                      \ file "path"       /
 
 
@@ -21,9 +21,9 @@ You can encrypt a text or a file by adding the following commands:
 
 Example:
 
-arc4u.cyphertool encrypt from pfx /path/to/certificate.pfx -p password text "cypher text"
-arc4u.cyphertool encrypt from pfx /path/to/certificate.pfx -p password file "the path to the file to encrypt."
+arc4u.cyphertool encrypt with pfx /path/to/certificate.pfx -p password text "cypher text"
+arc4u.cyphertool encrypt with pfx /path/to/certificate.pfx -p password file "the path to the file to encrypt."
 
-arc4u.cyphertool encrypt from pfx /path/to/certificate.pfx text "cypher text"
-arc4u.cyphertool encrypt from pfx /path/to/certificate.pfx file "the path to the file to encrypt."
+arc4u.cyphertool encrypt with pfx /path/to/certificate.pfx text "cypher text"
+arc4u.cyphertool encrypt with pfx /path/to/certificate.pfx file "the path to the file to encrypt."
 

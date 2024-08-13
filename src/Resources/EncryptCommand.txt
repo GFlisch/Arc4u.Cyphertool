@@ -5,12 +5,12 @@
 Let you encrypt a text or a file using a certificate or a pfx file.
 
 With a certificate in the certificate store or keychain.
-arc4u.cyphertool encrypt from certificate-store "certifcate friendly name" text "clear text"
+arc4u.cyphertool encrypt with certificate-store "certifcate friendly name" text "clear text"
 
 
 
                                / pfx "C:\temp\devCert.pfx" -p password \ / text "clear text" \
-arc4u.cyphertool encrypt from |                                         |                     | -o "file"
+arc4u.cyphertool encrypt with |                                         |                     | -o "file"
                                \ cert "devCert" -l LocalMachine -n My  / \ file "path"       /
 
 

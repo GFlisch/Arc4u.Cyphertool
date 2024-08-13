@@ -8,7 +8,7 @@ namespace Arc4u.Cyphertool.Commands;
 
 internal class ExtractWithCommand
 {
-    public ExtractWithCommand(ILogger<EncryptFromCommand> logger,
+    public ExtractWithCommand(ILogger<EncryptWithCommand> logger,
                               ExtractWithPfxFileCommand pfxFileCommand)
     {
         _logger = logger;
@@ -16,7 +16,7 @@ internal class ExtractWithCommand
     }
 
     readonly ExtractWithPfxFileCommand _fromPfxFileCommand;
-    readonly ILogger<EncryptFromCommand> _logger;
+    readonly ILogger<EncryptWithCommand> _logger;
 
     const string pfxFileCommand = "pfx";
     public void Configure(CommandLineApplication cmd)

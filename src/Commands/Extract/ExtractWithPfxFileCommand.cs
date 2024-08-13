@@ -10,7 +10,7 @@ namespace Arc4u.Cyphertool.Commands
 {
     internal class ExtractWithPfxFileCommand
     {
-        public ExtractWithPfxFileCommand(ILogger<EncryptFromPfxFileCommand> logger,
+        public ExtractWithPfxFileCommand(ILogger<EncryptWithPfxFileCommand> logger,
                                          CertificateHelper certificateHelper,
                                          ExtractCertificateHelper extract,
                                          ExtractEncryptCommand encryptCommand)
@@ -24,7 +24,7 @@ namespace Arc4u.Cyphertool.Commands
         readonly ExtractCertificateHelper _extract;
         readonly ExtractEncryptCommand _encryptCommand;
         readonly CertificateHelper _certificateHelper;
-        readonly ILogger<EncryptFromPfxFileCommand> _logger;
+        readonly ILogger<EncryptWithPfxFileCommand> _logger;
 
 
         public void Configure(CommandLineApplication cmd)

@@ -5,12 +5,12 @@
 Let you decrypt a text or a file using a certificate or a pfx file.
 
 With a certificate in the certificate store or keychain.
-arc4u.cyphertool decrypt from certificate-store "certifcate friendly name" text "clear text"
+arc4u.cyphertool decrypt with certificate-store "certifcate friendly name" text "clear text"
 
 
 
                                / pfx "C:\temp\devCert.pfx" -p password \ / text "clear text" \
-arc4u.cyphertool decrypt from |                                         |                     | -o "file"
+arc4u.cyphertool decrypt with |                                         |                     | -o "file"
                                \ cert "devCert" -l LocalMachine -n My  / \ file "path"       /
 
 

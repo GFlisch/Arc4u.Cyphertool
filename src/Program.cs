@@ -94,16 +94,16 @@ class Program
         services.AddSingleton<IX509CertificateLoader, X509CertificateLoader>();
 
         services.AddSingleton<EncryptCommand>();
-        services.AddSingleton<EncryptFromCommand>();
-        services.AddSingleton<EncryptFromCertificateStoreCommand>();
-        services.AddSingleton<EncryptFromPfxFileCommand>();
+        services.AddSingleton<EncryptWithCommand>();
+        services.AddSingleton<EncryptWithCertificateStoreCommand>();
+        services.AddSingleton<EncryptWithPfxFileCommand>();
         services.AddSingleton<EncryptTextCommand>();
         services.AddSingleton<EncryptFileCommand>();
 
         services.AddSingleton<DecryptCommand>();
-        services.AddSingleton<DecryptFromCommand>();
-        services.AddSingleton<DecryptFromCertificateStoreCommand>();
-        services.AddSingleton<DecryptFromPfxFileCommand>();
+        services.AddSingleton<DecryptWithCommand>();
+        services.AddSingleton<DecryptWithCertificateStoreCommand>();
+        services.AddSingleton<DecryptWithPfxFileCommand>();
         services.AddSingleton<DecryptTextCommand>();
         services.AddSingleton<DecryptFileCommand>();
 

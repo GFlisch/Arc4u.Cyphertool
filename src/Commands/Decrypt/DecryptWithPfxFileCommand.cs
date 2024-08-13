@@ -6,9 +6,9 @@ using Microsoft.Extensions.Logging;
 
 namespace Arc4u.Cyphertool.Commands
 {
-    internal class DecryptFromPfxFileCommand
+    internal class DecryptWithPfxFileCommand
     {
-        public DecryptFromPfxFileCommand(ILogger<DecryptFromPfxFileCommand> logger,
+        public DecryptWithPfxFileCommand(ILogger<DecryptWithPfxFileCommand> logger,
                                          DecryptTextCommand decryptTextCommand,
                                          DecryptFileCommand decryptFileCommand)
         {
@@ -18,7 +18,7 @@ namespace Arc4u.Cyphertool.Commands
         }
 
         readonly DecryptFileCommand _decryptFileCommand;
-        readonly ILogger<DecryptFromPfxFileCommand> _logger;
+        readonly ILogger<DecryptWithPfxFileCommand> _logger;
         readonly DecryptTextCommand _decryptTextCommand;
 
         public void Configure(CommandLineApplication cmd)
