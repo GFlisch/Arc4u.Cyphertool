@@ -28,7 +28,7 @@ internal class DecryptFromCertificateStoreCommand
 
     public void Configure(CommandLineApplication cmd)
     {
-        cmd.FullName = "DecryptFromCertificateHelper";
+        cmd.FullName = "DecryptFromCertificateCommand";
         cmd.HelpOption();
 
         // Argument

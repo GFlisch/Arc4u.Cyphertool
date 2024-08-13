@@ -17,7 +17,7 @@ internal class ExtractCommand
 
     public void Configure(CommandLineApplication cmd)
     {
-        cmd.FullName = "ExtractHelper";
+        cmd.FullName = "ExtractCommand";
         cmd.HelpOption();
 
         cmd.Command("with", _fromCommand.Configure);

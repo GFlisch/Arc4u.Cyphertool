@@ -30,7 +30,7 @@ internal class DecryptTextCommand
     /// <param name="app"></param>
     public void Configure(CommandLineApplication app)
     {
-        app.FullName = "DecryptTextHelper";
+        app.FullName = "DecryptTextCommand";
         app.HelpOption();
 
         app.Argument<string>("text", "The text to encrypt.");

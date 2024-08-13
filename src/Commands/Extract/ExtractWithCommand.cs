@@ -21,7 +21,7 @@ internal class ExtractWithCommand
     const string pfxFileCommand = "pfx";
     public void Configure(CommandLineApplication cmd)
     {
-        cmd.FullName = "ExtractHelper";
+        cmd.FullName = "ExtractCommand";
         cmd.HelpOption();
 
         cmd.Command(pfxFileCommand, _fromPfxFileCommand.Configure);

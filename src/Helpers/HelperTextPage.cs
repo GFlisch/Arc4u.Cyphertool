@@ -13,7 +13,7 @@ namespace Arc4u.Cyphertool.Helpers
         {
             if (application.Name is null)
             {
-                output.WriteLine(HelpTexts.RootHelper);
+                output.WriteLine(HelpTexts.RootCommand);
             }
 
             if (application.FullName is not null)

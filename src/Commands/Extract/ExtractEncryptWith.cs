@@ -17,7 +17,7 @@ internal class ExtractEncryptCommand
 
     public void Configure(CommandLineApplication cmd)
     {
-        cmd.FullName = "ExtractEncryptHelper";
+        cmd.FullName = "ExtractEncryptCommand";
         cmd.HelpOption();
 
         cmd.Command("with", _fromCommand.Configure);
@@ -43,7 +43,7 @@ internal class ExtractEncryptWithCommand
     readonly ExtractEncryptWithPfxFileCommand _ExtractEncryptWithPfxFile;
     public void Configure(CommandLineApplication cmd)
     {
-        cmd.FullName = "ExtractEncryptHelper";
+        cmd.FullName = "ExtractEncryptCommand";
         cmd.HelpOption();
 
         // Commands

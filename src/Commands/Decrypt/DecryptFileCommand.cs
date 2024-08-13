@@ -32,7 +32,7 @@ internal class DecryptFileCommand
     /// <param name="app"></param>
     public void Configure(CommandLineApplication app)
     {
-        app.FullName = "DecryptFileHelper";
+        app.FullName = "DecryptFileCommand";
         app.HelpOption();
 
         app.Argument<string>("file", "The file to encrypt.");

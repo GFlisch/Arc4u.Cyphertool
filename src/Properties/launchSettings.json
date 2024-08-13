@@ -1,6 +1,6 @@
 {
   "profiles": {
-    "Arc4u.Encryptor": {
+    "Arc4u.Cyphertool": {
       "commandName": "Project",
       "commandLineArgs": "--help"
     }

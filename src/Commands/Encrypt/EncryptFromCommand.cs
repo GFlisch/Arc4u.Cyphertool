@@ -25,7 +25,7 @@ internal class EncryptFromCommand
     const string pfxFileCommand = "pfx";
     public void Configure(CommandLineApplication cmd)
     {
-        cmd.FullName = "EncryptHelper";
+        cmd.FullName = "EncryptCommand";
         cmd.HelpOption();
 
         cmd.Command(certificateStoreCommand, _fromStoreCommand.Configure);

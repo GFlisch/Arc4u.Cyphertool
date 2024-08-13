@@ -25,7 +25,7 @@ internal class DecryptFromCommand
     const string pfxFileCommand = "pfx";
     public void Configure(CommandLineApplication cmd)
     {
-        cmd.FullName = "DecryptHelper";
+        cmd.FullName = "DecryptCommand";
         cmd.HelpOption();
 
         cmd.Command(certificateStoreCommand, _fromStoreCommand.Configure);

@@ -65,6 +65,26 @@ namespace Arc4u.Cyphertool.Resources {
         ///|       Arc4u Cyphertool.        |
         ///----------------------------------
         ///
+        ///Let you decrypt a text or a file using a certificate or a pfx file.
+        ///
+        ///With a certificate in the certificate store or keychain.
+        ///arc4u.cyphertool decrypt from certificatestore &quot;certifcate friendly name&quot; text &quot;cypher text&quot;
+        ///
+        ///With a pfx file.
+        ///arc4u.cyphertool decrypt from pfx &quot;C:\temp\devCert.pfx&quot; -p password text &quot;cypher text&quot;
+        ///.
+        /// </summary>
+        internal static string DecryptCommand {
+            get {
+                return ResourceManager.GetString("DecryptCommand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ----------------------------------
+        ///|       Arc4u Cyphertool.        |
+        ///----------------------------------
+        ///
         ///When you use the cypher tool and you want to decrypt a cypher file based on a certificate,
         ///you have to provide the cypher file via the file argument like this:
         ///
@@ -73,9 +93,9 @@ namespace Arc4u.Cyphertool.Resources {
         ///
         ///=&gt;    arc4u.cyphertool decrypt from certificatestore &quot;certificate&quot; ... file &quot;My file to decrypt&quot; (-o | --outpu [rest of string was truncated]&quot;;.
         /// </summary>
-        internal static string DecryptFileHelper {
+        internal static string DecryptFileCommand {
             get {
-                return ResourceManager.GetString("DecryptFileHelper", resourceCulture);
+                return ResourceManager.GetString("DecryptFileCommand", resourceCulture);
             }
         }
         
@@ -93,9 +113,9 @@ namespace Arc4u.Cyphertool.Resources {
         ///    -n | --storename =&gt; The name of the folder where the certificate is stored in a Keychain or Certificate Store.
         ///                        Default is My!  [rest of string was truncated]&quot;;.
         /// </summary>
-        internal static string DecryptFromCertificateHelper {
+        internal static string DecryptFromCertificateCommand {
             get {
-                return ResourceManager.GetString("DecryptFromCertificateHelper", resourceCulture);
+                return ResourceManager.GetString("DecryptFromCertificateCommand", resourceCulture);
             }
         }
         
@@ -118,29 +138,9 @@ namespace Arc4u.Cyphertool.Resources {
         ///
         ///Example [rest of string was truncated]&quot;;.
         /// </summary>
-        internal static string DecryptFromPfxHelper {
+        internal static string DecryptFromPfxCommand {
             get {
-                return ResourceManager.GetString("DecryptFromPfxHelper", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to ----------------------------------
-        ///|       Arc4u Cyphertool.        |
-        ///----------------------------------
-        ///
-        ///Let you decrypt a text or a file using a certificate or a pfx file.
-        ///
-        ///With a certificate in the certificate store or keychain.
-        ///arc4u.cyphertool decrypt from certificatestore &quot;certifcate friendly name&quot; text &quot;cypher text&quot;
-        ///
-        ///With a pfx file.
-        ///arc4u.cyphertool decrypt from pfx &quot;C:\temp\devCert.pfx&quot; -p password text &quot;cypher text&quot;
-        ///.
-        /// </summary>
-        internal static string DecryptHelper {
-            get {
-                return ResourceManager.GetString("DecryptHelper", resourceCulture);
+                return ResourceManager.GetString("DecryptFromPfxCommand", resourceCulture);
             }
         }
         
@@ -157,9 +157,29 @@ namespace Arc4u.Cyphertool.Resources {
         ///
         ///=&gt;    arc4u.cyphertool decrypt from certificatestore &quot;certificate&quot; ... text &quot;cypher text&quot; (-o | --output &quot;file [rest of string was truncated]&quot;;.
         /// </summary>
-        internal static string DecryptTextHelper {
+        internal static string DecryptTextCommand {
             get {
-                return ResourceManager.GetString("DecryptTextHelper", resourceCulture);
+                return ResourceManager.GetString("DecryptTextCommand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ----------------------------------
+        ///|       Arc4u Cyphertool.        |
+        ///----------------------------------
+        ///
+        ///Let you encrypt a text or a file using a certificate or a pfx file.
+        ///
+        ///With a certificate in the certificate store or keychain.
+        ///arc4u.cyphertool encrypt from certificatestore &quot;certifcate friendly name&quot; text &quot;clear text&quot;
+        ///
+        ///With a pfx file.
+        ///arc4u.cyphertool encrypt from pfx &quot;C:\temp\devCert.pfx&quot; -p password text &quot;clear text&quot;
+        ///.
+        /// </summary>
+        internal static string EncryptCommand {
+            get {
+                return ResourceManager.GetString("EncryptCommand", resourceCulture);
             }
         }
         
@@ -176,9 +196,9 @@ namespace Arc4u.Cyphertool.Resources {
         ///
         ///=&gt;    arc4u.cyphertool encrypt from certificatestore &quot;certificate&quot; ... file &quot;My file to encrypt&quot;  (-o | --output &quot;file [rest of string was truncated]&quot;;.
         /// </summary>
-        internal static string EncryptFileHelper {
+        internal static string EncryptFileCommand {
             get {
-                return ResourceManager.GetString("EncryptFileHelper", resourceCulture);
+                return ResourceManager.GetString("EncryptFileCommand", resourceCulture);
             }
         }
         
@@ -196,9 +216,9 @@ namespace Arc4u.Cyphertool.Resources {
         ///    -n | --storename =&gt; The name of the folder where the certificate is stored in a Keychain or Certificate Store.
         ///                        Default is My!  [rest of string was truncated]&quot;;.
         /// </summary>
-        internal static string EncryptFromCertificateHelper {
+        internal static string EncryptFromCertificateCommand {
             get {
-                return ResourceManager.GetString("EncryptFromCertificateHelper", resourceCulture);
+                return ResourceManager.GetString("EncryptFromCertificateCommand", resourceCulture);
             }
         }
         
@@ -220,29 +240,9 @@ namespace Arc4u.Cyphertool.Resources {
         ///
         ///Example: [rest of string was truncated]&quot;;.
         /// </summary>
-        internal static string EncryptFromPfxHelper {
+        internal static string EncryptFromPfxCommand {
             get {
-                return ResourceManager.GetString("EncryptFromPfxHelper", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to ----------------------------------
-        ///|       Arc4u Cyphertool.        |
-        ///----------------------------------
-        ///
-        ///Let you encrypt a text or a file using a certificate or a pfx file.
-        ///
-        ///With a certificate in the certificate store or keychain.
-        ///arc4u.cyphertool encrypt from certificatestore &quot;certifcate friendly name&quot; text &quot;clear text&quot;
-        ///
-        ///With a pfx file.
-        ///arc4u.cyphertool encrypt from pfx &quot;C:\temp\devCert.pfx&quot; -p password text &quot;clear text&quot;
-        ///.
-        /// </summary>
-        internal static string EncryptHelper {
-            get {
-                return ResourceManager.GetString("EncryptHelper", resourceCulture);
+                return ResourceManager.GetString("EncryptFromPfxCommand", resourceCulture);
             }
         }
         
@@ -262,9 +262,9 @@ namespace Arc4u.Cyphertool.Resources {
         ///
         ///.
         /// </summary>
-        internal static string EncryptTextHelper {
+        internal static string EncryptTextCommand {
             get {
-                return ResourceManager.GetString("EncryptTextHelper", resourceCulture);
+                return ResourceManager.GetString("EncryptTextCommand", resourceCulture);
             }
         }
         
@@ -275,9 +275,9 @@ namespace Arc4u.Cyphertool.Resources {
         ///ExtractEncryptCertificateStoreHelper
         ///.
         /// </summary>
-        internal static string ExtractEncryptCertificateStoreHelper {
+        internal static string ExtractEncryptCertificateStoreCommand {
             get {
-                return ResourceManager.GetString("ExtractEncryptCertificateStoreHelper", resourceCulture);
+                return ResourceManager.GetString("ExtractEncryptCertificateStoreCommand", resourceCulture);
             }
         }
         
@@ -287,9 +287,9 @@ namespace Arc4u.Cyphertool.Resources {
         ///----------------------------------
         ///.
         /// </summary>
-        internal static string ExtractEncryptHelper {
+        internal static string ExtractEncryptCommand {
             get {
-                return ResourceManager.GetString("ExtractEncryptHelper", resourceCulture);
+                return ResourceManager.GetString("ExtractEncryptCommand", resourceCulture);
             }
         }
         
@@ -302,9 +302,9 @@ namespace Arc4u.Cyphertool.Resources {
         ///ExtractEncryptPfxHelper
         ///.
         /// </summary>
-        internal static string ExtractEncryptPfxHelper {
+        internal static string ExtractEncryptPfxCommand {
             get {
-                return ResourceManager.GetString("ExtractEncryptPfxHelper", resourceCulture);
+                return ResourceManager.GetString("ExtractEncryptPfxCommand", resourceCulture);
             }
         }
         
@@ -320,9 +320,9 @@ namespace Arc4u.Cyphertool.Resources {
         ///
         ///######## ##    ##  ###### [rest of string was truncated]&quot;;.
         /// </summary>
-        internal static string RootHelper {
+        internal static string RootCommand {
             get {
-                return ResourceManager.GetString("RootHelper", resourceCulture);
+                return ResourceManager.GetString("RootCommand", resourceCulture);
             }
         }
         

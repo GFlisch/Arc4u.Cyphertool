@@ -29,7 +29,7 @@ namespace Arc4u.Cyphertool.Commands
 
         public void Configure(CommandLineApplication cmd)
         {
-            cmd.FullName = "ExtractFromPfxHelper";
+            cmd.FullName = "ExtractFromPfxCommand";
             cmd.HelpOption();
 
             // Commmad to encrypt the private key certificate.

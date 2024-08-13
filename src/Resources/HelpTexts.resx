@@ -118,47 +118,47 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="DecryptFileHelper" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>DecryptFileHelper.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  <data name="DecryptFileCommand" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>DecryptFileCommand.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
   </data>
-  <data name="DecryptFromCertificateHelper" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>DecryptFromCertificateHelper.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  <data name="DecryptFromCertificateCommand" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>DecryptFromCertificateCommand.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
   </data>
-  <data name="DecryptFromPfxHelper" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>DecryptFromPfxHelper.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  <data name="DecryptFromPfxCommand" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>DecryptFromPfxCommand.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
   </data>
-  <data name="DecryptHelper" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>DecryptHelper.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  <data name="DecryptCommand" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>DecryptCommand.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
   </data>
-  <data name="DecryptTextHelper" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>DecryptTextHelper.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  <data name="DecryptTextCommand" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>DecryptTextCommand.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
   </data>
-  <data name="EncryptFileHelper" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>EncryptFileHelper.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  <data name="EncryptFileCommand" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>EncryptFileCommand.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
   </data>
-  <data name="EncryptFromCertificateHelper" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>EncryptFromCertificateHelper.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  <data name="EncryptFromCertificateCommand" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>EncryptFromCertificateCommand.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
   </data>
-  <data name="EncryptFromPfxHelper" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>EncryptFromPfxHelper.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  <data name="EncryptFromPfxCommand" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>EncryptFromPfxCommand.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
   </data>
-  <data name="EncryptHelper" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>EncryptHelper.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  <data name="EncryptCommand" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>EncryptCommand.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
   </data>
-  <data name="EncryptTextHelper" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>EncryptTextHelper.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  <data name="EncryptTextCommand" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>EncryptTextCommand.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
   </data>
-  <data name="ExtractEncryptCertificateStoreHelper" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>ExtractEncryptCertificateStoreHelper.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  <data name="ExtractEncryptCertificateStoreCommand" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>ExtractEncryptCertificateStoreCommand.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
   </data>
-  <data name="ExtractEncryptHelper" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>ExtractEncryptHelper.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  <data name="ExtractEncryptCommand" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>ExtractEncryptCommand.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
   </data>
-  <data name="ExtractEncryptPfxHelper" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>ExtractEncryptPfxHelper.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  <data name="ExtractEncryptPfxCommand" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>ExtractEncryptPfxCommand.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
   </data>
-  <data name="RootHelper" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>RootHelper.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  <data name="RootCommand" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>RootCommand.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
   </data>
   <data name="Version" xml:space="preserve">
     <value>Arc4u Cyphertool {0}. </value>

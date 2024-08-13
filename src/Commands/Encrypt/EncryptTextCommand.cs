@@ -32,7 +32,7 @@ internal class EncryptTextCommand
     /// <param name="app"></param>
     public void Configure(CommandLineApplication app)
     {
-        app.FullName = "EncryptTextHelper";
+        app.FullName = "EncryptTextCommand";
         app.HelpOption();
 
         app.Argument<string>("text", "The text to encrypt.");
