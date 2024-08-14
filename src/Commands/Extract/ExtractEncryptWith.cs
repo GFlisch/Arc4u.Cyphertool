@@ -1,6 +1,7 @@
 ﻿// Licensed to the Arc4u Foundation under one or more agreements.
 // The Arc4u Foundation licenses this file to you under the MIT license.
 
+using Arc4u.Cyphertool.Extensions;
 using McMaster.Extensions.CommandLineUtils;
 using Microsoft.Extensions.Logging;
 
@@ -17,7 +18,8 @@ internal class ExtractEncryptCommand
 
     public void Configure(CommandLineApplication cmd)
     {
-        cmd.FullName = "ExtractEncryptCommand";
+        cmd.FullName = nameof(ExtractEncryptCommand);
+        cmd.Description = "ExtractEncryptCommand";
         cmd.HelpOption();
 
         cmd.Command("with", _withCommand.Configure);
@@ -43,13 +45,14 @@ internal class ExtractEncryptWithCommand
     readonly ExtractEncryptWithPfxFileCommand _ExtractEncryptWithPfxFile;
     public void Configure(CommandLineApplication cmd)
     {
-        cmd.FullName = "ExtractCommand";
+        cmd.FullName = nameof(ExtractEncryptWithCommand);
+        cmd.Description = "ExtractCommand";
         cmd.HelpOption();
 
         // Commands
-        cmd.Command("certificate-store", _ExtractEncryptWithCertificateStore.Configure);
-        cmd.Command("cert", _ExtractEncryptWithCertificateStore.Configure);
-        cmd.Command("keychain", _ExtractEncryptWithCertificateStore.Configure);
+        var certCommand = cmd.Command("certificate-store", _ExtractEncryptWithCertificateStore.Configure);
+        certCommand.AddName("cert");
+        certCommand.AddName("keychain");
 
         cmd.Command("pfx", _ExtractEncryptWithPfxFile.Configure);
 

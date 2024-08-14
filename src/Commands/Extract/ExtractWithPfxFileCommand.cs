@@ -1,6 +1,7 @@
 ﻿// Licensed to the Arc4u Foundation under one or more agreements.
 // The Arc4u Foundation licenses this file to you under the MIT license.
 
+using Arc4u.Cyphertool.Extensions;
 using Arc4u.Cyphertool.Helpers;
 using Arc4u.Encryptor;
 using McMaster.Extensions.CommandLineUtils;
@@ -29,7 +30,8 @@ namespace Arc4u.Cyphertool.Commands
 
         public void Configure(CommandLineApplication cmd)
         {
-            cmd.FullName = "ExtractWithPfxCommand";
+            cmd.FullName = nameof(ExtractWithPfxFileCommand);
+            cmd.Description = "ExtractWithPfxCommand";
             cmd.HelpOption();
 
             // Commmad to encrypt the private key certificate.

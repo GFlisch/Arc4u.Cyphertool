@@ -1,6 +1,7 @@
 ﻿// Licensed to the Arc4u Foundation under one or more agreements.
 // The Arc4u Foundation licenses this file to you under the MIT license.
 
+using Arc4u.Cyphertool.Extensions;
 using McMaster.Extensions.CommandLineUtils;
 using Microsoft.Extensions.Logging;
 
@@ -21,7 +22,8 @@ internal class ExtractWithCommand
     const string pfxFileCommand = "pfx";
     public void Configure(CommandLineApplication cmd)
     {
-        cmd.FullName = "ExtractCommand";
+        cmd.FullName = nameof(ExtractWithCommand);
+        cmd.Description = "ExtractCommand";
         cmd.HelpOption();
 
         cmd.Command(pfxFileCommand, _fromPfxFileCommand.Configure);

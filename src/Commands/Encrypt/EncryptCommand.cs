@@ -17,7 +17,8 @@ internal class EncryptCommand
 
     public void Configure(CommandLineApplication cmd)
     {
-        cmd.FullName = "EncryptCommand";
+        cmd.FullName = nameof(EncryptCommand);
+        cmd.Description = "EncryptCommand";
         cmd.HelpOption();
 
         cmd.Command("with", _withCommand.Configure);

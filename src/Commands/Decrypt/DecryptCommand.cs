@@ -17,7 +17,8 @@ internal class DecryptCommand
 
     public void Configure(CommandLineApplication cmd)
     {
-        cmd.FullName = "DecryptCommand";
+        cmd.FullName = nameof(DecryptCommand);
+        cmd.Description = "DecryptCommand";
         cmd.HelpOption();
 
         cmd.Command("with", _withCommand.Configure);

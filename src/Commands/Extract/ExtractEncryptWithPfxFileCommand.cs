@@ -29,7 +29,8 @@ namespace Arc4u.Cyphertool.Commands
 
         public void Configure(CommandLineApplication cmd)
         {
-            cmd.FullName = "ExtractEncryptPfxCommand";
+            cmd.FullName = nameof(ExtractEncryptWithPfxFileCommand);
+            cmd.Description = "ExtractEncryptPfxCommand";
             cmd.HelpOption();
 
             // Argument
@@ -49,7 +50,7 @@ namespace Arc4u.Cyphertool.Commands
 
                 Result result = Result.Ok();
                 // Find the parent with full name ExtractFromPfxHelper
-                cmd.Find("ExtractWithPfxCommand")
+                cmd.Find(nameof(ExtractWithPfxFileCommand))
                    .LogIfFailed()
                    .OnSuccessNotNull(extractCmd =>
                    {

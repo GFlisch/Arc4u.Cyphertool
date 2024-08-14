@@ -29,18 +29,19 @@ internal class EncryptFileCommand
     /// The certificate can be a file or a certificate store.
     /// It means that the parents are given this information back to the command.
     /// </summary>
-    /// <param name="app"></param>
-    public void Configure(CommandLineApplication app)
+    /// <param name="cmd"></param>
+    public void Configure(CommandLineApplication cmd)
     {
-        app.FullName = "EncryptFileCommand";
-        app.HelpOption();
+        cmd.FullName = nameof(EncryptFileCommand);
+        cmd.Description = "EncryptFileCommand";
+        cmd.HelpOption();
 
-        app.Argument<string>("file", "The file to encrypt.");
-        var outputOption = app.Option("-o | --output", "The file to store the content.", CommandOptionType.SingleValue);
+        cmd.Argument<string>("file", "The file to encrypt.");
+        var outputOption = cmd.Option("-o | --output", "The file to store the content.", CommandOptionType.SingleValue);
 
-        app.OnExecute(() =>
+        cmd.OnExecute(() =>
         {
-            var parent = app.Parent as CommandLineApplication;
+            var parent = cmd.Parent as CommandLineApplication;
             var certifcate = parent?.Arguments.FirstOrDefault(a => a.Name is not null && a.Name.Equals("certificate", StringComparison.OrdinalIgnoreCase));
             var storeName = parent?.Options.FirstOrDefault(a => a.LongName is not null && a.LongName.Equals("storename", StringComparison.OrdinalIgnoreCase));
             var storeLocation = parent?.Options.FirstOrDefault(a => a.LongName is not null && a.LongName.Equals("storelocation", StringComparison.OrdinalIgnoreCase));
@@ -52,19 +53,19 @@ internal class EncryptFileCommand
                 return;
             }
 
-            var fileArgument = app.Arguments.FirstOrDefault(a => a.Name is not null && a.Name.Equals("file", StringComparison.OrdinalIgnoreCase));
+            var fileArgument = cmd.Arguments.FirstOrDefault(a => a.Name is not null && a.Name.Equals("file", StringComparison.OrdinalIgnoreCase));
 
             if (fileArgument is null)
             {
                 _logger.Technical().LogError("No file command has been given!");
-                app.ShowHelp();
+                cmd.ShowHelp();
                 return;
             }
 
             if (fileArgument.Value is null)
             {
                 _logger.Technical().LogError("No file argument has been given!");
-                app.ShowHelp();
+                cmd.ShowHelp();
                 return;
             }
 

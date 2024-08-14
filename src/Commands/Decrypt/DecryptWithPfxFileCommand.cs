@@ -23,7 +23,8 @@ namespace Arc4u.Cyphertool.Commands
 
         public void Configure(CommandLineApplication cmd)
         {
-            cmd.FullName = "DecryptFromPfxCommand";
+            cmd.FullName = nameof(DecryptWithPfxFileCommand);
+            cmd.Description = "DecryptFromPfxCommand";
             cmd.HelpOption();
 
             // Argument

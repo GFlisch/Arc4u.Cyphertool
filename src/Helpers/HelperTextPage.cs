@@ -9,16 +9,16 @@ namespace Arc4u.Cyphertool.Helpers
 {
     internal class HelperTextPage : IHelpTextGenerator
     {
-        public void Generate(CommandLineApplication application, TextWriter output)
+        public void Generate(CommandLineApplication cmd, TextWriter output)
         {
-            if (application.Name is null)
+            if (cmd.Name is null)
             {
                 output.WriteLine(HelpTexts.RootCommand);
             }
-
-            if (application.FullName is not null)
+            
+            if (cmd.Description is not null)
             {
-                output.WriteLine(HelpTexts.ResourceManager.GetString(application.FullName));
+                output.WriteLine(HelpTexts.ResourceManager.GetString(cmd.Description));
             }
         }
     }

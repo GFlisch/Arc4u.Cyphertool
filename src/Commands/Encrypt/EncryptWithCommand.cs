@@ -24,12 +24,13 @@ internal class EncryptWithCommand
     const string pfxFileCommand = "pfx";
     public void Configure(CommandLineApplication cmd)
     {
-        cmd.FullName = "EncryptCommand";
+        cmd.FullName = nameof(EncryptWithCommand);
+        cmd.Description = "EncryptCommand";
         cmd.HelpOption();
 
-        cmd.Command("certificate-store", _fromStoreCommand.Configure);
-        cmd.Command("keychain", _fromStoreCommand.Configure);
-        cmd.Command("cert", _fromStoreCommand.Configure);
+        var certCommand = cmd.Command("certificate-store", _fromStoreCommand.Configure);
+        certCommand.AddName("cert");
+        certCommand.AddName("keychain");
 
         cmd.Command(pfxFileCommand, _fromPfxFileCommand.Configure);
 

@@ -30,7 +30,8 @@ internal class ExtractEncryptWithCertificateStoreCommand
 
     public void Configure(CommandLineApplication cmd)
     {
-        cmd.FullName = "ExtractEncryptCertificateStoreCommand";
+        cmd.FullName = nameof(ExtractEncryptWithCertificateStoreCommand);
+        cmd.Description = "ExtractEncryptCertificateStoreCommand";
         cmd.HelpOption();
 
         // Argument
@@ -53,7 +54,7 @@ internal class ExtractEncryptWithCertificateStoreCommand
 
             Result result = Result.Ok();
             // Find the parent with full name ExtractFromPfxHelper
-            cmd.Find("ExtractWithPfxCommand")
+            cmd.Find(nameof(ExtractWithPfxFileCommand))
                .LogIfFailed()
                .OnSuccessNotNull(extractCmd =>
                {
