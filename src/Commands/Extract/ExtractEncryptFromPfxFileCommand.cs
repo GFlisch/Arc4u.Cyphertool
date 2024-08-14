@@ -49,7 +49,7 @@ namespace Arc4u.Cyphertool.Commands
 
                 Result result = Result.Ok();
                 // Find the parent with full name ExtractFromPfxHelper
-                cmd.Find("ExtractFromPfxCommand")
+                cmd.Find("ExtractWithPfxCommand")
                    .LogIfFailed()
                    .OnSuccessNotNull(extractCmd =>
                    {

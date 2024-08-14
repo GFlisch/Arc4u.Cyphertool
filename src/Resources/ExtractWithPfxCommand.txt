@@ -7,9 +7,11 @@ Let you choose to encrypt the private key with another certificate.
 The result will be written in a console or in 2 or 3 files.
 
 
-                                                                                                     
-arc4u.cyphertool extract with pfx "C:\temp\devCert.pfx" -p password -ca -f "folder" encrypt with cert "devCert" -l LocalMachine -n My   
-                                                                                                     
+                                                                                    |                / pfx "C:\temp\devCert.pfx" -p password 
+arc4u.cyphertool extract with pfx "C:\temp\devCert.pfx" -p password -ca -f "folder" | encrypt with  |                                         
+                                                                                    |                \ cert "devCert" -l LocalMachine -n My  
+                                                                                       
+                                                                                    => optional
 
 Extract command:
     -p  | --password is not given, a prompt will ask the password.
@@ -23,4 +25,7 @@ Encryption part:
     -l | --store-location : The location where the certificate is stored in a Keychain or Certificate Store.
                             Like on Windows: CurrentUser or LocalMachine.
                             Default is CurrentUser!
+
+- With a pfx file:
+    -p | --password => The password to use for the file pfx certificate
 

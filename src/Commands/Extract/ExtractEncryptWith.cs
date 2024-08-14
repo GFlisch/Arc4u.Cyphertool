@@ -43,7 +43,7 @@ internal class ExtractEncryptWithCommand
     readonly ExtractEncryptWithPfxFileCommand _ExtractEncryptWithPfxFile;
     public void Configure(CommandLineApplication cmd)
     {
-        cmd.FullName = "ExtractEncryptCommand";
+        cmd.FullName = "ExtractCommand";
         cmd.HelpOption();
 
         // Commands
