@@ -320,25 +320,6 @@ namespace Arc4u.Cyphertool.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to ----------------------------------
-        ///|       Arc4u Cyphertool.        |
-        ///----------------------------------
-        ///
-        ///Let you extract the public, private and optionally the certificate public key authorities from a pfx certificate.
-        ///Let you choose to encrypt the private key with another certificate.
-        ///The result will be written in a console or in 2 or 3 files.
-        ///
-        ///
-        ///                                                                                    |                / pfx &quot;C:\temp\devCert.pfx&quot; -p password 
-        ///arc4u.cyph [rest of string was truncated]&quot;;.
-        /// </summary>
-        internal static string ExtractWithPfxCommand {
-            get {
-                return ResourceManager.GetString("ExtractWithPfxCommand", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to 
         ///      __        _______         ______     _    _     _____  _____ 
         ///     /  \      |_   __ \      .&apos; ___  |   | |  | |   |_   _||_   _|

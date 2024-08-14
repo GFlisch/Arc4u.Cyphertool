@@ -26,4 +26,8 @@ With a certificate from the store or the keychain.
                             Like on Windows: CurrentUser or LocalMachine.
                             Default is CurrentUser!
 
+text or file sub-command:
+- text => The text to encrypt.
+- file => The file to encrypt.
+
 If no -o | --output option is given the content will be written to the console.
