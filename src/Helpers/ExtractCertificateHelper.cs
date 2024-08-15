@@ -107,10 +107,8 @@ namespace Arc4u.Cyphertool.Helpers
                     }
                     if (folder is not null)
                     {
-                        var fileName = Path.Combine(folder!, $"{commonName}.ca.pem");
+                        var fileName = SaveFile(sb.ToString(), folder, commonName, "{0}.ca.pem");
                         _logger.Technical().LogInformation("Save certificates authority public keys to {filename}", fileName);
-                        File.WriteAllText(fileName,
-                                          sb.ToString());
                     }
                     else
                     {
@@ -149,9 +147,8 @@ namespace Arc4u.Cyphertool.Helpers
 
                                   if (folder is not null)
                                   {
-                                      var fileName = Path.Combine(folder!, $"{commonName}.key.pem");
+                                      var fileName = SaveFile(content, folder, commonName, "{0}.key.pem");
                                       _logger.Technical().LogInformation(folderInfo, fileName);
-                                      File.WriteAllText(fileName, content);
                                   }
                                   else
                                   {
@@ -169,9 +166,8 @@ namespace Arc4u.Cyphertool.Helpers
                               {
                                   if (folder is not null)
                                   {
-                                      var fileName = Path.Combine(folder!, $"{commonName}.pem");
+                                      var fileName = SaveFile(pem, folder, commonName, "{0}.pem");
                                       _logger.Technical().LogInformation("Save public key to {name}", fileName);
-                                      File.WriteAllText(fileName, pem);
                                   }
                                   else
                                   {
@@ -179,6 +175,19 @@ namespace Arc4u.Cyphertool.Helpers
                                       Console.WriteLine(pem);
                                   }
                               });
+        }
+
+        private string SaveFile(string content, string folder, string commonName, string pattern)
+        {
+            var fileName = Path.Combine(folder, string.Format(pattern, commonName));
+            var idx = 1;
+            while (File.Exists(fileName))
+            {
+                fileName = Path.Combine(folder, string.Format(pattern, $"{commonName}({idx++})"));
+            }
+            File.WriteAllText(fileName, content);
+
+            return fileName;
         }
     }
 }
