@@ -47,7 +47,7 @@ arc4u.cyphertool decrypt --help
 ```console
 
                                                                                     |                / pfx "C:\temp\devCert.pfx" -p password 
-arc4u.cyphertool extract with pfx "C:\temp\devCert.pfx" -p password -ca -f "folder" | encrypt with  |                                         
+arc4u.cyphertool extract pfx "C:\temp\devCert.pfx" -p password -ca -f "folder" | encrypt with  |                                         
                                                                                     |                \ cert "devCert" -l LocalMachine -n My  
                                                                                        
                                                                                     => optional

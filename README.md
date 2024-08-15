@@ -15,6 +15,8 @@ The Arc4u.Cyphertool is a dotnet tool working around the certifiate and is able 
 2) Decrypt the cypher text.
 3) Extract certificate informations.
 
+
+
 ## 1) Encryption
 
 ```console
@@ -46,11 +48,11 @@ arc4u.cyphertool decrypt --help
 
 ```console
 
-                                                                                    |                / pfx "C:\temp\devCert.pfx" -p password 
-arc4u.cyphertool extract with pfx "C:\temp\devCert.pfx" -p password -ca -f "folder" | encrypt with  |                                         
-                                                                                    |                \ cert "devCert" -l LocalMachine -n My  
+                                                                               |                / pfx "C:\temp\devCert.pfx" -p password 
+arc4u.cyphertool extract pfx "C:\temp\devCert.pfx" -p password -ca -f "folder" | encrypt with  |                                         
+                                                                               |                \ cert "devCert" -l LocalMachine -n My  
                                                                                        
-                                                                                    => optional
+                                                                               => optional
 
 ```
 
@@ -84,6 +86,7 @@ where you have to extract the public, the private key but also the certificate a
 
 ### Openssl commands
 
+Equivalent openssl commands to extract the public, private key from a pfx file.
 #### Extract the public key
 
 openssl pkcs12 -in devCert.pfx -clcerts -nokeys -out devCert.crt.pem
@@ -92,3 +95,27 @@ openssl pkcs12 -in devCert.pfx -clcerts -nokeys -out devCert.crt.pem
 #### Extract the private key
 
 openssl pkcs12 -in devCert.pfx -nocerts -out devCert.key.pem
+
+# Installing the tool.
+
+## Globally.
+dotnet tool install arc4u.cyphertool -g --version 1.0.0-preview01
+
+You have to close and restart your terminal window to be able to run the arc4u.encryptor tool.
+
+to uninstall => dotnet tool uninstall arc4u.encryptor -g
+
+## In a specific folder.
+Create a folder where you want to store the encryptor tool!  
+For example C:\PRJ\Tools
+If the folder is not yet part of the user environment path then run this in your terminal window:
+
+setx path "%path%;C:\PRJ\Tools"
+
+Close your terminal and then run this command:
+
+dotnet tool install arc4u.cyphertool --tool-path c:\PRJ\Tools --version 1.0.0-preview01
+
+There is no need to close your terminal because the path is already registered!
+
+to uninstall => dotnet tool uninstall arc4u.encryptor --tool-path c:\PRJ\Tools
