@@ -8,7 +8,7 @@ The result will be written in a console or in 2 or 3 files.
 
 
                                                                                                      
-arc4u.cyphertool extract with pfx "C:\temp\devCert.pfx" -p password -ca -f "folder" encrypt with pfx "C:\temp\devCert.pfx" -p password   
+arc4u.cyphertool extract pfx "C:\temp\devCert.pfx" -p password -ca -f "folder" encrypt with pfx "C:\temp\devCert.pfx" -p password   
                                                                                                      
                                                                                        
 

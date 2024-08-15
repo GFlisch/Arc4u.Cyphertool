@@ -1,61 +1,94 @@
-# Arc4u.Encryptor
+# Arc4u.Cyphertool
 
-This dotnet tool project ease the encryption of string or file based on the Arc4u framework so the cypher text can be decrypted by code using Arc4u.
+The Arc4u.Standard library provides a set of tools to encrypt and decrypt strings.
+The encryption is based on the X509Certificate2 implementation of .NET.
+The Arc4u library is using the RSA algorithm to encrypt and decrypt the content.
 
-# Usages
+From version 8.2.0, when the content is too long, the framework is encrypting via the Aes encryption symetric key.
+The initialization vector and key are encrypted by the certifcate.
 
-The user can encrypt and decrypt, the option -d is there to inform the operation will be a decryption, default is encryption.  
+The framework contains also a feature Arc4u.Standard.Configuration.Decryptor to decrypt content in a configuration section of an application.
 
-## 1. Certificate store (windows) or keychain (linux).
+The Arc4u.Cyphertool is a dotnet tool working around the certifiate and is able to perform 3 actions.
 
-The command will use the following default values.
-- -c or --certificate: friendly name of the certificate.
-- -n or --name: the certificate store name, default value is "My"
-- -l or --location: the certificate store location, defaut value is "Current User".
-- -t or --text: the text to encrypt or decrypt.
-- -f or --file: path file to encrypt.
-- -o or --output: output file path to store the result.  
-Text and file cannot be used together!  
+1) Encrypt a string or a file.
+2) Decrypt the cypher text.
+3) Extract certificate informations.
 
-arc4u.encryptor -c devCertName -t "clear text"  
-Will encrypt the text "clear text" by using the certificate having a friendly name devCertName and the result will be displayed on the terminal window.  
+## 1) Encryption
 
-arc4u.encryptor -c devCertName -f "C:\temp\file.txt"
-Will encrypt the content of the text in the file C:\temp\file.txt by using the certificate having a friendly name devCertName and the result will be displayed on the terminal window.  
+```console
+                               / pfx "C:\temp\devCert.pfx" -p password \ / text "clear text" \
+arc4u.cyphertool encrypt with |                                         |                     | -o "file"
+                               \ cert "devCert" -l LocalMachine -n My  / \ file "path"       /
 
-## 2. Using a pfx certificate file name
+```
 
-The command will use the following default values.
-- -c or --certificate: The full path name of the certificate ending by the extension pfx.
-- -p or --password: The certificate password.
-- -t or --text: the text to encrypt or decrypt.
-- -f or --file: path file to encrypt.
-- -o or --output: output file path to store the result.  
-Text and file cannot be used together!  
+Complete documentation, execute
+
+arc4u.cyphertool encrypt --help
+
+## 2) Decryption
+
+```console
+
+                               / pfx "C:\temp\devCert.pfx" -p password \ / text "clear text" \
+arc4u.cyphertool decrypt with |                                         |                     | -o "file"
+                               \ cert "devCert" -l LocalMachine -n My  / \ file "path"       /
 
 
-## 3. Installing the tool.
+```
+Complete documentation, execute
 
-### Globally.
+arc4u.cyphertool decrypt --help
 
-dotnet tool install arc4u.encryptor -g --version 1.0.0-preview02
+## 3) Extract
 
-You have to close and restart your terminal window to be able to run the arc4u.encryptor tool.
+```console
 
-to uninstall => dotnet tool uninstall arc4u.encryptor -g
+                                                                                    |                / pfx "C:\temp\devCert.pfx" -p password 
+arc4u.cyphertool extract with pfx "C:\temp\devCert.pfx" -p password -ca -f "folder" | encrypt with  |                                         
+                                                                                    |                \ cert "devCert" -l LocalMachine -n My  
+                                                                                       
+                                                                                    => optional
 
-### In a specific folder.
+```
 
-Create a folder where you want to store the encryptor tool!  
-For example C:\PRJ\Tools  
-If the folder is not yet part of the user environment path then run this in your terminal window: 
->setx path "%path%;C:\PRJ\Tools"
+Read a certificate from a pfx file and extract the public, private and certificate authorities.
 
-Close your terminal and then run this command:
+The reason for this is to avoid the openssl that doesn't exist natively on Windows but also to extract the certificate authorities.
 
->dotnet tool install arc4u.encryptor --tool-path c:\PRJ\Tools --version 1.0.0-preview02
+This is useful when you want to use the certificate in dapr for some components like RabbitMQ for example
+where you have to extract the public, the private key but also the certificate authorities.
 
-There is no need to close your terminal because the path is already registered!
 
-to uninstall => dotnet tool uninstall arc4u.encryptor --tool-path c:\PRJ\Tools
+```yaml
+  - name: saslExternal
+    value: true
+  - name: clientCert
+    value: |-
+      -----BEGIN PUBLIC KEY-----
+      [...]
+      -----END PUBLIC KEY-----
+  - name: clientKey
+    value: |-
+      -----BEGIN PRIVATE KEY-----
+      [...]
+      -----END PRIVATE KEY-----
+  - name: caCert
+    value: |-
+      -----BEGIN PUBLIC KEY-----
+      [...]
+      -----END PUBLIC KEY-----
+```
 
+### Openssl commands
+
+#### Extract the public key
+
+openssl pkcs12 -in devCert.pfx -clcerts -nokeys -out devCert.crt.pem
+
+
+#### Extract the private key
+
+openssl pkcs12 -in devCert.pfx -nocerts -out devCert.key.pem

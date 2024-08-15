@@ -108,7 +108,6 @@ class Program
         services.AddSingleton<DecryptFileCommand>();
 
         services.AddSingleton<ExtractCommand>();
-        services.AddSingleton<ExtractWithCommand>();
         services.AddSingleton<ExtractWithPfxFileCommand>();
         services.AddSingleton<ExtractEncryptCommand>();
         services.AddSingleton<ExtractEncryptWithCommand>();

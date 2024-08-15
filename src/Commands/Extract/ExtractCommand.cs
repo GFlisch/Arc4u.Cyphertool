@@ -9,12 +9,12 @@ namespace Arc4u.Cyphertool.Commands;
 
 internal class ExtractCommand
 {
-    public ExtractCommand(ExtractWithCommand withCommand)
+    public ExtractCommand(ExtractWithPfxFileCommand pfxFileCommand)
     {
-        _withCommand = withCommand;
+        _pfxFileCommand = pfxFileCommand;
     }
 
-    readonly ExtractWithCommand _withCommand;
+    readonly ExtractWithPfxFileCommand _pfxFileCommand;
 
     public void Configure(CommandLineApplication cmd)
     {
@@ -22,7 +22,7 @@ internal class ExtractCommand
         cmd.Description = "ExtractCommand";
         cmd.HelpOption();
 
-        cmd.Command("with", _withCommand.Configure);
+        cmd.Command("pfx", _pfxFileCommand.Configure);
 
         cmd.OnExecute(() =>
         {
