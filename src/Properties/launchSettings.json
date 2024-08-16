@@ -1,8 +1,7 @@
 {
   "profiles": {
     "Arc4u.Cyphertool": {
-      "commandName": "Project",
-      "commandLineArgs": "extract pfx \"C:\\Temp\\flisch.pfx\" -p P@ssw0rd -ca -f c:\\Temp"
+      "commandName": "Project"
     }
   }
 }

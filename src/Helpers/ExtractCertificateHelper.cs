@@ -71,7 +71,7 @@ namespace Arc4u.Cyphertool.Helpers
 
             if (!File.Exists(certifcate.Value))
             {
-                return Result.Fail($"The certificate file '{certifcate.Value}' does not exist!");
+                return Result.Fail($"The certificate file {certifcate.Value} does not exist!");
             }
 
             return Result.Ok(certifcate.Value);
