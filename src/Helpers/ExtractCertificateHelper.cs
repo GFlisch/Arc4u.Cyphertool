@@ -44,7 +44,7 @@ namespace Arc4u.Cyphertool.Helpers
                               {
                                   if (!Directory.Exists(folder))
                                   {
-                                      _logger.Technical().LogError($"The folder '{folder}' does not exist! The current directory will be used.");
+                                      _logger.Technical().LogWarning($"The folder '{folder}' does not exist! The current directory will be used.");
                                       folder = Environment.CurrentDirectory;
                                   }
                                   _logger.Technical().LogInformation("The keys will be stored in the folder '{folder}'.", folder!);
