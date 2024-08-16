@@ -3,7 +3,7 @@
 
 using Arc4u.Cyphertool.Extensions;
 using Arc4u.Cyphertool.Helpers;
-using Arc4u.Encryptor;
+using Arc4u.Cyphertool;
 using McMaster.Extensions.CommandLineUtils;
 using Microsoft.Extensions.Logging;
 

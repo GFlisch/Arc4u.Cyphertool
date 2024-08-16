@@ -14,7 +14,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Serilog;
 
-namespace Arc4u.Encryptor;
+namespace Arc4u.Cyphertool;
 
 class Program
 {

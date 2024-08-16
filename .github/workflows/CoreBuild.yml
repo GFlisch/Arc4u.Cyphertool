@@ -44,13 +44,13 @@ jobs:
           nuget-version: latest
  
       - name: nuget restore
-        run: dotnet restore .\src\Arc4u.Encryptor.sln
+        run: dotnet restore .\src\Arc4u.Cyphertool.sln
  
       - name: build
-        run: dotnet build .\src\Arc4u.Encryptor.sln --configuration ${{env.buildConfiguration}} /p:Version=${{env.netVersion}}  
+        run: dotnet build .\src\Arc4u.Cyphertool.sln --configuration ${{env.buildConfiguration}} /p:Version=${{env.netVersion}}  
  
       - name: build nuget package with a specific version.
-        run: dotnet pack .\src\Arc4u.Encryptor.sln -p:Version=${{env.netVersionNuget}}
+        run: dotnet pack .\src\Arc4u.Cyphertool.sln -p:Version=${{env.netVersionNuget}}
 
       - name: Save nuget packages
         if: ${{ env.PublishToNuget == 'false'  }}

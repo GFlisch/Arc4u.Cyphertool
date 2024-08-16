@@ -10,7 +10,7 @@ using FluentResults;
 using McMaster.Extensions.CommandLineUtils;
 using Microsoft.Extensions.Logging;
 
-namespace Arc4u.Encryptor
+namespace Arc4u.Cyphertool
 {
     internal class CertificateHelper
     {

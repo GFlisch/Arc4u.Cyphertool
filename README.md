@@ -101,9 +101,9 @@ openssl pkcs12 -in devCert.pfx -nocerts -out devCert.key.pem
 ## Globally.
 dotnet tool install arc4u.cyphertool -g --version 1.0.0-preview01
 
-You have to close and restart your terminal window to be able to run the arc4u.encryptor tool.
+You have to close and restart your terminal window to be able to run the Arc4u.Cyphertool tool.
 
-to uninstall => dotnet tool uninstall arc4u.encryptor -g
+to uninstall => dotnet tool uninstall Arc4u.Cyphertool -g
 
 ## In a specific folder.
 Create a folder where you want to store the encryptor tool!  
@@ -118,4 +118,4 @@ dotnet tool install arc4u.cyphertool --tool-path c:\PRJ\Tools --version 1.0.0-pr
 
 There is no need to close your terminal because the path is already registered!
 
-to uninstall => dotnet tool uninstall arc4u.encryptor --tool-path c:\PRJ\Tools
+to uninstall => dotnet tool uninstall Arc4u.Cyphertool --tool-path c:\PRJ\Tools

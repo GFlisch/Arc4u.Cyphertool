@@ -2,7 +2,7 @@
 // The Arc4u Foundation licenses this file to you under the MIT license.
 
 using Arc4u.Diagnostics;
-using Arc4u.Encryptor;
+using Arc4u.Cyphertool;
 using Arc4u.Results;
 using Arc4u.Security.Cryptography;
 using FluentResults;

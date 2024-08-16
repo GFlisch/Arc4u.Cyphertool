@@ -4,7 +4,7 @@
 using Arc4u.Cyphertool.Extensions;
 using Arc4u.Cyphertool.Helpers;
 using Arc4u.Diagnostics;
-using Arc4u.Encryptor;
+using Arc4u.Cyphertool;
 using Arc4u.Results;
 using FluentResults;
 using McMaster.Extensions.CommandLineUtils;
