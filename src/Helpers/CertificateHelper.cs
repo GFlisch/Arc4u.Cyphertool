@@ -2,6 +2,7 @@
 // The Arc4u Foundation licenses this file to you under the MIT license.
 
 using System.Diagnostics.CodeAnalysis;
+using System.Runtime.ConstrainedExecution;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using Arc4u.Security;
@@ -99,8 +100,8 @@ namespace Arc4u.Cyphertool
         {
             return Result.Try(() =>
             {
-                var publicKeyPem = Convert.ToBase64String(x509.GetPublicKey());
-                return ConvertToPem(publicKeyPem, "PUBLIC KEY", true);
+                byte[] certBytes = x509.Export(X509ContentType.Cert);
+                return ConvertToPem(certBytes, "CERTIFICATE", true);
             });
         }
 
@@ -113,32 +114,32 @@ namespace Arc4u.Cyphertool
             }
             return Result.Try(() =>
             {
-                var privateKeyPem = privateKey.ExportRSAPrivateKeyPem();
-                return ConvertToPem(privateKeyPem);
+                return ConvertToPem(privateKey.ExportRSAPrivateKey(), "PRIVATE KEY", true);
             });
         }
         private string ConvertToPem(string base64EncodedData, bool split = false)
         {
+            if (!split)
+                return base64EncodedData;
+
             var sb = new StringBuilder();
-            if (split)
+
+            var totalLength = base64EncodedData.Length;
+            for (int i = 0; i < base64EncodedData.Length; i += 64)
             {
-                var base64Span = base64EncodedData.AsSpan();
-                while (base64Span.Length > 64)
-                {
-                    sb.AppendLine(base64Span.Slice(0, 64).ToString());
-                    base64Span = base64Span.Slice(64);
-                }
-                sb.Append(base64Span);
-            }
-            else
-            {
-                sb.Append(base64EncodedData);
+                var len = Math.Min(64, base64EncodedData.Length - i);
+                totalLength -= len;
+                if (totalLength > 0)
+                    sb.AppendLine(base64EncodedData.Substring(i, len));
+                else
+                    sb.Append(base64EncodedData.Substring(i, len));
             }
 
             return sb.ToString();
         }
-        private string ConvertToPem(string base64EncodedData, string header, bool split = false)
+        private string ConvertToPem(byte[] certBytes, string header, bool split = false)
         {
+            var base64EncodedData = Convert.ToBase64String(certBytes);
             var sb = new StringBuilder();
             sb.AppendLine($"-----BEGIN {header}-----");
 

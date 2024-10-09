@@ -83,13 +83,15 @@ namespace Arc4u.Cyphertool.Helpers
             {
                 // chain.
                 var chain = new X509Chain();
+                chain.ChainPolicy.RevocationMode = X509RevocationMode.NoCheck;
+                chain.ChainPolicy.VerificationFlags = X509VerificationFlags.AllFlags;
                 chain.Build(x509);
                 int idx = 1;
                 if (chain.ChainElements.Count > 1)
                 {
                     _logger.Technical().LogInformation("Extract the CA certificates");
 
-                    foreach (var element in chain.ChainElements.Skip(1))
+                    foreach (var element in chain.ChainElements.Skip(0))
                     {
                         _logger.Technical().LogInformation("{idx}: Certificate Subject: {subject}", idx++, element.Certificate.Subject);
                     }
