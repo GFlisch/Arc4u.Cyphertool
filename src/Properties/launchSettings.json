@@ -1,8 +1,7 @@
 {
   "profiles": {
     "Arc4u.Cyphertool": {
-      "commandName": "Project",
-      "commandLineArgs": " extract pfx W:\\Documents\\Certs\\svc-dev\\key-store.pfx -p P@ssw0rd -ca -f W:\\Documents\\Certs\\svc-dev\\pems"
+      "commandName": "Project"
     }
   }
 }
