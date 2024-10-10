@@ -99,7 +99,7 @@ openssl pkcs12 -in devCert.pfx -nocerts -out devCert.key.pem
 # Installing the tool.
 
 ## Globally.
-dotnet tool install arc4u.cyphertool -g --version 1.0.0
+dotnet tool install arc4u.cyphertool -g --version 1.0.1
 
 You have to close and restart your terminal window to be able to run the Arc4u.Cyphertool tool.
 
@@ -114,8 +114,10 @@ setx path "%path%;C:\PRJ\Tools"
 
 Close your terminal and then run this command:
 
-dotnet tool install arc4u.cyphertool --tool-path c:\PRJ\Tools --version 1.0.0
+dotnet tool install arc4u.cyphertool --tool-path c:\PRJ\Tools --version 1.0.1
 
 There is no need to close your terminal because the path is already registered!
 
-to uninstall => dotnet tool uninstall Arc4u.Cyphertool --tool-path c:\PRJ\Tools
+To uninstall => dotnet tool uninstall Arc4u.Cyphertool --tool-path c:\PRJ\Tools
+
+To update => dotnet tool update arc4u.cyphertool --tool-path c:\PRJ\Tools --version 1.0.1
