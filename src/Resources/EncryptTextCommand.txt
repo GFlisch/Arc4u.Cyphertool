@@ -5,8 +5,11 @@
 When you use the cypher tool and you want to encrypt a text based on a certificate,
 you have to provide the clear text via the text argument like this:
 
+As the text to encrypt can contain a $0 by example, you have to use the single quote to specify the text to encrypt.
+Otherwise the $0 will be the end of the text to encrypt.
+
                                / pfx "C:\temp\devCert.pfx" -p password \ 
-arc4u.cyphertool encrypt with |                                         | text "clear text" -o "file"
+arc4u.cyphertool encrypt with |                                         | text 'clear text' -o "file"
                                \ cert "devCert" -l LocalMachine -n My  / 
 
 Optionnaly you can specify that the encrypted text must be saved in a file.

@@ -7,9 +7,11 @@ Let you encrypt a text or a file using a certificate or a pfx file.
 With a certificate in the certificate store or keychain.
 arc4u.cyphertool encrypt with certificate-store "certifcate friendly name" text "clear text"
 
+As the text to encrypt can contain a $0 by example, you have to use the single quote to specify the text to encrypt.
+Otherwise the $0 will be the end of the text to encrypt.
 
 
-                               / pfx "C:\temp\devCert.pfx" -p password \ / text "clear text" \
+                               / pfx "C:\temp\devCert.pfx" -p password \ / text 'clear text' \
 arc4u.cyphertool encrypt with |                                         |                     | -o "file"
                                \ cert "devCert" -l LocalMachine -n My  / \ file "path"       /
 

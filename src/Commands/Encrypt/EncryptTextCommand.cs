@@ -92,7 +92,9 @@ internal class EncryptTextCommand
                                       else
                                       {
                                           Console.WriteLine();
-                                          Console.WriteLine("The encrypted text is:");
+                                          Console.Write("The encrypted text of ");
+                                          Console.Write(textArgument.Value);
+                                          Console.WriteLine(" is:");
                                           Console.ForegroundColor = ConsoleColor.Yellow;
                                           Console.WriteLine(encrypted);
                                           Console.ResetColor();

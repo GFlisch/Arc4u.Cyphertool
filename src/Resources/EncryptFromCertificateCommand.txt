@@ -4,8 +4,10 @@
 
 Encrypt with a certificate in the certificate store or the keychain searching based on the friendly name to find the certificate in the store.
 
+As the text to encrypt can contain a $0 by example, you have to use the single quote to specify the text to encrypt.
+Otherwise the $0 will be the end of the text to encrypt.
 
-                                                                    / text "clear text" \
+                                                                    / text 'clear text' \
 arc4u.cyphertool encrypt with cert "devCert" -l LocalMachine -n My |                     | -o "file"
                                                                     \ file "path"       /
 
